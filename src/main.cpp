@@ -21,6 +21,25 @@ void setup()
   pinMode(BUTTON_PIN, INPUT_PULLUP);
 }
 
+CRGB::HTMLColorCode getRandomColor()
+{
+  switch (random(4))
+  {
+  case 0:
+    return CRGB::LimeGreen;
+  case 1:
+    return CRGB::Amethyst;
+  case 2:
+    return CRGB::Red;
+  case 3:
+    return CRGB::OrangeRed;
+  case 4:
+    return CRGB::MediumAquamarine;
+  default:
+    return CRGB::Red;
+  }
+}
+
 void loop()
 {
   // Let each component do their work every cycle
@@ -36,21 +55,4 @@ void loop()
     // led.startBlink(getRandomColor(), 200);
   }
   prevButtonState = buttonState;
-}
-
-CRGB::HTMLColorCode getRandomColor()
-{
-  switch (random(4))
-  {
-  case 0:
-    return CRGB::LimeGreen;
-  case 1:
-    return CRGB::Amethyst;
-  case 2:
-    return CRGB::Red;
-  case 3:
-    return CRGB::OrangeRed;
-  case 4:
-    return CRGB::MediumAquamarine;
-  }
 }

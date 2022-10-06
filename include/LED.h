@@ -3,6 +3,12 @@
 #define NUM_LEDS 5
 #define LED_PIN 10
 
+enum LEDEffect
+{
+    NONE,
+    COLOR_RUN,
+    BLINK
+};
 class LED
 {
 
@@ -10,10 +16,10 @@ private:
     CRGB leds[NUM_LEDS];
     LEDEffect currentEffect;
     int effectSpeed;
-    int effectStartTime;
+    unsigned long effectStartTime;
     CRGB::HTMLColorCode effectColor;
 
-    void LED::setEffect(LEDEffect effect, CRGB::HTMLColorCode color, int speed);
+    void setEffect(LEDEffect effect, CRGB::HTMLColorCode color, int speed);
 
     // Effect Color Run
     void processColorRun();
@@ -28,14 +34,7 @@ public:
     void loop();
 
     void startColorRun(CRGB::HTMLColorCode color, int speed);
-    void LED::startBlink(CRGB::HTMLColorCode color, int delay);
+    void startBlink(CRGB::HTMLColorCode color, int delay);
 
     void clearEffect();
-};
-
-enum LEDEffect
-{
-    NONE,
-    COLOR_RUN,
-    BLINK
 };

@@ -19,6 +19,8 @@ void LED::loop()
         case BLINK:
             processBlink();
             break;
+        case NONE:
+            break;
         };
     }
     FastLED.show();
