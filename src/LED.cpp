@@ -1,74 +1,109 @@
 #include "LED.h"
+#include "BlinkEffect.h"
+#include "ColorRunEffect.h"
 
 void LED::setup()
 {
-    FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
-    FastLED.setBrightness(255);
+	FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
+	FastLED.setBrightness(100);
+	FastLED.clear();
 }
 
 void LED::loop()
 {
-    if (millis() - effectStartTime >= effectSpeed)
-    {
-        effectStartTime = millis();
-        switch (currentEffect)
-        {
-        case COLOR_RUN:
-            processColorRun();
-            break;
-        case BLINK:
-            processBlink();
-            break;
-        case NONE:
-            break;
-        };
-    }
-    FastLED.show();
+	// Handle background effect
+	if (bgEffectActive)
+	{
+		bgEffect->loop();
+
+		for (int i = 0; i < NUM_LEDS; i++)
+		{
+			leds[i] = bgEffect->mask[i];
+		}
+	}
+
+	// Handle foreground effects
+	for (LedEffect *e : fgEffects)
+	{
+		e->loop();
+
+		// Copy every pixel from the effect mask is not black
+		for (int i = 0; i < NUM_LEDS; i++)
+		{
+			if (e->mask[i])
+			{
+				leds[i] = e->mask[i];
+			}
+		}
+	}
+
+	// Remove all foreground effects with "remove" flag
+	fgEffects.erase(std::remove_if(fgEffects.begin(),
+								   fgEffects.end(),
+								   [&](LedEffect *effect) -> bool
+								   { return effect->remove; }),
+					fgEffects.end());
+
+	FastLED.show();
 }
 
-void LED::clearEffect()
+void LED::addFgEffect(LedEffect *effect)
 {
-    currentEffect = NONE;
+	fgEffects.push_back(effect);
 }
 
-void LED::setEffect(LEDEffect effect, CRGB::HTMLColorCode color, int speed)
+void LED::setBgEffect(LedEffect *effect)
 {
-    currentEffect = effect;
-    effectStartTime = millis();
-    effectColor = color;
-    effectSpeed = speed;
+	bgEffect = effect;
+	bgEffectActive = true;
 }
 
-void LED::startColorRun(CRGB::HTMLColorCode color, int speed)
+void LED::clearBgEffect()
 {
-    setEffect(COLOR_RUN, color, speed);
-    colorRunCurrentLed = 0;
+	bgEffectActive = false;
 }
 
-void LED::startBlink(CRGB::HTMLColorCode color, int delay)
+CRGB LED::getRandomColor(CRGB currentColor)
 {
-    setEffect(BLINK, effectColor, delay);
-}
-
-void LED::processColorRun()
-{
-    leds[colorRunCurrentLed++] = effectColor;
-    if (colorRunCurrentLed >= NUM_LEDS)
-    {
-        clearEffect();
-    }
-    effectStartTime = millis();
-}
-
-void LED::processBlink()
-{
-    if (blinkIsCurrentlyOn)
-    {
-        fill_solid(leds, NUM_LEDS, CRGB::Black);
-    }
-    else
-    {
-        fill_solid(leds, NUM_LEDS, effectColor);
-    }
-    effectStartTime = millis();
+	CRGB randomColor;
+	switch (random8(8))
+	{
+	case 0:
+		randomColor = CRGB::Lime;
+		break;
+	case 1:
+		randomColor = CRGB::HotPink;
+		break;
+	case 2:
+		randomColor = CRGB::Red;
+		break;
+	case 3:
+		randomColor = CRGB::OrangeRed;
+		break;
+	case 4:
+		randomColor = CRGB::DarkViolet;
+		break;
+	case 5:
+		randomColor = CRGB::DeepSkyBlue;
+		break;
+	case 6:
+		randomColor = CRGB::Gold;
+		break;
+	case 7:
+		randomColor = CRGB::Azure;
+		break;
+	case 8:
+		randomColor = CRGB::DarkSalmon;
+		break;
+	default:
+		return CRGB::Red;
+	}
+	if (currentColor == randomColor)
+	{
+		return getRandomColor();
+	}
+	else
+	{
+		return randomColor;
+	}
 }

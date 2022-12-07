@@ -1,58 +1,86 @@
 #include <Arduino.h>
 #include "MPU.h"
 #include "LED.h"
-
-#define BUTTON_PIN 12
+#include "BlinkEffect.h"
+#include "ColorRunEffect.h"
 
 using namespace std;
 
 MPU mpu;
 LED led;
 int buttonState;
-int prevButtonState;
+int lastButtonState;
+u_long effectTestTimer;
+int effectTestTimerDelay = 5000;
 
 void setup()
 {
-  // Initialize components
-  led.setup();
-  mpu.setup();
+	// Initialize Serial
+	Serial.begin(115200);
 
-  // Setup pins
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+	// Initialize components
+#ifndef DISABLE_LED
+	led.setup();
+#endif
+
+#ifndef DISABLE_MPU
+	mpu.setup();
+#endif
+
+	// Setup pins
+	pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+	// Set LED background effect
+	led.setBgEffect(new BlinkEffect(500, CRGB::DarkRed));
+
+	// Force first execution of timer
+	effectTestTimer = effectTestTimerDelay;
 }
 
-CRGB::HTMLColorCode getRandomColor()
+void testEffectAfterDelay()
 {
-  switch (random(4))
-  {
-  case 0:
-    return CRGB::LimeGreen;
-  case 1:
-    return CRGB::Amethyst;
-  case 2:
-    return CRGB::Red;
-  case 3:
-    return CRGB::OrangeRed;
-  case 4:
-    return CRGB::MediumAquamarine;
-  default:
-    return CRGB::Red;
-  }
+	// TEST effects by spawning a new one every 10s
+	if (millis() - effectTestTimer >= effectTestTimerDelay)
+	{
+		effectTestTimer = millis();
+		led.addFgEffect(new ColorRunEffect(2, led.getRandomColor()));
+	}
+}
+
+void handleButtonPress()
+{
+	buttonState = digitalRead(BUTTON_PIN);
+	if (buttonState == LOW && lastButtonState != LOW)
+	{
+		// Button pressed
+		led.addFgEffect(new ColorRunEffect(2, led.getRandomColor()));
+	}
+	lastButtonState = buttonState;
+}
+
+void handleAccelaration()
+{
+	if (mpu.wasAccelerated)
+	{
+		led.addFgEffect(new ColorRunEffect(2, led.getRandomColor()));
+	}
 }
 
 void loop()
 {
-  // Let each component do their work every cycle
-  led.loop();
-  mpu.loop();
 
-  // Handle Button Press
-  buttonState = digitalRead(BUTTON_PIN);
-  if (buttonState == LOW && prevButtonState != LOW)
-  {
-    // Button pressed
-    led.startColorRun(getRandomColor(), 20);
-    // led.startBlink(getRandomColor(), 200);
-  }
-  prevButtonState = buttonState;
+	// Let each component do their work every cycle
+#ifndef DISABLE_LED
+	led.loop();
+#endif
+#ifndef DISABLE_MPU
+	mpu.loop();
+#endif
+
+	handleButtonPress();
+	handleAccelaration();
+	testEffectAfterDelay();
+
+	// Main loop delay
+	delay(1);
 }
