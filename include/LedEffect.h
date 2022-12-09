@@ -1,5 +1,6 @@
 #pragma once
 #include "FastLED.h"
+#include "Config.h"
 
 class LedEffect
 {

@@ -1,13 +1,17 @@
 #include <Arduino.h>
+#include "Config.h"
 #include "MPU.h"
 #include "LED.h"
 #include "BlinkEffect.h"
 #include "ColorRunEffect.h"
+#include "WebFrontend.h"
 
 using namespace std;
 
 MPU mpu;
 LED led;
+WebFrontend frontend;
+
 int buttonState;
 int lastButtonState;
 u_long effectTestTimer;
@@ -18,11 +22,15 @@ void setup()
 	// Initialize Serial
 	Serial.begin(115200);
 
+	Serial.println("-------- LongLEDBoard init --------\n");
+
 	// Initialize components
+#ifndef DISABLE_WEBFRONTEND
+	frontend.setup();
+#endif
 #ifndef DISABLE_LED
 	led.setup();
 #endif
-
 #ifndef DISABLE_MPU
 	mpu.setup();
 #endif
@@ -35,6 +43,8 @@ void setup()
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;
+
+	Serial.println("\n-------- Init complete --------\n");
 }
 
 void testEffectAfterDelay()
@@ -76,11 +86,11 @@ void loop()
 #ifndef DISABLE_MPU
 	mpu.loop();
 #endif
+#ifndef DISABLE_WEBFRONTEND
+	frontend.loop();
+#endif
 
 	handleButtonPress();
 	handleAccelaration();
 	testEffectAfterDelay();
-
-	// Main loop delay
-	delay(1);
 }

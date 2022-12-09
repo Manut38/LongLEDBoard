@@ -7,11 +7,10 @@ void MPU::setup()
     Wire.begin();
 
     byte status = mpu.begin();
-    Serial.print(F("MPU6050 status: "));
     Serial.println(status);
     if (status != 0)
     {
-        Serial.println("Could not find MPU6050");
+        Serial.printf("Could not find MPU6050; Status: %d\n", status);
         return;
     }
     else
@@ -20,9 +19,9 @@ void MPU::setup()
         Serial.println("Connected to MPU6050");
     }
 
-    Serial.println(F("Calculating offsets, do not move MPU6050"));
-    mpu.calcOffsets(); // gyro and accelero
-    Serial.println("Done!\n");
+    Serial.print(F("Calculating offsets, do not move MPU6050..."));
+    mpu.calcOffsets();
+    Serial.println("...Done!");
 }
 
 void MPU::loop()

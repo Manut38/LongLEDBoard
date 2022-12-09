@@ -1,6 +1,7 @@
 #include <FastLED.h>
 #include <vector>
 #include <LedEffect.h>
+#include "Config.h"
 
 class LED
 {
