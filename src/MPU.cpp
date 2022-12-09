@@ -21,7 +21,6 @@ void MPU::setup()
     }
 
     Serial.println(F("Calculating offsets, do not move MPU6050"));
-    delay(200);
     mpu.calcOffsets(); // gyro and accelero
     Serial.println("Done!\n");
 }
