@@ -66,13 +66,13 @@ void LED::clearBgEffect()
 CRGB LED::getRandomColor(CRGB currentColor)
 {
 	CRGB randomColor;
-	switch (random8(8))
+	switch ((int)random(8))
 	{
 	case 0:
 		randomColor = CRGB::Lime;
 		break;
 	case 1:
-		randomColor = CRGB::HotPink;
+		randomColor = CRGB::ForestGreen;
 		break;
 	case 2:
 		randomColor = CRGB::Red;
@@ -87,13 +87,13 @@ CRGB LED::getRandomColor(CRGB currentColor)
 		randomColor = CRGB::DeepSkyBlue;
 		break;
 	case 6:
-		randomColor = CRGB::Gold;
+		randomColor = CRGB::Crimson;
 		break;
 	case 7:
-		randomColor = CRGB::Azure;
+		randomColor = CRGB::Purple;
 		break;
 	case 8:
-		randomColor = CRGB::DarkSalmon;
+		randomColor = CRGB::Gold;
 		break;
 	default:
 		return CRGB::Red;
