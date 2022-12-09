@@ -1,10 +1,13 @@
 #include "ColorRunEffect.h"
 
-ColorRunEffect::ColorRunEffect(int delay, CRGB color)
+ColorRunEffect::ColorRunEffect(int duration, CRGB color)
 {
 	fill_solid(mask, NUM_LEDS, CRGB::Black);
 
-	this->timerDelay = delay;
+	int timerDelay = duration / NUM_LEDS / 2;
+	if (timerDelay <= 0)
+		timerDelay = 1;
+	this->timerDelay = timerDelay;
 	this->color = color;
 	colorRunCurrentLed = 0;
 	colorRunReverse = false;

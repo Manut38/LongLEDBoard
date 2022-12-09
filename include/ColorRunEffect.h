@@ -11,5 +11,5 @@ protected:
 	void timedLoop() override;
 
 public:
-	ColorRunEffect(int delay, CRGB color);
+	ColorRunEffect(int duration, CRGB color);
 };

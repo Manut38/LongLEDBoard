@@ -31,7 +31,7 @@ void setup()
 	pinMode(BUTTON_PIN, INPUT_PULLUP);
 
 	// Set LED background effect
-	led.setBgEffect(new BlinkEffect(500, CRGB::DarkRed));
+	led.setBgEffect(new BlinkEffect(200, 0x003829));
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;
@@ -43,7 +43,7 @@ void testEffectAfterDelay()
 	if (millis() - effectTestTimer >= effectTestTimerDelay)
 	{
 		effectTestTimer = millis();
-		led.addFgEffect(new ColorRunEffect(2, led.getRandomColor()));
+		led.addFgEffect(new ColorRunEffect(5000, led.getRandomColor()));
 	}
 }
 
@@ -53,7 +53,7 @@ void handleButtonPress()
 	if (buttonState == LOW && lastButtonState != LOW)
 	{
 		// Button pressed
-		led.addFgEffect(new ColorRunEffect(2, led.getRandomColor()));
+		led.addFgEffect(new ColorRunEffect(5000, led.getRandomColor()));
 	}
 	lastButtonState = buttonState;
 }
@@ -62,7 +62,7 @@ void handleAccelaration()
 {
 	if (mpu.wasAccelerated)
 	{
-		led.addFgEffect(new ColorRunEffect(2, led.getRandomColor()));
+		led.addFgEffect(new ColorRunEffect(2000, led.getRandomColor()));
 	}
 }
 
