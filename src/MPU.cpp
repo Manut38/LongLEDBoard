@@ -7,7 +7,6 @@ void MPU::setup()
     Wire.begin();
 
     byte status = mpu.begin();
-    Serial.println(status);
     if (status != 0)
     {
         Serial.printf("Could not find MPU6050; Status: %d\n", status);

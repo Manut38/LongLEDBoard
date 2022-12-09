@@ -9,9 +9,13 @@
 
 #include "Config.h"
 
+#define WIFI_RECONNECT_INTERVAL 8000
+
 class WebFrontend
 {
 private:
+    unsigned long wifiReconnectTimer = 0;
+
 public:
     void setup();
     void loop();

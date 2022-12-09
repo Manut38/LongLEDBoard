@@ -4,24 +4,40 @@
 AsyncWebServer server(80);
 FTPServer ftpSrv(LittleFS);
 
+void WifiStationConnected(WiFiEvent_t event, WiFiEventInfo_t info)
+{
+    Serial.println("WiFi connected!");
+    Serial.print("SSID: ");
+    for (int i = 0; i < info.wifi_sta_connected.ssid_len; i++)
+    {
+        Serial.print((char)info.wifi_sta_connected.ssid[i]);
+    }
+    Serial.println("");
+}
+
+void WiFiGotIP(WiFiEvent_t event, WiFiEventInfo_t info)
+{
+    Serial.print("Got IP Address: ");
+    Serial.println(IPAddress(info.got_ip.ip_info.ip.addr));
+}
+
 void WebFrontend::setup()
 {
     WiFi.mode(WIFI_AP_STA);
+
+    Serial.println("Starting AP...");
+    // Set AP preferences
+    IPAddress ap_localIp = IPAddress(1, 2, 3, 4);
+    IPAddress ap_gateway = IPAddress(1, 2, 3, 4);
+    IPAddress ap_subnet = IPAddress(255, 255, 255, 0);
+    WiFi.softAPConfig(ap_localIp, ap_gateway, ap_subnet);
     WiFi.softAP(HOSTNAME, AP_PASSWORD);
 
-    Serial.println("Connecting to WIFI...");
+    Serial.println("Connecting to WiFi...");
     WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 
-    if (WiFi.waitForConnectResult() != WL_CONNECTED)
-    {
-        Serial.println("WIFI connection failed!");
-        WiFi.disconnect(false);
-        delay(200);
-        WiFi.begin(WIFI_SSID, WIFI_SSID);
-    }
-
-    Serial.print("IP Address: ");
-    Serial.println(WiFi.localIP());
+    WiFi.onEvent(WifiStationConnected, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_CONNECTED);
+    WiFi.onEvent(WiFiGotIP, WiFiEvent_t::ARDUINO_EVENT_WIFI_STA_GOT_IP);
 
     // Set mDNS
     if (!MDNS.begin(HOSTNAME))
@@ -58,4 +74,11 @@ void WebFrontend::setup()
 void WebFrontend::loop()
 {
     ftpSrv.handleFTP();
+
+    if ((WiFi.status() != WL_CONNECTED) && (millis() - wifiReconnectTimer >= WIFI_RECONNECT_INTERVAL))
+    {
+        Serial.println("Reconnecting to WiFi...");
+        WiFi.reconnect();
+        wifiReconnectTimer = millis();
+    }
 }
