@@ -1,6 +1,7 @@
 #include "LED.h"
 #include "BlinkEffect.h"
 #include "ColorRunEffect.h"
+#include <memory>
 
 void LED::setup()
 {
@@ -23,7 +24,7 @@ void LED::loop()
 	}
 
 	// Handle foreground effects
-	for (LedEffect *e : fgEffects)
+	for (auto &e : fgEffects)
 	{
 		e->loop();
 
@@ -40,7 +41,7 @@ void LED::loop()
 	// Remove all foreground effects with "remove" flag
 	fgEffects.erase(std::remove_if(fgEffects.begin(),
 								   fgEffects.end(),
-								   [&](LedEffect *effect) -> bool
+								   [&](unique_ptr<LedEffect> &effect) -> bool
 								   { return effect->remove; }),
 					fgEffects.end());
 
@@ -49,12 +50,12 @@ void LED::loop()
 
 void LED::addFgEffect(LedEffect *effect)
 {
-	fgEffects.push_back(effect);
+	fgEffects.emplace_back(unique_ptr<LedEffect>(effect));
 }
 
 void LED::setBgEffect(LedEffect *effect)
 {
-	bgEffect = effect;
+	bgEffect = unique_ptr<LedEffect>(effect);
 	bgEffectActive = true;
 }
 
