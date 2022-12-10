@@ -38,13 +38,16 @@ void setup()
 	// Setup pins
 	pinMode(BUTTON_PIN, INPUT_PULLUP);
 
+	Serial.println("\n-------- Init complete --------\n");
+
 	// Set LED background effect
 	led.setBgEffect(new BlinkEffect(200, 0x003829));
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;
 
-	Serial.println("\n-------- Init complete --------\n");
+	frontend.onFrontendRequest([](FrontendRequestData data)
+							   { led.addFgEffect(new ColorRunEffect(data.time, led.getRandomColor(), true)); });
 }
 
 void testEffectAfterDelay()
@@ -72,7 +75,7 @@ void handleAccelaration()
 {
 	if (mpu.wasAccelerated)
 	{
-		led.addFgEffect(new ColorRunEffect(2000, led.getRandomColor()));
+		led.addFgEffect(new ColorRunEffect(2000, led.getRandomColor(), true));
 	}
 }
 

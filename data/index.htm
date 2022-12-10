@@ -3,10 +3,25 @@
 
 <head></head>
 
+<script>
+    function magic () {
+        var req = new XMLHttpRequest();
+        var url = '/test';
+        req.open("GET", url, false);
+        req.send(null);
+        console.log(req.responseText);
+    }
+</script>
+
 <body>
     <h2>Web server and file system are working.</h2>
     <p>And so is FTP...</p>
     <h1>Yay! :)</h1>
+    <br>
+    <p>Click here for
+    <p>
+    
+        <button onclick="magic()" style="font-size: x-large;font-family: Fira Code, sans-serif;">Magic!</button>
 
 </body>
 

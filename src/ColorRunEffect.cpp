@@ -1,6 +1,6 @@
 #include "ColorRunEffect.h"
 
-ColorRunEffect::ColorRunEffect(int duration, CRGB color)
+ColorRunEffect::ColorRunEffect(int duration, CRGB color, bool invert)
 {
 	fill_solid(mask, NUM_LEDS, CRGB::Black);
 
@@ -9,26 +9,33 @@ ColorRunEffect::ColorRunEffect(int duration, CRGB color)
 		timerDelay = 1;
 	this->timerDelay = timerDelay;
 	this->color = color;
-	colorRunCurrentLed = 0;
-	colorRunReverse = false;
+	this->invert = invert;
+	resetCurrentLed();
+	reverse = false;
+}
+
+void ColorRunEffect::resetCurrentLed()
+{
+	currentLed = invert ? NUM_LEDS - 1 : 0;
 }
 
 void ColorRunEffect::timedLoop()
 {
-	if (!colorRunReverse)
+	if (!reverse)
 	{
-		mask[colorRunCurrentLed++] = color;
+		mask[currentLed] = color;
 	}
 	else
 	{
-		mask[colorRunCurrentLed++] = CRGB::Black;
+		mask[currentLed] = CRGB::Black;
 	}
-	if (colorRunCurrentLed >= NUM_LEDS)
+	currentLed = invert ? currentLed - 1 : currentLed + 1;
+	if (invert && currentLed <= 0 || !invert && currentLed >= NUM_LEDS)
 	{
-		if (!colorRunReverse)
+		if (!reverse)
 		{
-			colorRunReverse = true;
-			colorRunCurrentLed = 0;
+			reverse = true;
+			resetCurrentLed();
 		}
 		else
 		{

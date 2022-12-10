@@ -58,16 +58,8 @@ void WebFrontend::setup()
         ftpSrv.begin(FTP_USER, FTP_PASSWORD);
     };
 
-    // HTTP routes
-    server.serveStatic("/", LittleFS, "/").setDefaultFile("index.htm");
-
-    server.on("/heap", HTTP_GET, [](AsyncWebServerRequest *request)
-              { request->send(200, "text/plain", String(ESP.getFreeHeap())); });
-
-    server.onNotFound([](AsyncWebServerRequest *request)
-                      { request->send(404); });
-
     // Start web server
+    defineRoutes();
     server.begin();
 }
 
@@ -82,3 +74,26 @@ void WebFrontend::loop()
         wifiReconnectTimer = millis();
     }
 }
+
+void WebFrontend::defineRoutes()
+{
+    server.serveStatic("/", LittleFS, "/").setDefaultFile("index.htm");
+
+    server.on("/heap", HTTP_GET, [](AsyncWebServerRequest *request)
+              { request->send(200, "text/plain", String(ESP.getFreeHeap())); });
+
+    // TEST
+    server.on("/test", HTTP_GET,
+              [this](AsyncWebServerRequest *request)
+              {
+                  FrontendRequestData data;
+                  data.time = 1000;
+                  frhfn(data);
+                  request->send(200, "text/plain", "magic");
+              });
+
+    server.onNotFound([](AsyncWebServerRequest *request)
+                      { request->send(404); });
+}
+
+void WebFrontend::onFrontendRequest(FrontendRequestHandlerFunction fn) { frhfn = fn; }
