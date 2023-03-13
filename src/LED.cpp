@@ -6,7 +6,7 @@
 void LED::setup()
 {
 	FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalLEDStrip);
-	FastLED.setBrightness(100);
+	FastLED.setBrightness(DEFAULT_BRIGHTNESS);
 	FastLED.clear();
 }
 

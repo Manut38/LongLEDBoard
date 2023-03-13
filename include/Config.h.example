@@ -10,6 +10,9 @@
 // #define DISABLE_LED
 // #define DISABLE_WEBFRONTEND
 
+// LED config
+#define DEFAULT_BRIGHTNESS 128
+
 // Network host name
 #define HOSTNAME "LongLEDBoard"
 

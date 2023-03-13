@@ -5,6 +5,7 @@
 #include "BlinkEffect.h"
 #include "ColorRunEffect.h"
 #include "WebFrontend.h"
+#include "RainbowLoopEffect.h"
 
 using namespace std;
 
@@ -15,7 +16,7 @@ WebFrontend frontend;
 int buttonState;
 int lastButtonState;
 u_long effectTestTimer;
-int effectTestTimerDelay = 5000;
+int effectTestTimerDelay = 10000;
 
 void setup()
 {
@@ -41,7 +42,7 @@ void setup()
 	Serial.println("\n-------- Init complete --------\n");
 
 	// Set LED background effect
-	led.setBgEffect(new BlinkEffect(200, 0x003829));
+	led.setBgEffect(new RainbowLoopEffect(5000));
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;

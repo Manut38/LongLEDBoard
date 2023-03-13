@@ -4,10 +4,7 @@ ColorRunEffect::ColorRunEffect(int duration, CRGB color, bool invert)
 {
 	fill_solid(mask, NUM_LEDS, CRGB::Black);
 
-	int timerDelay = duration / NUM_LEDS / 2;
-	if (timerDelay <= 0)
-		timerDelay = 1;
-	this->timerDelay = timerDelay;
+	this->timerDelay = duration / NUM_LEDS / 2;
 	this->color = color;
 	this->invert = invert;
 	resetCurrentLed();
