@@ -1,0 +1,84 @@
+// Prepare background for color switching using transparent gradients
+.background {
+  content: '';
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+.background.gradient-color {
+  z-index: -2000;
+  background-size: 130% 100%;
+  animation: breathing 10s infinite ease;
+}
+
+@keyframes breathing {
+  0% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.background.gradient-darken {
+  z-index: -1000;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0), #090707);
+}
+
+// Configure color schemes for BackgroundGradient.js plugin //
+.background.gradient-color.purple {
+  background-image: linear-gradient(90deg, #2c5e92 0%, #552f6d 80%);
+}
+
+.background.gradient-color.green {
+  background-image: linear-gradient(60deg, #208ea2, #9ebf38);
+}
+
+.background.gradient-color.blue {
+  background-image: linear-gradient(120deg, #537895 0%, #09203f 74%);
+}
+
+.background.gradient-color.orange {
+  background-image: linear-gradient(130deg, #b74f4f, #c39848);
+}
+
+.background.gradient-color.fun {
+  background-image: linear-gradient(90deg, #cf5c5c, #c19b4a, #def2a0, #c6ee4a, #42eca6, #64b3d9, #208ea2, #498ada, #5b73df, #897ed3, #cf5c5c, #c19b4a);
+  background-size: 1100% 100%;
+  animation: animateBg 15s linear infinite;
+}
+
+@keyframes animateBg {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+// Gradient transition animation //
+.background.gradient-color.transition {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

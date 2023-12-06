@@ -1,0 +1,269 @@
+// app global css in SCSS form
+
+// Overall app theme //
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500&family=Sono:wght@500&display=swap');
+
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 15px;
+}
+
+.links-primary {
+
+  a,
+  a:active,
+  a:hover,
+  a:visited {
+    text-decoration: none;
+    color: $primary;
+  }
+}
+
+.constrain {
+  max-width: 975px;
+  margin: 0 auto;
+}
+
+// MainLayout styling //
+
+.q-toolbar__title {
+  // font-size: 1.5em;
+  font-family: 'Sono', sans-serif;
+  font-weight: 500;
+  color: white;
+  // padding: 0;
+}
+
+.q-toolbar {
+  // @media (min-width: $breakpoint-xs-min) {
+  //   height: $navbar-height;
+  // }
+  padding-left: 16px;
+}
+
+.logo {
+  @media (min-width: 500px) {
+    align-items: center;
+    justify-content: center;
+  }
+
+  // padding: 0.5em;
+}
+
+.logo-text {}
+
+.logo-text-link {
+  color: white;
+  text-decoration: none;
+}
+
+.menu-list-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 32px 32px 0;
+  background-color: rgba($dark, 0.85);
+  overflow: hidden;
+}
+
+.drawer-list {
+  border-radius: 0 32px 32px 0;
+  transition: background-color 0.5s;
+  overflow: hidden;
+  background-color: rgba($dark, 0.3);
+}
+
+.drawer-list:hover {
+  @media (max-width: $breakpoint-md-max) {
+    background-color: rgba($dark, 0.85);
+  }
+}
+
+.drawer-list .q-item {
+  border-radius: 0 32px 32px 0;
+}
+
+.toolbar {
+  background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.toolbar.scroll {
+  background-color: rgba($dark, 0.85);
+}
+
+#pixel-anchor-toolbar-scroll {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  top: 50px;
+  left: 0;
+}
+
+.q-drawer--dark {
+  background-color: rgba($dark, 0);
+}
+
+.q-drawer--dark.q-drawer--mobile {
+  background-color: $dark;
+}
+
+.q-tab-panels--dark {
+  background-color: rgba($dark, 0.0);
+}
+
+.q-color-picker--dark {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2),
+    0 2px 2px rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+// Style scrollbar
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $dark;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(white, 0.4);
+}
+
+
+// Override default white "glow" around dark cards
+.q-menu.q-dark {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+}
+
+.q-card.q-dark {
+  box-shadow: none;
+}
+
+// Override default dark body background
+body.body--dark {
+  background-color: $dark;
+}
+
+// Override default dark card background
+.q-card--dark {
+  background-color: rgba($dark, 0.3);
+}
+
+// Override default dark editor background
+.q-editor--dark {
+  background-color: rgba($dark, 0.3);
+}
+
+// Override default dark editor background
+.q-dialog-plugin--dark {
+  background-color: rgba($dark, 0.9);
+}
+
+// Override default footer color
+.q-footer {
+  background-color: rgba($dark, 0.9);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.main-elements {
+  margin-bottom: 10px;
+}
+
+.preview-gradient {
+  height: 10px;
+  background-image: linear-gradient(to right,
+      rgba(255, 0, 0, 1),
+      rgba(255, 154, 0, 1),
+      rgba(208, 222, 33, 1),
+      rgba(79, 220, 74, 1),
+      rgba(63, 218, 216, 1),
+      rgba(47, 201, 226, 1),
+      rgba(28, 127, 238, 1),
+      rgba(95, 21, 242, 1),
+      rgba(186, 12, 248, 1),
+      rgba(251, 7, 217, 1),
+      rgba(255, 0, 0, 1),
+      rgba(255, 0, 0, 1),
+      rgba(255, 154, 0, 1),
+      rgba(208, 222, 33, 1),
+      rgba(79, 220, 74, 1),
+      rgba(63, 218, 216, 1),
+      rgba(47, 201, 226, 1),
+      rgba(28, 127, 238, 1),
+      rgba(95, 21, 242, 1),
+      rgba(186, 12, 248, 1),
+      rgba(251, 7, 217, 1),
+      rgba(255, 0, 0, 1), rgba(255, 0, 0, 1),
+      rgba(255, 154, 0, 1),
+      rgba(208, 222, 33, 1),
+      rgba(79, 220, 74, 1),
+      rgba(63, 218, 216, 1),
+      rgba(47, 201, 226, 1),
+      rgba(28, 127, 238, 1),
+      rgba(95, 21, 242, 1),
+      rgba(186, 12, 248, 1),
+      rgba(251, 7, 217, 1),
+      rgba(255, 0, 0, 1), rgba(255, 0, 0, 1),
+      rgba(255, 154, 0, 1),
+      rgba(208, 222, 33, 1),
+      rgba(79, 220, 74, 1),
+      rgba(63, 218, 216, 1),
+      rgba(47, 201, 226, 1),
+      rgba(28, 127, 238, 1),
+      rgba(95, 21, 242, 1),
+      rgba(186, 12, 248, 1),
+      rgba(251, 7, 217, 1),
+      rgba(255, 0, 0, 1), rgba(255, 0, 0, 1),
+      rgba(255, 154, 0, 1),
+      rgba(208, 222, 33, 1),
+      rgba(79, 220, 74, 1),
+      rgba(63, 218, 216, 1),
+      rgba(47, 201, 226, 1),
+      rgba(28, 127, 238, 1),
+      rgba(95, 21, 242, 1),
+      rgba(186, 12, 248, 1),
+      rgba(251, 7, 217, 1),
+      rgba(255, 0, 0, 1), rgba(255, 0, 0, 1),
+      rgba(255, 154, 0, 1),
+      rgba(208, 222, 33, 1),
+      rgba(79, 220, 74, 1));
+  background-size: 200% 200%;
+  border-radius: 5px;
+
+  animation: preview-animation-debug 5s ease infinite;
+}
+
+@keyframes preview-animation-debug {
+  0% {
+    background-position: 10% 0%
+  }
+
+  50% {
+    background-position: 91% 100%
+  }
+
+  100% {
+    background-position: 10% 0%
+  }
+}
+
+.effect-control-card {
+  transition: all 0.2s;
+}
+
+.effect-control-card.active {
+  border-color: #388e3c;
+}
+
+.effect-control-card.selected {
+  transform: scale(97%);
+}
+
+.effect-control-card-switch {}
