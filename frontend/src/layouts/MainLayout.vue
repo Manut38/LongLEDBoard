@@ -4,16 +4,12 @@
       <div class="background gradient-color" id="background-gradient" />
       <div class="background gradient-darken" />
     </div>
-    <q-header style="background-color: transparent">
+    <q-header class="text-white" style="background: transparent">
       <q-toolbar class="toolbar" id="toolbar">
-        <q-toolbar-title>
-          <div class="flex logo">
-            <router-link to="/" class="logo-text-link">
-              <div class="flex no-wrap q-gutter-x-sm">
-                <div class="self-center text-h5">🛹 LongLEDBoard ✨</div>
-              </div>
-            </router-link>
-          </div>
+        <q-toolbar-title class="">
+          <router-link to="/" class="logo-text-link justify-center row">
+            <div class="text-h5">🛹 LongLEDBoard ✨</div>
+          </router-link>
         </q-toolbar-title>
 
         <q-btn-dropdown
@@ -48,13 +44,6 @@
             />
           </div>
         </q-btn-dropdown>
-        <q-btn
-          flat
-          round
-          dropdown-icon="eva-chevron-down-outline"
-          icon="eva-power-outline"
-          padding="10px"
-        />
       </q-toolbar>
     </q-header>
 

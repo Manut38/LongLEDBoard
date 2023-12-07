@@ -1,5 +1,8 @@
 <template>
-  <effect-control-card title="Acceleration" :list-of-effects="listOfEffects">
+  <effect-control-card
+    title="Acceleration Effect"
+    :list-of-effects="listOfEffects"
+  >
   </effect-control-card>
 </template>
 
@@ -17,5 +20,4 @@ const listOfEffects = reactive([
   'Rainbow Strike',
   'Fire Strike',
 ]);
-
 </script>

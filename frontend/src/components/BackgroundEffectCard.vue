@@ -1,6 +1,6 @@
 <template>
   <effect-control-card
-    title="Background"
+    title="Background Effect"
     :list-of-effects="listOfEffects"
     v-slot="slotProps"
   >

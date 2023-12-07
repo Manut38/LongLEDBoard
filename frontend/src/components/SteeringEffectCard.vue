@@ -1,5 +1,5 @@
 <template>
-  <effect-control-card title="Steering" :list-of-effects="listOfEffects">
+  <effect-control-card title="Steering Effect" :list-of-effects="listOfEffects">
   </effect-control-card>
 </template>
 

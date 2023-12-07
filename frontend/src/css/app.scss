@@ -22,19 +22,13 @@ body {
   }
 }
 
-.constrain {
-  max-width: 975px;
-  margin: 0 auto;
-}
 
-// MainLayout styling //
+// Override existing Quasar presets
 
 .q-toolbar__title {
-  // font-size: 1.5em;
   font-family: 'Sono', sans-serif;
   font-weight: 500;
   color: white;
-  // padding: 0;
 }
 
 .q-toolbar {
@@ -44,63 +38,8 @@ body {
   padding-left: 16px;
 }
 
-.logo {
-  @media (min-width: 500px) {
-    align-items: center;
-    justify-content: center;
-  }
-
-  // padding: 0.5em;
-}
-
-.logo-text {}
-
-.logo-text-link {
-  color: white;
-  text-decoration: none;
-}
-
-.menu-list-bg {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 0 32px 32px 0;
-  background-color: rgba($dark, 0.85);
-  overflow: hidden;
-}
-
-.drawer-list {
-  border-radius: 0 32px 32px 0;
-  transition: background-color 0.5s;
-  overflow: hidden;
-  background-color: rgba($dark, 0.3);
-}
-
-.drawer-list:hover {
-  @media (max-width: $breakpoint-md-max) {
-    background-color: rgba($dark, 0.85);
-  }
-}
-
-.drawer-list .q-item {
-  border-radius: 0 32px 32px 0;
-}
-
-.toolbar {
-  background-color: transparent;
-  transition: background-color 0.3s ease;
-}
-
-.toolbar.scroll {
-  background-color: rgba($dark, 0.85);
-}
-
-#pixel-anchor-toolbar-scroll {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  top: 50px;
-  left: 0;
+.q-card {
+  border-radius: 10px;
 }
 
 .q-drawer--dark {
@@ -115,27 +54,6 @@ body {
   background-color: rgba($dark, 0.0);
 }
 
-.q-color-picker--dark {
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2),
-    0 2px 2px rgba(0, 0, 0, 0.14),
-    0 3px 1px -2px rgba(0, 0, 0, 0.12);
-}
-
-// Style scrollbar
-::-webkit-scrollbar {
-  width: 7px;
-}
-
-::-webkit-scrollbar-track {
-  background-color: $dark;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background-color: rgba(white, 0.4);
-}
-
-
 // Override default white "glow" around dark cards
 .q-menu.q-dark {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
@@ -143,6 +61,16 @@ body {
 
 .q-card.q-dark {
   box-shadow: none;
+}
+
+body.body--dark .q-layout__shadow:after .q-layout__shadow:after {
+  box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 0px 10px rgba(0, 0, 0, 0.24);
+}
+
+.q-color-picker--dark {
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2),
+    0 2px 2px rgba(0, 0, 0, 0.14),
+    0 3px 1px -2px rgba(0, 0, 0, 0.12);
 }
 
 // Override default dark body background
@@ -172,10 +100,94 @@ body.body--dark {
   border-top-right-radius: 20px;
 }
 
+// Style scrollbar
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: $dark;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgba(white, 0.4);
+}
+
+// App-specific classes
+
+.logo-text-link {
+  color: white;
+  text-decoration: none;
+}
+.menu-list-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 0 32px 32px 0;
+  background-color: rgba($dark, 0.85);
+  overflow: hidden;
+}
+
+.drawer-list {
+  border-radius: 0 32px 32px 0;
+  transition: background-color 0.5s;
+  overflow: hidden;
+  background-color: rgba($dark, 0.3);
+}
+
+.drawer-list:hover {
+  @media (max-width: $breakpoint-md-max) {
+    background-color: rgba($dark, 0.85);
+  }
+}
+
+.drawer-list .q-item {
+  border-radius: 0 32px 32px 0;
+}
+
+.toolbar {
+  // background-color: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.toolbar.scroll {
+  background-color: rgba($dark, 0.85);
+}
+
+#pixel-anchor-toolbar-scroll {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  top: 50px;
+  left: 0;
+}
+
 .main-elements {
   margin-bottom: 10px;
 }
 
+.effect-control-card {
+  transition: all 0.1s;
+}
+
+.effect-control-card.active {
+  border-color: #388e3c;
+}
+
+.effect-control-card.selected {
+  transform: scale(97%);
+}
+
+.page-padding-preview {
+  padding-bottom: 116px;
+}
+
+.preview-expand-icon {
+  transform: rotateX(179deg);
+}
+
+// Preview Bar
 .preview-gradient {
   height: 10px;
   background-image: linear-gradient(to right,
@@ -253,17 +265,3 @@ body.body--dark {
     background-position: 10% 0%
   }
 }
-
-.effect-control-card {
-  transition: all 0.2s;
-}
-
-.effect-control-card.active {
-  border-color: #388e3c;
-}
-
-.effect-control-card.selected {
-  transform: scale(97%);
-}
-
-.effect-control-card-switch {}

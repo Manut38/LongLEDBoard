@@ -13,24 +13,25 @@
       @touchstart="effectSelected = true"
       @touchend="effectSelected = false"
     >
-      <div class="row no-wrap items-center justify-between q-gutter-md">
+      <div class="row no-wrap items-center justify-left q-gutter-md">
+        <div @mousedown.stop @touchstart.stop @click.stop class="col-grow">
+          <q-select
+            dense
+            filled
+            v-model="effectSelection"
+            :options="listOfEffects"
+            :label="title"
+            transition-show="jump-down"
+            transition-hide="jump-up"
+          />
+        </div>
         <q-icon
           name="power_settings_new"
           size="2em"
           :color="effectActive ? 'green-8' : 'red-8'"
         >
         </q-icon>
-        <div class="text-bold text-h6">{{ title }}</div>
       </div>
-    </q-card-section>
-    <q-separator inset />
-    <q-card-section class="q-gutter-md">
-      <q-select
-        filled
-        v-model="effectSelection"
-        :options="listOfEffects"
-        label="Effect"
-      />
     </q-card-section>
     <q-separator inset v-if="effectSelection" />
     <q-card-section v-if="effectSelection">
@@ -50,5 +51,4 @@ const props = defineProps<{
 const effectSelection = ref<string>();
 const effectActive = ref<boolean>();
 const effectSelected = ref<boolean>();
-
 </script>
