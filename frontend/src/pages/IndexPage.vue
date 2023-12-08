@@ -9,7 +9,9 @@
       <q-card-section
         class="row justify-between cursor-pointer"
         style="margin-right: 16px"
-        @click="effectsActive = !effectsActive"
+        @click="
+          effectsActive = !effectsActive
+        "
         @mousedown="effectsActiveSelected = true"
         @mouseup="effectsActiveSelected = false"
         @touchstart="effectsActiveSelected = true"
@@ -58,8 +60,21 @@ import { ref } from 'vue';
 import SteeringEffectCard from 'src/components/SteeringEffectCard.vue';
 import BackgroundEffectCardVue from 'src/components/BackgroundEffectCard.vue';
 import AccelEffectCard from 'src/components/AccelEffectCard.vue';
+import { useEffectConfigStore, EffectConfigStore } from 'src/stores/effectConfig';
+import { storeToRefs } from 'pinia';
+
+const effectConfigStore = useEffectConfigStore<EffectConfigStore>()
+const { effectsActive, bgEffectActive, accelEffectActive, steeringEffectActive } = storeToRefs(effectConfigStore);
 
 const isPreviewVisible = ref<boolean>();
-const effectsActive = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
+
+
+function test() {
+
+  const test = new WebSocket
+}
+
+
+
 </script>

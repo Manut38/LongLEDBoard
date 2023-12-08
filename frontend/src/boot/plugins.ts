@@ -1,5 +1,6 @@
 import { boot } from 'quasar/wrappers';
 import { BackgroundGradient } from 'src/plugins/BackgroundGradient';
+import store from 'src/stores/index';
 
 export default boot(({ app }) => {
   app.use(BackgroundGradient, {
@@ -9,4 +10,5 @@ export default boot(({ app }) => {
     transitionClass: 'transition',
   });
 
+  app.use(store);
 });

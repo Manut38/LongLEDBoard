@@ -1,13 +1,13 @@
 <template>
   <q-card
     class="effect-control-card"
-    :class="{ active: effectActive, selected: effectSelected }"
+    :class="{ active: active, selected: effectSelected }"
     flat
     bordered
   >
     <q-card-section
       class="cursor-pointer"
-      @click="effectActive = !effectActive"
+      @click="$emit('toggleActive')"
       @mousedown="effectSelected = true"
       @mouseup="effectSelected = false"
       @touchstart="effectSelected = true"
@@ -28,7 +28,7 @@
         <q-icon
           name="power_settings_new"
           size="2em"
-          :color="effectActive ? 'green-8' : 'red-8'"
+          :color="active ? 'green-8' : 'red-8'"
         >
         </q-icon>
       </div>
@@ -46,9 +46,9 @@ import { ref } from 'vue';
 const props = defineProps<{
   title: string;
   listOfEffects: string[];
+  active: boolean;
 }>();
 
 const effectSelection = ref<string>();
-const effectActive = ref<boolean>();
 const effectSelected = ref<boolean>();
 </script>
