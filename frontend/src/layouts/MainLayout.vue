@@ -1,11 +1,11 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <div id="background-container">
-      <div class="background gradient-color" id="background-gradient" />
+      <div id="background-gradient" class="background gradient-color" />
       <div class="background gradient-darken" />
     </div>
     <q-header class="text-white" style="background: transparent">
-      <q-toolbar class="toolbar" id="toolbar">
+      <q-toolbar id="toolbar" class="toolbar">
         <q-toolbar-title class="">
           <router-link to="/" class="logo-text-link justify-center row">
             <div class="text-h5">🛹 LongLEDBoard ✨</div>
@@ -18,15 +18,20 @@
           icon="eva-settings-outline"
           padding="10px"
         >
-          <div>
-            <div class="column q-pb-sm q-pt-sm">
-              <q-btn
-                flat
-                icon="eva-checkmark-circle-2-outline"
-                label="Test Stuff"
-                @click="testStuff"
-              />
-            </div>
+          <div class="column q-pb-sm q-pt-sm">
+            <q-btn
+              flat
+              icon="eva-settings-outline"
+              label="Settings"
+              @click="openSettingsDialog"
+            />
+
+            <q-btn
+              flat
+              :icon="$q.dark.isActive ? 'eva-sun-outline' : 'eva-moon-outline'"
+              :label="darkModeText"
+              @click="$q.dark.toggle()"
+            />
           </div>
           <q-separator />
           <div class="column q-pb-sm q-pt-sm">
@@ -38,9 +43,9 @@
             />
             <q-btn
               flat
-              :icon="$q.dark.isActive ? 'eva-sun-outline' : 'eva-moon-outline'"
-              :label="darkModeText"
-              @click="toggleDarkMode"
+              icon="eva-cube-outline"
+              label="Test Stuff"
+              @click="testStuff"
             />
           </div>
         </q-btn-dropdown>
@@ -54,20 +59,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, ComputedRef, computed } from 'vue';
 import { useQuasar } from 'quasar';
+import SettingsDialog from 'src/components/SettingsDialog.vue';
+
 import { injectStrict } from 'src/plugins/utils';
+import { useAppConfigStore } from 'src/stores/appConfig';
+
 import { BackgroundGradientPluginKey } from 'src/types/types';
+import { ComputedRef, computed, watch } from 'vue';
 
 const $q = useQuasar();
 
 const backgroundGradient = injectStrict(BackgroundGradientPluginKey);
+const appConfig = useAppConfigStore();
 
 backgroundGradient.setBackgroundGradient('purple');
 
-function toggleDarkMode() {
-  $q.dark.toggle();
-}
+watch(
+  () => $q.dark.isActive,
+  (val) => {
+    appConfig.darkMode = val;
+  }
+);
 
 const darkModeText: ComputedRef<string> = computed((): string =>
   $q.dark.isActive ? 'Light Mode' : 'Dark Mode'
@@ -75,6 +88,9 @@ const darkModeText: ComputedRef<string> = computed((): string =>
 
 function testStuff() {
   console.log('test');
+}
+function openSettingsDialog() {
+  $q.dialog({ component: SettingsDialog, persistent: true });
 }
 
 function rainbowColors() {

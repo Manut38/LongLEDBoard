@@ -9,9 +9,7 @@
       <q-card-section
         class="row justify-between cursor-pointer"
         style="margin-right: 16px"
-        @click="
-          effectsActive = !effectsActive
-        "
+        @click="effectsActive = !effectsActive"
         @mousedown="effectsActiveSelected = true"
         @mouseup="effectsActiveSelected = false"
         @touchstart="effectsActiveSelected = true"
@@ -38,8 +36,8 @@
     <q-page-sticky expand position="bottom" class="q-ma-md">
       <q-card flat class="full-width constrain">
         <q-expansion-item
-          label="Preview"
           v-model="isPreviewVisible"
+          label="Preview"
           class="text-h6"
           expand-icon-class="preview-expand-icon"
         >
@@ -56,25 +54,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import SteeringEffectCard from 'src/components/SteeringEffectCard.vue';
-import BackgroundEffectCardVue from 'src/components/BackgroundEffectCard.vue';
-import AccelEffectCard from 'src/components/AccelEffectCard.vue';
-import { useEffectConfigStore, EffectConfigStore } from 'src/stores/effectConfig';
 import { storeToRefs } from 'pinia';
+import AccelEffectCard from 'src/components/AccelEffectCard.vue';
+import BackgroundEffectCardVue from 'src/components/BackgroundEffectCard.vue';
+import SteeringEffectCard from 'src/components/SteeringEffectCard.vue';
+import { useEffectConfigStore } from 'src/stores/effectConfig';
+import { ref } from 'vue';
 
-const effectConfigStore = useEffectConfigStore<EffectConfigStore>()
-const { effectsActive, bgEffectActive, accelEffectActive, steeringEffectActive } = storeToRefs(effectConfigStore);
+const effectConfigStore = useEffectConfigStore();
+const { effectsActive } = storeToRefs(effectConfigStore);
 
 const isPreviewVisible = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
-
-
-function test() {
-
-  const test = new WebSocket
-}
-
-
-
 </script>

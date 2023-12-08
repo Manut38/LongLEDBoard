@@ -1,10 +1,10 @@
 <template>
   <effect-control-card
+    v-slot="slotProps"
     title="Background Effect"
     :list-of-effects="listOfEffects"
     :active="bgEffectActive"
     @toggle-active="bgEffectActive = !bgEffectActive"
-    v-slot="slotProps"
   >
     <div
       v-if="slotProps.effectSelection == 'Solid Color'"
@@ -16,10 +16,10 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
+import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { reactive, ref } from 'vue';
 import EffectControlCard from './EffectControlCard.vue';
-import { useEffectConfigStore } from 'src/stores/effectConfig';
-import { storeToRefs } from 'pinia';
 
 // const props = defineProps<{
 
