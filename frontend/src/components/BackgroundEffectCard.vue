@@ -3,8 +3,8 @@
     v-slot="slotProps"
     title="Background Effect"
     :list-of-effects="listOfEffects"
-    :active="bgEffectActive"
-    @toggle-active="bgEffectActive = !bgEffectActive"
+    :active="boardEffectState.bg_active"
+    @toggle-active="boardEffectState.bg_active = !boardEffectState.bg_active"
   >
     <div
       v-if="slotProps.effectSelection == 'Solid Color'"
@@ -25,7 +25,7 @@ import EffectControlCard from './EffectControlCard.vue';
 
 // }>()
 const effectConfigStore = useEffectConfigStore();
-const { bgEffectActive } = storeToRefs(effectConfigStore);
+const { boardEffectState } = storeToRefs(effectConfigStore);
 
 const listOfEffects = reactive(['Rainbow', 'Fire', 'Solid Color']);
 

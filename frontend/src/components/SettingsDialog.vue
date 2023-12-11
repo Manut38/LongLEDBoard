@@ -10,6 +10,7 @@
           v-model="socketBackendURL"
           label="Board Socket Address"
           stack-label
+          prefix="ws://"
         />
       </q-card-section>
       <q-card-actions align="right">
@@ -26,7 +27,9 @@ import { ref } from 'vue';
 
 const appConfig = useAppConfigStore();
 
-const socketBackendURL = ref<string>(appConfig.socketBackendURL);
+const socketBackendURL = ref<string>(
+  appConfig.socketBackendURL.replace('ws://', '')
+);
 
 const props = defineProps({});
 
@@ -47,7 +50,7 @@ const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } =
 
 // this is part of our example (so not required)
 function onOKClick() {
-  appConfig.socketBackendURL = socketBackendURL.value;
+  appConfig.socketBackendURL = `ws://${socketBackendURL.value}`;
 
   // on OK, it is REQUIRED to
   // call onDialogOK (with optional payload)

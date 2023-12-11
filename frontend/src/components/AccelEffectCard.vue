@@ -2,24 +2,24 @@
   <effect-control-card
     title="Acceleration Effect"
     :list-of-effects="listOfEffects"
-    :active="accelEffectActive"
-    @toggle-active="accelEffectActive = !accelEffectActive"
+    :active="boardEffectState.accel_active"
+    @toggle-active="boardEffectState.accel_active = !boardEffectState.accel_active"
   >
   </effect-control-card>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import EffectControlCard from './EffectControlCard.vue';
-import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { storeToRefs } from 'pinia';
+import { useEffectConfigStore } from 'src/stores/effectConfig';
+import { reactive } from 'vue';
+import EffectControlCard from './EffectControlCard.vue';
 
 // const props = defineProps<{
 
 // }>()
 
 const effectConfigStore = useEffectConfigStore();
-const { accelEffectActive } = storeToRefs(effectConfigStore);
+const { boardEffectState } = storeToRefs(effectConfigStore);
 const listOfEffects = reactive([
   'Rumble',
   'Lightning',

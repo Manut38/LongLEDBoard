@@ -2,22 +2,22 @@
   <effect-control-card
     title="Steering Effect"
     :list-of-effects="listOfEffects"
-    :active="steeringEffectActive"
-    @toggle-active="steeringEffectActive = !steeringEffectActive"
+    :active="boardEffectState.steering_active"
+    @toggle-active="boardEffectState.steering_active = !boardEffectState.steering_active"
   >
   </effect-control-card>
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
-import EffectControlCard from './EffectControlCard.vue';
-import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { storeToRefs } from 'pinia';
+import { useEffectConfigStore } from 'src/stores/effectConfig';
+import { reactive } from 'vue';
+import EffectControlCard from './EffectControlCard.vue';
 
 // const props = defineProps<{
 
 // }>()
 const effectConfigStore = useEffectConfigStore();
-const { steeringEffectActive } = storeToRefs(effectConfigStore);
+const { boardEffectState } = storeToRefs(effectConfigStore);
 const listOfEffects = reactive(['Color Fade Left/Right']);
 </script>
