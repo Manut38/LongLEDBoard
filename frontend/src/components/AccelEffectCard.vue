@@ -2,8 +2,8 @@
   <effect-control-card
     title="Acceleration Effect"
     :list-of-effects="listOfEffects"
-    :active="boardEffectState.accel_active"
-    @toggle-active="boardEffectState.accel_active = !boardEffectState.accel_active"
+    :active="boardEffectState.accelActive"
+    @toggle-active="boardEffectState.accelActive = !boardEffectState.accelActive"
   >
   </effect-control-card>
 </template>

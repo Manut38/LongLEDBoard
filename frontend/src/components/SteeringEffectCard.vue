@@ -2,8 +2,8 @@
   <effect-control-card
     title="Steering Effect"
     :list-of-effects="listOfEffects"
-    :active="boardEffectState.steering_active"
-    @toggle-active="boardEffectState.steering_active = !boardEffectState.steering_active"
+    :active="boardEffectState.steeringActive"
+    @toggle-active="boardEffectState.steeringActive = !boardEffectState.steeringActive"
   >
   </effect-control-card>
 </template>

@@ -3,8 +3,8 @@
     v-slot="slotProps"
     title="Background Effect"
     :list-of-effects="listOfEffects"
-    :active="boardEffectState.bg_active"
-    @toggle-active="boardEffectState.bg_active = !boardEffectState.bg_active"
+    :active="boardEffectState.bgActive"
+    @toggle-active="boardEffectState.bgActive = !boardEffectState.bgActive"
   >
     <div
       v-if="slotProps.effectSelection == 'Solid Color'"
