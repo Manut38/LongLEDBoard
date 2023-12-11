@@ -28,7 +28,7 @@
         <q-icon
           :name="active ? 'eva-checkmark-circle-2-outline': 'eva-pause-circle-outline'"
           size="2em"
-          :color="active ? 'green-8' : 'red-8'"
+          :color="active ? 'green-8' : 'grey-7'"
         >
         </q-icon>
       </div>
