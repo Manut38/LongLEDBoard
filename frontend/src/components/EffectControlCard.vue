@@ -14,11 +14,11 @@
       @touchend="effectSelected = false"
     >
       <div class="row no-wrap items-center justify-left q-gutter-md">
-        <div @mousedown.stop @touchstart.stop @click.stop class="col-grow">
+        <div class="col-grow" @mousedown.stop @touchstart.stop @click.stop>
           <q-select
+            v-model="effectSelection"
             dense
             filled
-            v-model="effectSelection"
             :options="listOfEffects"
             :label="title"
             transition-show="jump-down"
@@ -26,16 +26,16 @@
           />
         </div>
         <q-icon
-          name="power_settings_new"
+          :name="active ? 'eva-checkmark-circle-2-outline': 'eva-pause-circle-outline'"
           size="2em"
           :color="active ? 'green-8' : 'red-8'"
         >
         </q-icon>
       </div>
     </q-card-section>
-    <q-separator inset v-if="effectSelection" />
+    <q-separator v-if="effectSelection" inset />
     <q-card-section v-if="effectSelection">
-      <slot :effectSelection="effectSelection"></slot>
+      <slot :effect-selection="effectSelection"></slot>
     </q-card-section>
   </q-card>
 </template>
@@ -48,6 +48,8 @@ const props = defineProps<{
   listOfEffects: string[];
   active: boolean;
 }>();
+
+defineEmits(['toggleActive'])
 
 const effectSelection = ref<string>();
 const effectSelected = ref<boolean>();

@@ -16,12 +16,21 @@
         @touchend="effectsActiveSelected = false"
       >
         <div class="text-h6">Effects</div>
-        <q-icon
-          name="power_settings_new"
-          size="2em"
-          :color="boardEffectState.active ? 'green-8' : 'red-8'"
-        >
-        </q-icon>
+        <q-space></q-space>
+        <div class="q-gutter-sm row no-wrap">
+          <div
+            class="text-body1 self-center text-bold"
+            :class="boardEffectState.active ? 'text-green-8' : 'text-red-8'"
+          >
+            {{ boardEffectState.active ? 'ON' : 'OFF' }}
+          </div>
+          <q-icon
+            name="power_settings_new"
+            size="2em"
+            :color="boardEffectState.active ? 'green-8' : 'red-8'"
+          >
+          </q-icon>
+        </div>
       </q-card-section>
       <q-separator inset />
       <q-card-section horizontal>
@@ -51,7 +60,9 @@
           <q-item v-ripple clickable>
             <q-item-section>
               <q-item-label overline>Socket Response</q-item-label>
-              <q-item-label>{{ backend.data.value }}</q-item-label>
+              <q-item-label style="word-wrap: break-word">{{
+                backend.data.value
+              }}</q-item-label>
             </q-item-section>
           </q-item>
           <q-item v-ripple clickable>
@@ -64,9 +75,10 @@
       </q-card-section>
     </q-card>
     <q-page-sticky expand position="bottom" class="q-ma-md">
-      <q-card flat class="full-width constrain">
+      <q-card class="opaque full-width">
         <q-expansion-item
           v-model="isPreviewVisible"
+          popup
           label="Preview"
           class="text-h6"
           expand-icon-class="preview-expand-icon"

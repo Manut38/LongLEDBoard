@@ -187,6 +187,17 @@ body.body--dark {
   transform: rotateX(179deg);
 }
 
+.q-card.opaque.q-card--dark {
+  background-color: #1D1D1D;
+}
+
+.q-expansion-item--popup.q-expansion-item--expanded {
+  padding: 0;
+}
+
+.q-expansion-item--popup>.q-expansion-item__container {
+  border: none;
+}
 // Preview Bar
 .preview-gradient {
   height: 10px;

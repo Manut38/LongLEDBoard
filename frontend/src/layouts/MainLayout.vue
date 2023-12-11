@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lhh Lpr lFf">
     <div id="background-container">
       <div id="background-gradient" class="background gradient-color" />
       <div class="background gradient-darken" />
@@ -8,7 +8,7 @@
       <q-toolbar id="toolbar" class="toolbar">
         <q-toolbar-title class="">
           <router-link to="/" class="logo-text-link justify-center row">
-            <div class="text-h5">🛹 LongLEDBoard ✨</div>
+            <div class="text-h5">🛹 LongLEDBoard</div>
           </router-link>
         </q-toolbar-title>
 
@@ -17,7 +17,7 @@
           dropdown-icon="eva-chevron-down-outline"
           icon="eva-settings-outline"
           padding="10px"
-        >
+          >
           <div class="column q-pb-sm q-pt-sm">
             <q-btn
               flat
