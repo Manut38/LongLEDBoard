@@ -3,12 +3,10 @@
     <q-card
       class="main-elements effect-control-card"
       :class="{ selected: effectsActiveSelected }"
-      flat
       bordered
     >
       <q-card-section
         class="row justify-between cursor-pointer"
-        style="margin-right: 16px"
         @click="boardEffectState.active = !boardEffectState.active"
         @mousedown="effectsActiveSelected = true"
         @mouseup="effectsActiveSelected = false"
@@ -17,7 +15,7 @@
       >
         <div class="text-h6">Effects</div>
         <q-space></q-space>
-        <div class="q-gutter-sm row no-wrap">
+        <!-- <div class="q-gutter-sm row no-wrap">
           <div
             class="text-body1 self-center text-bold"
             :class="boardEffectState.active ? 'text-green-8' : 'text-red-8'"
@@ -30,7 +28,8 @@
             :color="boardEffectState.active ? 'green-8' : 'red-8'"
           >
           </q-icon>
-        </div>
+        </div> -->
+        <q-toggle v-model="boardEffectState.active" color="primary"></q-toggle>
       </q-card-section>
       <q-separator inset />
       <q-card-section horizontal>
@@ -42,11 +41,27 @@
         </div>
       </q-card-section>
     </q-card>
-    <q-card class="main-elements" flat bordered>
-      <q-card-section class="row q-gutter-md">
+    <q-card
+      class="main-elements effect-control-card"
+      :class="{ selected: debugActiveSelected }"
+      bordered
+    >
+      <q-card-section
+        class="row justify-between cursor-pointer"
+        @click="debugActive = !debugActive"
+        @mousedown="debugActiveSelected = true"
+        @mouseup="debugActiveSelected = false"
+        @touchstart="debugActiveSelected = true"
+        @touchend="debugActiveSelected = false"
+      >
+        <div class="text-h6">Debug</div>
+        <q-space></q-space>
+        <q-toggle v-model="debugActive" color="primary"></q-toggle>
+      </q-card-section>
+      <q-card-section v-if="debugActive" class="row q-gutter-md">
         <q-btn
           label="Test"
-          outline
+          rounded
           color="primary"
           @click="backend.send('test')"
         ></q-btn>
@@ -75,7 +90,7 @@
       </q-card-section>
     </q-card>
     <q-page-sticky expand position="bottom" class="q-ma-md">
-      <q-card class="opaque full-width">
+      <q-card class="darker full-width">
         <q-expansion-item
           v-model="isPreviewVisible"
           popup
@@ -114,4 +129,7 @@ const backend = useBackend();
 
 const isPreviewVisible = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
+
+const debugActive = ref<boolean>(false);
+const debugActiveSelected = ref<boolean>();
 </script>

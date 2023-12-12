@@ -2,8 +2,8 @@
   <q-card
     class="effect-control-card"
     :class="{ active: active, selected: effectSelected }"
-    flat
     bordered
+    :flat="!q.dark.isActive"
   >
     <q-card-section
       class="cursor-pointer"
@@ -26,9 +26,13 @@
           />
         </div>
         <q-icon
-          :name="active ? 'eva-checkmark-circle-2-outline': 'eva-pause-circle-outline'"
+          :name="
+            active
+              ? 'eva-checkmark-circle-2-outline'
+              : 'eva-pause-circle-outline'
+          "
           size="2em"
-          :color="active ? 'green-8' : 'grey-7'"
+          :color="active ? 'light-green-7' : 'grey-7'"
         >
         </q-icon>
       </div>
@@ -41,6 +45,7 @@
 </template>
 
 <script setup lang="ts">
+import { useQuasar } from 'quasar';
 import { ref } from 'vue';
 
 const props = defineProps<{
@@ -49,7 +54,9 @@ const props = defineProps<{
   active: boolean;
 }>();
 
-defineEmits(['toggleActive'])
+const q = useQuasar();
+
+defineEmits(['toggleActive']);
 
 const effectSelection = ref<string>();
 const effectSelected = ref<boolean>();

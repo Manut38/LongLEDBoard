@@ -1,23 +1,30 @@
 <template>
   <q-layout view="lhh Lpr lFf">
     <div id="background-container">
-      <div id="background-gradient" class="background gradient-color" />
-      <div class="background gradient-darken" />
+      <!-- <div id="background-gradient" class="background gradient-color" /> -->
+      <!-- <div class="background gradient-darken" /> -->
+      <div class="shape1"></div>
+      <div class="shape2"></div>
     </div>
     <q-header class="text-white" style="background: transparent">
       <q-toolbar id="toolbar" class="toolbar">
         <q-toolbar-title class="">
-          <router-link to="/" class="logo-text-link justify-center row">
-            <div class="text-h5">🛹 LongLEDBoard</div>
+          <router-link to="/" class="logo-text-link justify-center row no-wrap">
+            <div class="logo-text-gradient" style="margin-right: 0.5rem">
+              🛹
+            </div>
+            <div>Long</div>
+            <div class="logo-text-gradient">LED</div>
+            <div>Board</div>
           </router-link>
         </q-toolbar-title>
-
+        <!-- <q-spinner v-if="backend.connected" size="1.5em"></q-spinner> -->
         <q-btn-dropdown
           flat
           dropdown-icon="eva-chevron-down-outline"
           icon="eva-settings-outline"
           padding="10px"
-          >
+        >
           <div class="column q-pb-sm q-pt-sm">
             <q-btn
               flat
@@ -47,6 +54,12 @@
               label="Test Stuff"
               @click="testStuff"
             />
+            <q-btn
+              flat
+              icon="eva-browser-outline"
+              label="Test Page"
+              to="/test"
+            />
           </div>
         </q-btn-dropdown>
       </q-toolbar>
@@ -67,13 +80,15 @@ import { useAppConfigStore } from 'src/stores/appConfig';
 
 import { BackgroundGradientPluginKey } from 'src/types/types';
 import { ComputedRef, computed, watch } from 'vue';
+import { useBackend } from 'src/composables/backend';
 
 const $q = useQuasar();
 
 const backgroundGradient = injectStrict(BackgroundGradientPluginKey);
 const appConfig = useAppConfigStore();
+// const backend = useBackend();
 
-backgroundGradient.setBackgroundGradient('purple');
+// backgroundGradient.setBackgroundGradient('purple');
 
 watch(
   () => $q.dark.isActive,

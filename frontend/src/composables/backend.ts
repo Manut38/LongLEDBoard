@@ -4,7 +4,7 @@ import { QNotifyUpdateOptions, useQuasar } from 'quasar';
 import { useAppConfigStore } from 'src/stores/appConfig';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { ISocketResponse } from 'src/types/types';
-import { watch } from 'vue';
+import { computed, watch } from 'vue';
 
 export function useBackend() {
   const q = useQuasar();
@@ -39,10 +39,10 @@ export function useBackend() {
       if (!errorNotifyShown) {
         errorNotify = q.notify({
           color: 'negative',
-          message: 'Board connection failed. Reconnecting...',
+          message: 'Board connection failed',
           icon: 'eva-alert-circle-outline',
           position: 'bottom',
-          timeout: 0,
+          timeout: 3000,
         });
         errorNotifyShown = true;
       }
@@ -81,5 +81,7 @@ export function useBackend() {
     }
   );
 
-  return { status, data, send };
+  const connected = computed(() => status.value === 'OPEN');
+
+  return { status, data, send, connected };
 }
