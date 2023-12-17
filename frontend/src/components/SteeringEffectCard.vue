@@ -1,9 +1,13 @@
 <template>
   <effect-control-card
     title="Steering Effect"
-    :list-of-effects="listOfEffects"
+    :effect-list="effectList"
     :active="boardEffectState.steeringActive"
-    @toggle-active="boardEffectState.steeringActive = !boardEffectState.steeringActive"
+    :selected-id="boardEffectState.steeringSelected"
+    @toggle-active="
+      boardEffectState.steeringActive = !boardEffectState.steeringActive
+    "
+    @change-selection="(id) => (boardEffectState.steeringSelected = id)"
   >
   </effect-control-card>
 </template>
@@ -11,13 +15,21 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
+import { SteeringEffect } from 'src/types/types';
 import { reactive } from 'vue';
 import EffectControlCard from './EffectControlCard.vue';
 
-// const props = defineProps<{
-
-// }>()
 const effectConfigStore = useEffectConfigStore();
 const { boardEffectState } = storeToRefs(effectConfigStore);
-const listOfEffects = reactive(['Color Fade Left/Right']);
+
+const effectList = reactive([
+  {
+    label: 'Color Fade Left/Right',
+    id: SteeringEffect.ColorFadeLeftRight,
+  },
+  {
+    label: 'Water',
+    id: SteeringEffect.Water,
+  },
+]);
 </script>

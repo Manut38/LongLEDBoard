@@ -27,7 +27,7 @@ body {
 
 .q-toolbar__title {
   font-family: 'Poppins', sans-serif;
-    font-weight: bold;
+  font-weight: bold;
   color: white;
 }
 
@@ -35,6 +35,7 @@ body {
   font-family: 'Poppins', sans-serif;
   font-weight: bold;
 }
+
 .q-toolbar {
   // @media (min-width: $breakpoint-xs-min) {
   //   height: $navbar-height;
@@ -81,8 +82,7 @@ body.body--light {
 
 // Override default dark card background
 .q-card--dark {
-  // background-color: rgba($dark, 0.3);
-    border-radius: 10px;
+  border-radius: 10px;
     background-color: rgba(255, 255, 255, 0.08);
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
@@ -90,7 +90,7 @@ body.body--light {
     box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
     border: 1.5px solid rgba(255, 255, 255, 0.06);
   }
-  
+
   .q-card .q-card {
     backdrop-filter: none;
     // background-color: transparent;
@@ -115,7 +115,8 @@ body.body--light {
 }
 
 // Override expansion item popup style
-.q-card.q-card--dark.darker {
+.q-card.q-card--dark.darker,
+.q-color-picker--dark.darker {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -126,6 +127,7 @@ body.body--light {
 .q-expansion-item--popup>.q-expansion-item__container {
   border: none;
 }
+
 // Style scrollbar
 ::-webkit-scrollbar {
   width: 7px;
@@ -146,11 +148,13 @@ body.body--light {
   color: white;
   text-decoration: none;
 }
+
 .logo-text-gradient {
   background-image: linear-gradient(60deg, #E21143, #FFB03A);
   background-clip: text;
   color: transparent;
 }
+
 .menu-list-bg {
   position: absolute;
   width: 100%;
@@ -218,6 +222,10 @@ body.body--light {
   transform: rotateX(179deg);
 }
 
+.q-btn.preset-button {
+  width: 3rem;
+  // border-radius: 0;
+}
 // Preview Bar
 .preview-gradient {
   height: 10px;
@@ -297,14 +305,65 @@ body.body--light {
   }
 }
 
-.glass {
-  background-color: rgba(255, 255, 255, 0.06);
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
-  -webkit-box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
-  border: 1.5px solid rgba(255, 255, 255, 0.06);
+// Transition animations //
+
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: height, opacity;
+  transition-timing-function: ease;
+  overflow: hidden
 }
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: 0.3s;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate(2em, 0)
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(-2em, 0)
+}
+
+.zoom-enter-active,
+.zoom-leave-active {
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+  animation-name: zoom
+}
+
+.zoom-leave-active {
+  animation-direction: reverse
+}
+
+@keyframes zoom {
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3)
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
 
 .shape1 {
   height: 200px;

@@ -18,7 +18,7 @@
             <div>Board</div>
           </router-link>
         </q-toolbar-title>
-        <!-- <q-spinner v-if="backend.connected" size="1.5em"></q-spinner> -->
+        <q-spinner v-if="!backend.connected.value" size="1.5em"></q-spinner>
         <q-btn-dropdown
           flat
           dropdown-icon="eva-chevron-down-outline"
@@ -66,7 +66,11 @@
     </q-header>
 
     <q-page-container>
-      <router-view />
+      <router-view v-slot="{ Component }">
+        <transition name="slide-right" mode="out-in">
+          <component :is="Component" />
+        </transition>
+      </router-view>
     </q-page-container>
   </q-layout>
 </template>
@@ -78,15 +82,15 @@ import SettingsDialog from 'src/components/SettingsDialog.vue';
 import { injectStrict } from 'src/plugins/utils';
 import { useAppConfigStore } from 'src/stores/appConfig';
 
+import { useBackend } from 'src/composables/backend';
 import { BackgroundGradientPluginKey } from 'src/types/types';
 import { ComputedRef, computed, watch } from 'vue';
-import { useBackend } from 'src/composables/backend';
 
 const $q = useQuasar();
 
 const backgroundGradient = injectStrict(BackgroundGradientPluginKey);
 const appConfig = useAppConfigStore();
-// const backend = useBackend();
+const backend = useBackend();
 
 // backgroundGradient.setBackgroundGradient('purple');
 

@@ -15,20 +15,6 @@
       >
         <div class="text-h6">Effects</div>
         <q-space></q-space>
-        <!-- <div class="q-gutter-sm row no-wrap">
-          <div
-            class="text-body1 self-center text-bold"
-            :class="boardEffectState.active ? 'text-green-8' : 'text-red-8'"
-          >
-            {{ boardEffectState.active ? 'ON' : 'OFF' }}
-          </div>
-          <q-icon
-            name="power_settings_new"
-            size="2em"
-            :color="boardEffectState.active ? 'green-8' : 'red-8'"
-          >
-          </q-icon>
-        </div> -->
         <q-toggle v-model="boardEffectState.active" color="primary"></q-toggle>
       </q-card-section>
       <q-separator inset />
@@ -36,7 +22,6 @@
         <div class="q-pa-md column items-stretch full-width q-gutter-y-md">
           <background-effect-card-vue class=""></background-effect-card-vue>
           <accel-effect-card class=""></accel-effect-card>
-
           <steering-effect-card class=""></steering-effect-card>
         </div>
       </q-card-section>
@@ -58,37 +43,44 @@
         <q-space></q-space>
         <q-toggle v-model="debugActive" color="primary"></q-toggle>
       </q-card-section>
-      <q-card-section v-if="debugActive" class="row q-gutter-md">
-        <q-btn
-          label="Test"
-          rounded
-          color="primary"
-          @click="backend.send('test')"
-        ></q-btn>
-        <q-list bordered separator class="col-grow">
-          <q-item v-ripple clickable>
-            <q-item-section>
-              <q-item-label overline>WebSocket Status</q-item-label>
-              <q-item-label>{{ backend.status.value }}</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item v-ripple clickable>
-            <q-item-section>
-              <q-item-label overline>Socket Response</q-item-label>
-              <q-item-label style="word-wrap: break-word">{{
-                backend.data.value
-              }}</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-item v-ripple clickable>
-            <q-item-section>
-              <q-item-label overline>Store Board Effect State</q-item-label>
-              <q-item-label>{{ boardEffectState }}</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-list>
-      </q-card-section>
+      <q-slide-transition>
+        <div v-if="debugActive">
+          <q-separator inset></q-separator
+          ><q-card-section class="column q-gutter-md no-wrap">
+            <q-btn
+              label="Test"
+              rounded
+              outline
+              color="primary"
+              @click="backend.send('test')"
+            ></q-btn>
+            <q-list bordered separator class="col-grow">
+              <q-item v-ripple clickable>
+                <q-item-section>
+                  <q-item-label overline>WebSocket Status</q-item-label>
+                  <q-item-label>{{ backend.status.value }}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item v-ripple clickable>
+                <q-item-section>
+                  <q-item-label overline>Socket Response</q-item-label>
+                  <q-item-label style="word-wrap: break-word">{{
+                    backend.data.value
+                  }}</q-item-label>
+                </q-item-section>
+              </q-item>
+              <q-item v-ripple clickable>
+                <q-item-section>
+                  <q-item-label overline>Store Board Effect State</q-item-label>
+                  <q-item-label>{{ boardEffectState }}</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-card-section>
+        </div>
+      </q-slide-transition>
     </q-card>
+
     <q-page-sticky expand position="bottom" class="q-ma-md">
       <q-card class="darker full-width">
         <q-expansion-item

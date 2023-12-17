@@ -7,7 +7,7 @@ export const BackgroundGradientPluginKey: InjectionKey<BackgroundGradient> =
 export interface ISocketResponse {
   previewData?: PreviewData;
   state?: BoardEffectState;
-  effectConfig?: EffectConfig;
+  effectConfig?: EffectConfigState;
 }
 export interface PreviewData {
   pixeldata: PixelData[];
@@ -26,7 +26,7 @@ export interface BoardEffectState {
   steeringActive: boolean;
   steeringSelected: SteeringEffect;
 }
-export interface EffectConfig {
+export interface EffectConfigState {
   bgEffect?: BackgroundEffectConfig;
   accelEffect?: AccelEffectConfig;
   steeringEffect?: SteeringEffectConfig;
@@ -35,22 +35,27 @@ export interface EffectConfig {
 export enum BgEffect {
   Solid = 'solid',
   Fire = 'fire',
-  ColorFade = 'colorfade',
-  ColorChase = 'colorchase',
+  ColorFade = 'color_fade',
+  ColorChase = 'color_chase',
   Breathing = 'breathing',
-  sparkle = 'sparkle',
+  Sparkle = 'sparkle',
 }
 
 export enum AccelEffect {
-  ColorStrike = 'colorstrike',
-  RainbowStrike = 'rainbowstrike',
-  GradientStrike = 'gradientstrike',
+  ColorStrike = 'color_strike',
+  RainbowStrike = 'rainbow_strike',
+  GradientStrike = 'gradient_strike',
   Strobe = 'strobe',
-  RainbowStrobe = 'rainbowstrobe',
-  ColorChase = 'colorchase',
+  RainbowStrobe = 'rainbow_strobe',
+  ColorChase = 'color_chase',
 }
 
 export enum SteeringEffect {
-  ColorRightLeft = 'colorrightleft',
+  ColorFadeLeftRight = 'color_fade_left_right',
   Water = 'water',
+}
+
+export interface EffectListEntry {
+  label: string;
+  id: string;
 }
