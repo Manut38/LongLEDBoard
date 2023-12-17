@@ -88,7 +88,7 @@ body.body--light {
   background-color: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(15px);
   box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
-    border: 1.5px solid rgba(255, 255, 255, 0.06);
+  border: 1.5px solid rgba(255, 255, 255, 0.06);
   }
 
 .q-card .q-card {
@@ -332,14 +332,14 @@ body.body--light {
   overflow: hidden
 }
 
-.slide-left-enter,
-.slide-right-leave-active {
+.slide-left-enter-from,
+.slide-right-leave-to {
   opacity: 0;
   transform: translate(2em, 0)
 }
 
-.slide-left-leave-active,
-.slide-right-enter {
+.slide-left-leave-to,
+.slide-right-enter-from {
   opacity: 0;
   transform: translate(-2em, 0)
 }

@@ -66,8 +66,8 @@
     </q-header>
 
     <q-page-container>
-      <router-view v-slot="{ Component }">
-        <transition name="slide-right" mode="out-in">
+      <router-view v-slot="{ Component}">
+        <transition appear name="slide-right" mode="out-in" >
           <component :is="Component" />
         </transition>
       </router-view>
