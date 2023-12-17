@@ -58,6 +58,8 @@ body {
 // Override default white "glow" around dark cards
 .q-menu.q-dark {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
 }
 
 .q-card.q-dark {
@@ -83,18 +85,16 @@ body.body--light {
 // Override default dark card background
 .q-card--dark {
   border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.08);
-    -webkit-backdrop-filter: blur(15px);
-    backdrop-filter: blur(15px);
-    -webkit-box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
-    box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
     border: 1.5px solid rgba(255, 255, 255, 0.06);
   }
 
-  .q-card .q-card {
-    backdrop-filter: none;
-    // background-color: transparent;
-    background-color: rgba(255, 255, 255, 0.03);
+.q-card .q-card {
+  backdrop-filter: none;
+  // background-color: transparent;
+  background-color: rgba(255, 255, 255, 0.03);
 }
 
 // Override default dark editor background
@@ -117,7 +117,8 @@ body.body--light {
 // Override expansion item popup style
 .q-card.q-card--dark.darker,
 .q-color-picker--dark.darker {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(20px);
 }
 
 .q-expansion-item--popup.q-expansion-item--expanded {
@@ -226,6 +227,7 @@ body.body--light {
   width: 3rem;
   // border-radius: 0;
 }
+
 // Preview Bar
 .preview-gradient {
   height: 10px;
