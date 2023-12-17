@@ -11,6 +11,7 @@
           label="Board Socket Address"
           stack-label
           prefix="ws://"
+          autofocus
         />
       </q-card-section>
       <q-card-actions align="right">
