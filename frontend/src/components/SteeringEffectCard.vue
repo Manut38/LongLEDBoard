@@ -9,6 +9,7 @@
     "
     @change-selection="(id) => (boardEffectState.steeringSelected = id)"
   >
+    <div class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
 </template>
 

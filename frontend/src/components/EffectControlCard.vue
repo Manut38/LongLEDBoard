@@ -40,7 +40,9 @@
     </q-card-section>
     <q-separator v-if="selectedEntryModel" inset />
     <q-card-section v-if="selectedEntryModel">
-      <slot :selected="selectedEntryModel"></slot>
+      <q-slide-transition>
+        <slot :selected="selectedEntryModel"></slot>
+      </q-slide-transition>
     </q-card-section>
   </q-card>
 </template>
@@ -62,11 +64,13 @@ const selectedEntryModel = ref<EffectListEntry>();
 const headerPressed = ref<boolean>();
 const q = useQuasar();
 
-
-watch(() => props.selectedId, (id) => {
-  console.log('Selected ID changed', id);
-  setSelectionFromId(id)
-})
+watch(
+  () => props.selectedId,
+  (id) => {
+    console.log('Selected ID changed', id);
+    setSelectionFromId(id);
+  }
+);
 
 function setSelectionFromId(id: string) {
   selectedEntryModel.value = props.effectList.find((entry) => entry.id === id);
