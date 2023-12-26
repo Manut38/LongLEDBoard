@@ -6,6 +6,7 @@ export const useAppConfigStore = defineStore(
   () => {
     const darkMode = ref<boolean>(true);
     const socketBackendURL = ref<string>(getInitialBackendAddress());
+    const debugActive = ref<boolean>(false);
 
     function getInitialBackendAddress(): string {
       return `ws://${window.location.hostname}:3003`;
@@ -14,6 +15,7 @@ export const useAppConfigStore = defineStore(
     return {
       darkMode,
       socketBackendURL,
+      debugActive,
     };
   },
   {

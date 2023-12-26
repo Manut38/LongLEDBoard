@@ -18,7 +18,7 @@ export const useEffectConfigStore = defineStore(
       accelActive: false,
       accelSelected: AccelEffect.ColorStrike,
       steeringActive: false,
-      steeringSelected: SteeringEffect.ColorRightLeft,
+      steeringSelected: SteeringEffect.ColorFadeLeftRight,
     });
     // const effectConfig = ref<EffectConfig>();
     const previewData = ref<PreviewData>();
