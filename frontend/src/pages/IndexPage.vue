@@ -104,7 +104,6 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { useQuasar } from 'quasar';
 import AccelEffectCard from 'src/components/AccelEffectCard.vue';
 import BackgroundEffectCardVue from 'src/components/BackgroundEffectCard.vue';
 import SteeringEffectCard from 'src/components/SteeringEffectCard.vue';
@@ -112,16 +111,16 @@ import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { ref } from 'vue';
 
-const q = useQuasar();
+import { useAppConfigStore } from 'src/stores/appConfig';
 
 const effectConfigStore = useEffectConfigStore();
 const { boardEffectState } = storeToRefs(effectConfigStore);
+const { debugActive } = storeToRefs(useAppConfigStore());
 
 const backend = useBackend();
 
 const isPreviewVisible = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
 
-const debugActive = ref<boolean>(false);
 const debugActiveSelected = ref<boolean>();
 </script>
