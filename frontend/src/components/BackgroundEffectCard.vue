@@ -12,33 +12,31 @@
       v-if="slotProps.selected?.id === BgEffect.Solid"
       class="row justify-center q-gutter-md"
     >
-      <q-color v-model="bgSolidColor" class="darker" no-header />
+      <v-color-picker
+        v-model="effectConfigStore.bgEffectConfig.solidColor.color"
+        flat
+        hide-inputs
+        mode="rgb"
+        show-swatches
+        swatches-max-height="120"
+      ></v-color-picker>
       <q-separator vertical></q-separator>
-      <div class="q-gutter-y-sm col-2">
+      <div class="q-gutter-sm col-2">
         <div class="text-body1">Presets</div>
-        <q-scroll-area style="height: 200px; width: 6rem">
-          <div class="q-gutter-y-sm">
-            <div
-              v-for="preset in solidColorPresets"
-              :key="preset"
-              class="row no-wrap q-gutter-x-sm"
-            >
-              <q-btn
-                flat
-                class="preset-button"
-                :style="'background-color:' + preset + ';'"
-                @click="bgSolidColor = preset"
-              ></q-btn>
-              <q-btn
-                dense
-                outline
-                size="xs"
-                icon="close"
-                color="grey-5"
-              ></q-btn>
-            </div>
-          </div>
-        </q-scroll-area>
+        <q-btn
+          outline
+          no-wrap
+          label="Save"
+          icon="eva-save-outline"
+          color="primary"
+        ></q-btn>
+        <q-btn
+          outline
+          no-wrap
+          label="Delete"
+          icon="eva-trash-2-outline"
+          color="red-8"
+        ></q-btn>
       </div>
     </div>
     <div v-else class="text-center full-width text-grey-5">No Settings</div>
@@ -49,7 +47,8 @@
 import { storeToRefs } from 'pinia';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { BgEffect, EffectListEntry } from 'src/types/types';
-import { reactive, ref } from 'vue';
+import { reactive } from 'vue';
+import { VColorPicker } from 'vuetify/components/VColorPicker';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
@@ -80,26 +79,5 @@ const effectList: EffectListEntry[] = reactive([
     label: 'Sparkle',
     id: BgEffect.Sparkle,
   },
-]);
-
-const bgSolidColor = ref<string>();
-
-// DEMO
-const solidColorPresets = reactive([
-  '#f66244',
-  '#00fffc',
-  '#ed00c8',
-  '#f66244',
-  '#00fffc',
-  '#ed00c8',
-  '#f66244',
-  '#00fffc',
-  '#ed00c8',
-  '#f66244',
-  '#00fffc',
-  '#ed00c8',
-  '#f66244',
-  '#00fffc',
-  '#ed00c8',
 ]);
 </script>

@@ -57,6 +57,15 @@ export interface EffectListEntry {
   id: string;
 }
 export interface BackgroundEffectConfig {
+  solidColor: EffectConfig.SolidColorEffectConfig;
+  fire: EffectConfig.FireEffectConfig;
+  colorFade: EffectConfig.ColorFadeEffectConfig;
+  colorChase: EffectConfig.ColorChaseEffectConfig;
+  breathing: EffectConfig.BreathingEffectConfig;
+  sparkle: EffectConfig.SparkleEffectConfig;
+}
+
+export interface BackgroundEffectConfigState {
   solidColor?: EffectConfig.SolidColorEffectConfig;
   fire?: EffectConfig.FireEffectConfig;
   colorFade?: EffectConfig.ColorFadeEffectConfig;
@@ -64,7 +73,17 @@ export interface BackgroundEffectConfig {
   breathing?: EffectConfig.BreathingEffectConfig;
   sparkle?: EffectConfig.SparkleEffectConfig;
 }
+
 export interface AccelEffectConfig {
+  colorStrike: EffectConfig.ColorStrikeEffectConfig;
+  rainbowStrike: EffectConfig.RainbowStrikeEffectConfig;
+  gradientStrike: EffectConfig.GradientStrikeEffectConfig;
+  strobe: EffectConfig.StrobeEffectConfig;
+  rainbowStrobe: EffectConfig.RainbowStrobeEffectConfig;
+  colorChase: EffectConfig.ColorChaseEffectConfig;
+}
+
+export interface AccelEffectConfigState {
   colorStrike?: EffectConfig.ColorStrikeEffectConfig;
   rainbowStrike?: EffectConfig.RainbowStrikeEffectConfig;
   gradientStrike?: EffectConfig.GradientStrikeEffectConfig;
@@ -73,6 +92,10 @@ export interface AccelEffectConfig {
   colorChase?: EffectConfig.ColorChaseEffectConfig;
 }
 export interface SteeringEffectConfig {
+  colorFadeTilt: EffectConfig.ColorFadeTiltEffectConfig;
+  water: EffectConfig.WaterEffectConfig;
+}
+export interface SteeringEffectConfigState {
   colorFadeTilt?: EffectConfig.ColorFadeTiltEffectConfig;
   water?: EffectConfig.WaterEffectConfig;
 }

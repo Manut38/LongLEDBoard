@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import {
   AccelEffect,
+  BackgroundEffectConfig,
   BgEffect,
   BoardEffectState,
   PreviewData,
@@ -18,15 +19,39 @@ export const useEffectConfigStore = defineStore(
       accelActive: false,
       accelSelected: AccelEffect.ColorStrike,
       steeringActive: false,
-      steeringSelected: SteeringEffect.ColorFadeLeftRight,
+      steeringSelected: SteeringEffect.ColorFadeTilt,
     });
-    // const effectConfig = ref<EffectConfig>();
+    const bgEffectConfig = ref<BackgroundEffectConfig>({
+      solidColor: {
+        color: '#ffffff',
+      },
+      breathing: {
+        colors: ['#ffffff'],
+        time: 3000,
+      },
+      colorChase: {
+        colors: ['#ffffff'],
+        time: 3000,
+      },
+      colorFade: {
+        colors: ['#ffffff'],
+        time: 3000,
+      },
+      fire: {
+        speed: 100,
+      },
+      sparkle: {
+        background: '#000000',
+        sparkleColor: '#ffffff',
+        speed: 100,
+      },
+    });
     const previewData = ref<PreviewData>();
 
     return {
       previewData,
       boardEffectState,
-      // effectConfig,
+      bgEffectConfig,
     };
   },
   {

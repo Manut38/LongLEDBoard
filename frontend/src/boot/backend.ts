@@ -10,7 +10,8 @@ const appConfig = useAppConfigStore();
 const effectConfig = useEffectConfigStore();
 
 const { socketBackendURL } = storeToRefs(appConfig);
-const { boardEffectState, previewData } = storeToRefs(effectConfig);
+const { boardEffectState, previewData, bgEffectConfig } =
+  storeToRefs(effectConfig);
 
 let errorNotify: (props?: QNotifyUpdateOptions) => void;
 let errorNotifyShown: boolean;
@@ -56,7 +57,12 @@ watch(data, (data: string) => {
         boardEffectState.value = response.state;
       }
     });
-
+    ignoreBgEffectConfigStateUpdates(() => {
+      if (response.effectConfig?.bgEffect) {
+        console.log('Received BgEffectConfig State:', response);
+        bgEffectConfig.value = response.effectConfig.bgEffect;
+      }
+    });
     if (response.previewData) {
       previewData.value = response.previewData;
     }
@@ -73,6 +79,24 @@ const { ignoreUpdates: ignoreBoardEffectStateUpdates } = watchIgnorable(
         state: state,
       };
       console.log('Sending Board State:', msg);
+      send(JSON.stringify(msg));
+    }
+  },
+  {
+    deep: true,
+  }
+);
+
+const { ignoreUpdates: ignoreBgEffectConfigStateUpdates } = watchIgnorable(
+  bgEffectConfig,
+  (state) => {
+    if (connected.value) {
+      const msg: ISocketResponse = {
+        effectConfig: {
+          bgEffect: state,
+        },
+      };
+      console.log('Sending BgEffectConfig:', msg);
       send(JSON.stringify(msg));
     }
   },
