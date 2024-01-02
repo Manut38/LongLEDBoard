@@ -25,8 +25,8 @@ const { boardEffectState } = storeToRefs(effectConfigStore);
 
 const effectList = reactive([
   {
-    label: 'Color Fade Left/Right',
-    id: SteeringEffect.ColorFadeLeftRight,
+    label: 'Color Fade Tilt',
+    id: SteeringEffect.ColorFadeTilt,
   },
   {
     label: 'Water',
