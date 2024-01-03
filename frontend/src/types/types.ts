@@ -26,6 +26,7 @@ export interface BoardEffectState {
   accelSelected: AccelEffect;
   steeringActive: boolean;
   steeringSelected: SteeringEffect;
+  globalBrightness: number;
 }
 export interface EffectConfigState {
   bgEffect?: BackgroundEffectConfig;

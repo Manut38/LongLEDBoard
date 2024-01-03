@@ -13,8 +13,26 @@
         @touchstart="effectsActiveSelected = true"
         @touchend="effectsActiveSelected = false"
       >
-        <div class="text-h6">Effects</div>
+        <div class="text-h6 flex items-center">Effects</div>
         <q-space></q-space>
+        <q-item class="col-7">
+          <q-item-section avatar>
+            <q-icon color="white" name="eva-sun-outline" />
+          </q-item-section>
+          <q-item-section>
+            <q-slider
+              :model-value="boardEffectState.globalBrightness"
+              :min="0"
+              :max="255"
+              label
+              @change="
+                (val) => {
+                  boardEffectState.globalBrightness = val;
+                }
+              "
+            />
+          </q-item-section>
+        </q-item>
         <q-toggle v-model="boardEffectState.active" color="primary"></q-toggle>
       </q-card-section>
       <q-separator inset />
