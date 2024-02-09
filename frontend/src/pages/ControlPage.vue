@@ -63,8 +63,8 @@
       </q-card-section>
       <q-slide-transition>
         <div v-if="debugActive">
-          <q-separator inset></q-separator
-          ><q-card-section class="column q-gutter-md no-wrap">
+          <q-separator inset></q-separator>
+          <q-card-section class="column q-gutter-md no-wrap">
             <q-btn
               label="Test"
               rounded
@@ -122,9 +122,9 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import AccelEffectCard from 'src/components/AccelEffectCard.vue';
-import BackgroundEffectCardVue from 'src/components/BackgroundEffectCard.vue';
-import SteeringEffectCard from 'src/components/SteeringEffectCard.vue';
+import AccelEffectCard from 'src/components/cards/AccelEffectCard.vue';
+import BackgroundEffectCardVue from 'src/components/cards/BackgroundEffectCard.vue';
+import SteeringEffectCard from 'src/components/cards/SteeringEffectCard.vue';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { ref } from 'vue';

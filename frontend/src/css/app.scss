@@ -84,19 +84,43 @@ body.body--light {
 
 // Override default dark card background
 .q-card--dark {
+  position: relative;
   border-radius: 10px;
   background-color: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(15px);
   box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
   border: 1.5px solid rgba(255, 255, 255, 0.06);
+}
+
+.q-card--dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+
+  backdrop-filter: blur(15px);
+  animation: fadeIn 0.7s ease 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
 
+  100% {
+    opacity: 1;
+  }
+}
 .q-card .q-card {
   backdrop-filter: none;
   // background-color: transparent;
   background-color: rgba(255, 255, 255, 0.03);
 }
 
+.glass {
+  background-color: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+}
 // Override default dark editor background
 .q-editor--dark {
   background-color: rgba($dark, 0.3);
@@ -166,15 +190,21 @@ body.body--light {
 }
 
 .drawer-list {
+  margin: 0;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
   border-radius: 0 32px 32px 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.06);
   transition: background-color 0.5s;
   overflow: hidden;
-  background-color: rgba($dark, 0.3);
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .drawer-list:hover {
   @media (max-width: $breakpoint-md-max) {
-    background-color: rgba($dark, 0.85);
+    background-color: rgba($dark, 0.3);
   }
 }
 
@@ -228,6 +258,25 @@ body.body--light {
   // border-radius: 0;
 }
 
+.small-screen-only {
+  @media (max-width: $breakpoint-xs-max) {
+    display: block;
+  }
+
+  @media (min-width: $breakpoint-sm-min) {
+    display: none;
+  }
+}
+
+.large-screen-only {
+  @media (max-width: $breakpoint-xs-max) {
+    display: none;
+  }
+
+  @media (min-width: $breakpoint-sm-min) {
+    display: block;
+  }
+}
 // Preview Bar
 .preview-gradient {
   height: 10px;

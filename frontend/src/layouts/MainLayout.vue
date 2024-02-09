@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lhh Lpr lFf">
+  <q-layout view="lhh LpR fFf">
     <div id="background-container">
       <!-- <div id="background-gradient" class="background gradient-color" /> -->
       <!-- <div class="background gradient-darken" /> -->
@@ -65,13 +65,60 @@
       </q-toolbar>
     </q-header>
 
-    <q-page-container>
-      <router-view v-slot="{ Component}">
-        <transition appear name="slide-right" mode="out-in" >
+    <q-drawer
+      v-model="drawer"
+      class="large-screen-only"
+      show-if-above
+      side="left"
+      :mini="drawerMiniState"
+      :width="200"
+      :breakpoint="500"
+      mini-to-overlay
+      @mouseover="drawerMiniState = false"
+      @mouseleave="drawerMiniState = true"
+    >
+      <q-list padding class="drawer-list glass">
+        <q-item v-ripple clickable :to="{ name: 'control' }">
+          <q-item-section avatar>
+            <q-icon name="eva-bulb-outline" />
+          </q-item-section>
+          <q-item-section> Effects </q-item-section>
+        </q-item>
+
+        <q-item v-ripple clickable :to="{ name: 'presets' }">
+          <q-item-section avatar>
+            <q-icon name="eva-save-outline" />
+          </q-item-section>
+          <q-item-section> Presets </q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
+
+    <q-page-container style="overflow: hidden">
+      <router-view v-slot="{ Component }">
+        <transition appear name="slide-right" mode="out-in">
           <component :is="Component" />
         </transition>
       </router-view>
     </q-page-container>
+
+    <q-footer class="small-screen-only" reveal :reveal-offset="20">
+      <q-tabs
+        align="center"
+        dense
+        active-color="primary"
+        switch-indicator
+        indicator-color="transparent"
+        :breakpoint="300"
+      >
+        <q-route-tab icon="eva-bulb-outline" :to="{ name: 'control' }">
+          Effects
+        </q-route-tab>
+        <q-route-tab icon="eva-save-outline" :to="{ name: 'presets' }">
+          Presets
+        </q-route-tab>
+      </q-tabs>
+    </q-footer>
   </q-layout>
 </template>
 
@@ -84,13 +131,16 @@ import { useAppConfigStore } from 'src/stores/appConfig';
 
 import { useBackend } from 'src/composables/backend';
 import { BackgroundGradientPluginKey } from 'src/types/types';
-import { ComputedRef, computed, watch } from 'vue';
+import { ComputedRef, computed, ref, watch } from 'vue';
 
 const $q = useQuasar();
 
 const backgroundGradient = injectStrict(BackgroundGradientPluginKey);
 const appConfig = useAppConfigStore();
 const backend = useBackend();
+
+const drawer = ref(false);
+const drawerMiniState = ref(true);
 
 // backgroundGradient.setBackgroundGradient('purple');
 
