@@ -11,6 +11,10 @@ body {
   font-size: 15px;
 }
 
+body.body--light {
+  color: black;
+}
+
 .links-primary {
 
   a,
@@ -37,14 +41,11 @@ body {
 }
 
 .q-toolbar {
-  // @media (min-width: $breakpoint-xs-min) {
-  //   height: $navbar-height;
-  // }
   padding-left: 16px;
 }
 
-.q-drawer--dark {
-  background-color: rgba($dark, 0);
+.q-drawer {
+  background-color: transparent;
 }
 
 .q-drawer--dark.q-drawer--mobile {
@@ -60,10 +61,6 @@ body {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
   background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(20px);
-}
-
-.q-card.q-dark {
-  // box-shadow: none;
 }
 
 body.body--dark .q-layout__shadow:after .q-layout__shadow:after {
@@ -82,13 +79,18 @@ body.body--light {
   background: linear-gradient(180deg, #1d061a, #090707);
 }
 
-// Override default dark card background
-.q-card--dark {
+// Modify QCard and change dark card background
+.q-card {
   position: relative;
   border-radius: 10px;
-  background-color: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid;
   box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
-  border: 1.5px solid rgba(255, 255, 255, 0.06);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.q-card--dark {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.06);
 }
 
 .q-card--dark::after {
@@ -111,16 +113,21 @@ body.body--light {
     opacity: 1;
   }
 }
+
 .q-card .q-card {
   backdrop-filter: none;
-  // background-color: transparent;
   background-color: rgba(255, 255, 255, 0.03);
+}
+
+.q-card .q-card::after {
+  backdrop-filter: none;
 }
 
 .glass {
   background-color: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(15px);
 }
+
 // Override default dark editor background
 .q-editor--dark {
   background-color: rgba($dark, 0.3);
@@ -191,10 +198,10 @@ body.body--light {
 
 .drawer-list {
   margin: 0;
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    transform: translateY(-50%);
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  transform: translateY(-50%);
   border-radius: 0 32px 32px 0;
   border: 1.5px solid rgba(255, 255, 255, 0.06);
   transition: background-color 0.5s;
@@ -277,6 +284,7 @@ body.body--light {
     display: block;
   }
 }
+
 // Preview Bar
 .preview-gradient {
   height: 10px;

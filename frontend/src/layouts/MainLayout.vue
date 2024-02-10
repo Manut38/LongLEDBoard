@@ -67,7 +67,7 @@
 
     <q-drawer
       v-model="drawer"
-      class="large-screen-only"
+      class="large-screen-only text-white"
       show-if-above
       side="left"
       :mini="drawerMiniState"
