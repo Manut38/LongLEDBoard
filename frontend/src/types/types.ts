@@ -100,3 +100,13 @@ export interface SteeringEffectConfigState {
   colorFadeTilt?: EffectConfig.ColorFadeTiltEffectConfig;
   water?: EffectConfig.WaterEffectConfig;
 }
+
+export interface EffectPreset {
+  bgActive: boolean;
+  bgSelected: BgEffect;
+  accelActive: boolean;
+  accelSelected: AccelEffect;
+  steeringActive: boolean;
+  steeringSelected: SteeringEffect;
+  globalBrightness?: number;
+}
