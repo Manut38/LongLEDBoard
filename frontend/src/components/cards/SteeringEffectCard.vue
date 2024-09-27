@@ -2,12 +2,12 @@
   <effect-control-card
     title="Steering Effect"
     :effect-list="effectList"
-    :active="boardEffectState.steeringActive"
-    :selected-id="boardEffectState.steeringSelected"
+    :active="boardState.steeringActive"
+    :selected-id="boardState.steeringSelected"
     @toggle-active="
-      boardEffectState.steeringActive = !boardEffectState.steeringActive
+      boardState.steeringActive = !boardState.steeringActive
     "
-    @change-selection="(id) => (boardEffectState.steeringSelected = id)"
+    @change-selection="(id) => (boardState.steeringSelected = id)"
   >
     <div class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
@@ -21,7 +21,7 @@ import { reactive } from 'vue';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardEffectState } = storeToRefs(effectConfigStore);
+const { boardState: boardState } = storeToRefs(effectConfigStore);
 
 const effectList = reactive([
   {

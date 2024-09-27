@@ -1,13 +1,13 @@
-#include "BlinkEffect.h"
+#include "LedEffect/EffectBlink.h"
 
-BlinkEffect::BlinkEffect(int delay, CRGB color)
+EffectBlink::EffectBlink(int delay, CRGB color)
 {
 	this->timerDelay = delay;
 	this->color = color;
 	blinkIsOn = false;
 }
 
-void BlinkEffect::timedLoop()
+void EffectBlink::timedLoop()
 {
 	if (!blinkIsOn)
 	{

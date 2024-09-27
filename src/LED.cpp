@@ -1,6 +1,5 @@
 #include "LED.h"
-#include "BlinkEffect.h"
-#include "ColorRunEffect.h"
+
 #include <memory>
 
 void LED::setup()
@@ -107,4 +106,12 @@ CRGB LED::getRandomColor(CRGB currentColor)
 	{
 		return randomColor;
 	}
+}
+
+CRGB LED::colorFromHexString(String hex)
+{
+	hex = hex.substring(1, hex.length());
+	uint32_t c;
+	std::istringstream(hex.c_str()) >> std::hex >> c;
+	return CRGB(c);
 }

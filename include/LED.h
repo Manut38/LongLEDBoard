@@ -1,7 +1,10 @@
+#pragma once
+
 #include <FastLED.h>
 #include <vector>
 #include <memory>
-#include <LedEffect.h>
+#include <sstream>
+#include "LedEffect/LedEffect.h"
 #include "Config.h"
 
 using namespace std;
@@ -21,6 +24,11 @@ public:
 	void addFgEffect(LedEffect *e);
 	void setBgEffect(LedEffect *e);
 	void clearBgEffect();
+	void setGlobalBrightness(uint8 b)
+	{
+		FastLED.setBrightness(b);
+	}
 
-	CRGB getRandomColor(CRGB currentColor = 0);
+	static CRGB getRandomColor(CRGB currentColor = 0);
+	static CRGB colorFromHexString(String hex);
 };

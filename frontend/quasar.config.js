@@ -74,8 +74,8 @@ module.exports = configure(function (/* ctx */) {
 
       vitePlugins: [
         [
-          'vite-plugin-vuetify',
-          { styles: { configFile: 'src/css/vuetify.scss' } },
+          // 'vite-plugin-vuetify',
+          // { styles: { configFile: 'src/css/vuetify.scss' } },
         ],
       ],
     },

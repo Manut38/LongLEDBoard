@@ -1,7 +1,7 @@
 #pragma once
 #include "LedEffect.h"
 
-class RainbowLoopEffect : public LedEffect
+class EffectRainbowLoop : public LedEffect
 {
 private:
     uint8_t hue = 0;
@@ -11,5 +11,5 @@ protected:
     void timedLoop() override;
 
 public:
-    RainbowLoopEffect(int durationFullCycle);
+    EffectRainbowLoop(int durationFullCycle);
 };

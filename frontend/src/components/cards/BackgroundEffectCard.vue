@@ -3,10 +3,10 @@
     v-slot="slotProps"
     title="Background Effect"
     :effect-list="effectList"
-    :active="boardEffectState.bgActive"
-    :selected-id="boardEffectState.bgSelected"
-    @toggle-active="boardEffectState.bgActive = !boardEffectState.bgActive"
-    @change-selection="(id) => (boardEffectState.bgSelected = id)"
+    :active="boardState.bgActive"
+    :selected-id="boardState.bgSelected"
+    @toggle-active="boardState.bgActive = !boardState.bgActive"
+    @change-selection="(id) => (boardState.bgSelected = id)"
   >
     <div
       v-if="slotProps.selected?.id === BgEffect.Solid"
@@ -20,8 +20,9 @@
         show-swatches
         swatches-max-height="120"
       ></v-color-picker>
-      <q-separator vertical></q-separator>
-      <div class="q-gutter-sm col-2">
+      <q-color v-model="effectConfigStore.bgEffectConfig.solidColor.color" no-header class="my-picker" />
+      <!-- <q-separator vertical></q-separator> -->
+      <!-- <div class="q-gutter-sm col-2">
         <div class="text-body1">Presets</div>
         <q-btn
           outline
@@ -37,7 +38,7 @@
           icon="eva-trash-2-outline"
           color="red-8"
         ></q-btn>
-      </div>
+      </div> -->
     </div>
     <div v-else class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
@@ -52,7 +53,7 @@ import { VColorPicker } from 'vuetify/components/VColorPicker';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardEffectState } = storeToRefs(effectConfigStore);
+const { boardState: boardState } = storeToRefs(effectConfigStore);
 
 const effectList: EffectListEntry[] = reactive([
   {

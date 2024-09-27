@@ -13,13 +13,14 @@
     "build": "quasar build"
   },
   "dependencies": {
-    "@quasar/extras": "^1.16.4",
+    "@quasar/extras": "^1.16.12",
     "@vueuse/core": "^10.7.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.0",
     "quasar": "^2.6.0",
+    "vite": "^5.4.8",
     "vite-plugin-vuetify": "^2.0.1",
-    "vue": "^3.0.0",
+    "vue": "3",
     "vue-router": "^4.0.0",
     "vuetify": "^3.0.0-beta.0"
   },

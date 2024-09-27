@@ -1,18 +1,20 @@
 import { defineStore } from 'pinia';
 import {
   AccelEffect,
+  AccelEffectConfig,
   BackgroundEffectConfig,
   BgEffect,
-  BoardEffectState,
+  BoardState,
   PreviewData,
   SteeringEffect,
+  SteeringEffectConfig,
 } from 'src/types/types';
 import { ref } from 'vue';
 
 export const useEffectConfigStore = defineStore(
   'effectConfig',
   () => {
-    const boardEffectState = ref<BoardEffectState>({
+    const boardState = ref<BoardState>({
       active: false,
       bgActive: false,
       bgSelected: BgEffect.Solid,
@@ -47,12 +49,17 @@ export const useEffectConfigStore = defineStore(
         speed: 100,
       },
     });
+    const accelEffectConfig = ref<AccelEffectConfig>();
+    const steeringEffectConfig = ref<SteeringEffectConfig>();
+
     const previewData = ref<PreviewData>();
 
     return {
       previewData,
-      boardEffectState,
+      boardState,
       bgEffectConfig,
+      accelEffectConfig,
+      steeringEffectConfig,
     };
   },
   {

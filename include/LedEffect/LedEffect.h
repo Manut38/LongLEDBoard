@@ -5,8 +5,8 @@
 class LedEffect
 {
 protected:
-	u_long timer;
-	int timerDelay;
+	uint32_t timer;
+	uint32_t timerDelay;
 	virtual void timedLoop() = 0;
 
 public:

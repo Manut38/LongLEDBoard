@@ -7,7 +7,7 @@ export const BackgroundGradientPluginKey: InjectionKey<BackgroundGradient> =
   Symbol('BackgroundGradient Plugin');
 export interface ISocketResponse {
   previewData?: PreviewData;
-  state?: BoardEffectState;
+  state?: BoardState;
   effectConfig?: EffectConfigState;
 }
 export interface PreviewData {
@@ -18,7 +18,7 @@ export interface PixelData {
   g: number;
   b: number;
 }
-export interface BoardEffectState {
+export interface BoardState {
   active: boolean;
   bgActive: boolean;
   bgSelected: BgEffect;

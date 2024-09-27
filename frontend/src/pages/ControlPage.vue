@@ -7,7 +7,7 @@
     >
       <q-card-section
         class="row justify-between cursor-pointer"
-        @click="boardEffectState.active = !boardEffectState.active"
+        @click="boardState.active = !boardState.active"
         @mousedown="effectsActiveSelected = true"
         @mouseup="effectsActiveSelected = false"
         @touchstart="effectsActiveSelected = true"
@@ -21,19 +21,15 @@
           </q-item-section>
           <q-item-section>
             <q-slider
-              :model-value="boardEffectState.globalBrightness"
+              v-model="boardState.globalBrightness"
               :min="0"
               :max="255"
               label
-              @change="
-                (val) => {
-                  boardEffectState.globalBrightness = val;
-                }
-              "
+              @mousedown.stop @touchstart.stop @click.stop
             />
           </q-item-section>
         </q-item>
-        <q-toggle v-model="boardEffectState.active" color="primary"></q-toggle>
+        <q-toggle v-model="boardState.active" color="primary"></q-toggle>
       </q-card-section>
       <q-separator inset />
       <q-card-section horizontal>
@@ -90,7 +86,7 @@
               <q-item v-ripple clickable>
                 <q-item-section>
                   <q-item-label overline>Store Board Effect State</q-item-label>
-                  <q-item-label>{{ boardEffectState }}</q-item-label>
+                  <q-item-label>{{ boardState }}</q-item-label>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -132,7 +128,7 @@ import { ref } from 'vue';
 import { useAppConfigStore } from 'src/stores/appConfig';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardEffectState } = storeToRefs(effectConfigStore);
+const { boardState } = storeToRefs(effectConfigStore);
 const { debugActive } = storeToRefs(useAppConfigStore());
 
 const backend = useBackend();
@@ -141,4 +137,5 @@ const isPreviewVisible = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
 
 const debugActiveSelected = ref<boolean>();
+
 </script>

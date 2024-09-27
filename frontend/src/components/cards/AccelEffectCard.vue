@@ -2,12 +2,12 @@
   <effect-control-card
     title="Acceleration Effect"
     :effect-list="effectList"
-    :active="boardEffectState.accelActive"
-    :selected-id="boardEffectState.accelSelected"
+    :active="boardState.accelActive"
+    :selected-id="boardState.accelSelected"
     @toggle-active="
-      boardEffectState.accelActive = !boardEffectState.accelActive
+      boardState.accelActive = !boardState.accelActive
     "
-    @change-selection="(id) => (boardEffectState.accelSelected = id)"
+    @change-selection="(id) => (boardState.accelSelected = id)"
   >
     <div class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
@@ -21,7 +21,7 @@ import { reactive } from 'vue';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardEffectState } = storeToRefs(effectConfigStore);
+const { boardState: boardState } = storeToRefs(effectConfigStore);
 
 const effectList = reactive([
   {

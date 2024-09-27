@@ -1,4 +1,4 @@
-#include "LedEffect.h"
+#include "LedEffect/LedEffect.h"
 #include <string>
 
 void LedEffect::loop()
@@ -6,7 +6,7 @@ void LedEffect::loop()
 	if (timerDelay > 0)
 	{
 		// calculate delay timer and run timedLoop() when timer is over
-		u_long timePassed = (millis() - timer);
+		uint32_t timePassed = (millis() - timer);
 		if (timePassed >= timerDelay)
 		{
 			int repeatLoop = (int)timePassed / timerDelay;

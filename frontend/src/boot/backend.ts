@@ -1,4 +1,4 @@
-import { useWebSocket, watchIgnorable } from '@vueuse/core';
+import { throttleFilter, useWebSocket, watchIgnorable } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
 import { Notify, QNotifyUpdateOptions } from 'quasar';
 import { useAppConfigStore } from 'src/stores/appConfig';
@@ -9,14 +9,19 @@ import { computed, watch } from 'vue';
 const appConfig = useAppConfigStore();
 const effectConfig = useEffectConfigStore();
 
-const { socketBackendURL } = storeToRefs(appConfig);
-const { boardEffectState, previewData, bgEffectConfig } =
-  storeToRefs(effectConfig);
+const { socketBackendURLFull } = storeToRefs(appConfig);
+const {
+  boardState,
+  previewData,
+  bgEffectConfig,
+  accelEffectConfig,
+  steeringEffectConfig,
+} = storeToRefs(effectConfig);
 
 let errorNotify: (props?: QNotifyUpdateOptions) => void;
 let errorNotifyShown: boolean;
 
-const { status, data, send, open, close } = useWebSocket(socketBackendURL, {
+const { status, data, send, open, close } = useWebSocket(socketBackendURLFull, {
   autoReconnect: {
     delay: 5000,
   },
@@ -51,16 +56,28 @@ const { status, data, send, open, close } = useWebSocket(socketBackendURL, {
 watch(data, (data: string) => {
   try {
     const response: ISocketResponse = JSON.parse(data);
-    ignoreBoardEffectStateUpdates(() => {
+    ignoreBoardStateUpdates(() => {
       if (response.state) {
         console.log('Received Board State:', response);
-        boardEffectState.value = response.state;
+        boardState.value = response.state;
       }
     });
     ignoreBgEffectConfigStateUpdates(() => {
       if (response.effectConfig?.bgEffect) {
         console.log('Received BgEffectConfig State:', response);
         bgEffectConfig.value = response.effectConfig.bgEffect;
+      }
+    });
+    ignoreAccelEffectConfigStateUpdates(() => {
+      if (response.effectConfig?.accelEffect) {
+        console.log('Received AccelEffectConfig State:', response);
+        accelEffectConfig.value = response.effectConfig.accelEffect;
+      }
+    });
+    ignoreSteeringEffectConfigStateUpdates(() => {
+      if (response.effectConfig?.steeringEffect) {
+        console.log('Received SteeringEffectConfig State:', response);
+        steeringEffectConfig.value = response.effectConfig.steeringEffect;
       }
     });
     if (response.previewData) {
@@ -71,8 +88,8 @@ watch(data, (data: string) => {
   }
 });
 
-const { ignoreUpdates: ignoreBoardEffectStateUpdates } = watchIgnorable(
-  boardEffectState,
+const { ignoreUpdates: ignoreBoardStateUpdates } = watchIgnorable(
+  boardState,
   (state) => {
     if (connected.value) {
       const msg: ISocketResponse = {
@@ -83,6 +100,7 @@ const { ignoreUpdates: ignoreBoardEffectStateUpdates } = watchIgnorable(
     }
   },
   {
+    eventFilter: throttleFilter(50),
     deep: true,
   }
 );
@@ -101,9 +119,47 @@ const { ignoreUpdates: ignoreBgEffectConfigStateUpdates } = watchIgnorable(
     }
   },
   {
+    eventFilter: throttleFilter(50),
     deep: true,
   }
 );
+const { ignoreUpdates: ignoreAccelEffectConfigStateUpdates } = watchIgnorable(
+  accelEffectConfig,
+  (state) => {
+    if (connected.value) {
+      const msg: ISocketResponse = {
+        effectConfig: {
+          accelEffect: state,
+        },
+      };
+      console.log('Sending AccelEffectConfig:', msg);
+      send(JSON.stringify(msg));
+    }
+  },
+  {
+    eventFilter: throttleFilter(50),
+    deep: true,
+  }
+);
+const { ignoreUpdates: ignoreSteeringEffectConfigStateUpdates } =
+  watchIgnorable(
+    steeringEffectConfig,
+    (state) => {
+      if (connected.value) {
+        const msg: ISocketResponse = {
+          effectConfig: {
+            steeringEffect: state,
+          },
+        };
+        console.log('Sending SteeringEffectConfig:', msg);
+        send(JSON.stringify(msg));
+      }
+    },
+    {
+      eventFilter: throttleFilter(50),
+      deep: true,
+    }
+  );
 
 export const connected = computed(() => status.value === 'OPEN');
 
