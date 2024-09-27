@@ -73,10 +73,10 @@ module.exports = configure(function (/* ctx */) {
       // viteVuePluginOptions: {},
 
       vitePlugins: [
-        [
-          // 'vite-plugin-vuetify',
-          // { styles: { configFile: 'src/css/vuetify.scss' } },
-        ],
+        // [
+        //   'vite-plugin-vuetify',
+        //   { styles: { configFile: 'src/css/vuetify.scss' } },
+        // ],
       ],
     },
 
