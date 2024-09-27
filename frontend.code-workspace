@@ -1,0 +1,13 @@
+{
+  "folders": [
+    {
+      "path": "frontend",
+      "name": "LongLEDBoard Frontend"
+    }
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true,
+    }
+  }
+}

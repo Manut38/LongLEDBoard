@@ -1,0 +1,21 @@
+{
+  "folders": [
+    {
+      "path": ".",
+      "name": "LongLEDBoard ESP"
+    }
+  ],
+  "settings": {
+    "search.exclude": {
+      "**/node_modules": true,
+    },
+    "files.exclude": {
+      "frontend": true,
+    },
+    "files.associations": {
+      "*.src": "plaintext",
+      "*.pcc": "hp",
+      "string": "cpp"
+    },
+  }
+}
