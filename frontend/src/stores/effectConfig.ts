@@ -28,6 +28,9 @@ export const useEffectConfigStore = defineStore(
       solidColor: {
         color: '#ffffff',
       },
+      rainbow: {
+        duration: 5,
+      },
       breathing: {
         colors: ['#ffffff'],
         time: 3000,

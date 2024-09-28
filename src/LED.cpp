@@ -11,6 +11,8 @@ void LED::setup()
 
 void LED::loop()
 {
+	FastLED.clear();
+	
 	// Handle background effect
 	if (bgEffectActive)
 	{
@@ -56,11 +58,6 @@ void LED::setBgEffect(LedEffect *effect)
 {
 	bgEffect = unique_ptr<LedEffect>(effect);
 	bgEffectActive = true;
-}
-
-void LED::clearBgEffect()
-{
-	bgEffectActive = false;
 }
 
 CRGB LED::getRandomColor(CRGB currentColor)

@@ -15,6 +15,8 @@ private:
 	CRGB leds[NUM_LEDS];
 	vector<unique_ptr<LedEffect>> fgEffects;
 	unique_ptr<LedEffect> bgEffect;
+	bool globalPower;
+	uint8_t brightness;
 	bool bgEffectActive;
 
 public:
@@ -23,11 +25,21 @@ public:
 
 	void addFgEffect(LedEffect *e);
 	void setBgEffect(LedEffect *e);
-	void clearBgEffect();
 	void setGlobalBrightness(uint8 b)
 	{
-		FastLED.setBrightness(b);
+		brightness = b;
+		if (globalPower)
+			FastLED.setBrightness(brightness);
 	}
+	void setGlobalPower(bool power)
+	{
+		globalPower = power;
+		if (power)
+			FastLED.setBrightness(brightness);
+		else
+			FastLED.setBrightness(0);
+	}
+	void setBgEffectActive(bool active) { bgEffectActive = active; }
 
 	static CRGB getRandomColor(CRGB currentColor = 0);
 	static CRGB colorFromHexString(String hex);

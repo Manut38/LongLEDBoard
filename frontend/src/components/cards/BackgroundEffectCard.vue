@@ -9,12 +9,7 @@
       boardState.bgActive = !boardState.bgActive;
       backend.sendBoardState({ bgActive: boardState.bgActive });
     "
-    @change-selection="
-      (id) => {
-        boardState.bgSelected = id;
-        backend.sendBoardState({ bgSelected: id });
-      }
-    "
+    @change-selection="changeSelection"
   >
     <div
       v-if="slotProps.selected?.id === BgEffect.Solid"
@@ -53,6 +48,27 @@
         ></q-btn>
       </div> -->
     </div>
+    <div
+      v-else-if="slotProps.selected?.id === BgEffect.Rainbow"
+      class="row justify-center q-gutter-md"
+    >
+      <q-item-label>Duration</q-item-label>
+      <q-slider
+        v-model="effectConfigStore.bgEffectConfig.rainbow.duration"
+        :min="1000"
+        :max="10000"
+        label
+        @update:model-value="
+          if ($event != undefined)
+            backend.sendEffectConfigState({
+              bgEffect: { rainbow: { duration: $event } },
+            });
+        "
+        @mousedown.stop
+        @touchstart.stop
+        @click.stop
+      />
+    </div>
     <div v-else class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
 </template>
@@ -61,13 +77,17 @@
 import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
-import { BgEffect, EffectListEntry } from 'src/types/types';
+import {
+  BackgroundEffectConfigState,
+  BgEffect,
+  EffectListEntry,
+} from 'src/types/types';
 import { reactive } from 'vue';
 import { VColorPicker } from 'vuetify/components/VColorPicker';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardState: boardState } = storeToRefs(effectConfigStore);
+const { boardState, bgEffectConfig } = storeToRefs(effectConfigStore);
 
 const backend = useBackend();
 
@@ -79,6 +99,10 @@ const effectList: EffectListEntry[] = reactive([
   {
     label: 'Breathing',
     id: BgEffect.Breathing,
+  },
+  {
+    label: 'Rainbow',
+    id: BgEffect.Rainbow,
   },
   {
     label: 'Fire',
@@ -97,4 +121,21 @@ const effectList: EffectListEntry[] = reactive([
     id: BgEffect.Sparkle,
   },
 ]);
+
+function changeSelection(selectionId: BgEffect) {
+  boardState.value.bgSelected = selectionId;
+  let effectState: BackgroundEffectConfigState = {};
+  switch (selectionId) {
+    case BgEffect.Solid:
+      effectState.solidColor = bgEffectConfig.value.solidColor;
+      break;
+    case BgEffect.Rainbow:
+      effectState.rainbow = bgEffectConfig.value.rainbow;
+      break;
+  }
+  backend.sendEffectConfigState({
+    bgEffect: effectState,
+  });
+  backend.sendBoardState({ bgSelected: selectionId });
+}
 </script>

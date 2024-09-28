@@ -26,15 +26,27 @@ void SocketHandler::handleEffectConfig(JsonObject effectConfig)
     JsonObject bgEffect = effectConfig["bgEffect"];
     if (!bgEffect.isNull())
     {
-        String color = bgEffect["solidColor"]["color"];
-        led->setBgEffect(new EffectSolidColor(LED::colorFromHexString(color)));
+        if (!bgEffect["solidColor"].isNull())
+        {
+            String color = bgEffect["solidColor"]["color"];
+            led->setBgEffect(new EffectSolidColor(LED::colorFromHexString(color)));
+        }
+        if (!bgEffect["rainbow"].isNull())
+        {
+            int16_t duration = bgEffect["rainbow"]["duration"];
+            led->setBgEffect(new EffectRainbowLoop(duration));
+        }
     }
 }
 
 void SocketHandler::handleBoardState(JsonObject state)
 {
-    uint8_t b = state["globalBrightness"];
-    led->setGlobalBrightness(b);
+    if (!state["globalBrightness"].isNull())
+        led->setGlobalBrightness(state["globalBrightness"]);
+    if (!state["active"].isNull())
+        led->setGlobalPower(state["active"]);
+    if (!state["bgActive"].isNull())
+        led->setBgEffectActive(state["bgActive"]);
 }
 
 void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
@@ -72,7 +84,7 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
             if (info->opcode == WS_TEXT)
             {
                 data[len] = 0;
-                String msg = (char*) data;
+                String msg = (char *)data;
                 handleMessage(msg);
                 // server->textAll(msg);
             }

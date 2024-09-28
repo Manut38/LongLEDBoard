@@ -46,6 +46,7 @@ export interface BoardStateMsg {
 export enum BgEffect {
   Solid = 'solid',
   Fire = 'fire',
+  Rainbow = 'rainbow',
   ColorFade = 'color_fade',
   ColorChase = 'color_chase',
   Breathing = 'breathing',
@@ -69,6 +70,7 @@ export interface EffectListEntry {
 }
 export interface BackgroundEffectConfig {
   solidColor: EffectConfig.SolidColorEffectConfig;
+  rainbow: EffectConfig.RainbowEffectConfig;
   fire: EffectConfig.FireEffectConfig;
   colorFade: EffectConfig.ColorFadeEffectConfig;
   colorChase: EffectConfig.ColorChaseEffectConfig;
@@ -78,6 +80,7 @@ export interface BackgroundEffectConfig {
 
 export interface BackgroundEffectConfigState {
   solidColor?: EffectConfig.SolidColorEffectConfig;
+  rainbow?: EffectConfig.RainbowEffectConfig;
   fire?: EffectConfig.FireEffectConfig;
   colorFade?: EffectConfig.ColorFadeEffectConfig;
   colorChase?: EffectConfig.ColorChaseEffectConfig;

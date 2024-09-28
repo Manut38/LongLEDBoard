@@ -1,6 +1,9 @@
 export interface SolidColorEffectConfig {
   color: string;
 }
+export interface RainbowEffectConfig {
+  duration: number;
+}
 export interface ColorFadeEffectConfig {
   colors: string[];
   time: number;

@@ -7,6 +7,7 @@
 
 #include "LedEffect/LedEffect.h"
 #include "LedEffect/EffectSolidColor.h"
+#include "LedEffect/EffectRainbowLoop.h"
 
 class SocketHandler
 {

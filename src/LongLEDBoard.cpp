@@ -37,7 +37,7 @@ void setup()
 #endif
 
 	// Set LED background effect
-	led.setBgEffect(new EffectSolidColor(CRGB::OrangeRed));
+	led.setBgEffect(new EffectSolidColor(0xFF1400));
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;
