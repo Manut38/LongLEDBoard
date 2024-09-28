@@ -1,8 +1,8 @@
 {
   "folders": [
     {
-      "name": "LongLEDBoard ESP",
-      "path": "."
+      "path": ".",
+      "name": "LongLEDBoard ESP"
     }
   ],
   "settings": {

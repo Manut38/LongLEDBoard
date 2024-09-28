@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.root": "/esp_fs"
+    "liveServer.settings.root": "/esp_fs",
+    "C_Cpp.errorSquiggles": "disabled"
 }
