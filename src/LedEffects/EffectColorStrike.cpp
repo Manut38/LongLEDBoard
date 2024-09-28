@@ -1,6 +1,6 @@
-#include "LedEffect/EffectColorRun.h"
+#include "LedEffect/EffectColorStrike.h"
 
-EffectColorRun::EffectColorRun(int duration, CRGB color, bool invert)
+EffectColorStrike::EffectColorStrike(int duration, CRGB color, bool invert)
 {
 	fill_solid(mask, NUM_LEDS, CRGB::Black);
 
@@ -11,12 +11,12 @@ EffectColorRun::EffectColorRun(int duration, CRGB color, bool invert)
 	reverse = false;
 }
 
-void EffectColorRun::resetCurrentLed()
+void EffectColorStrike::resetCurrentLed()
 {
 	currentLed = invert ? NUM_LEDS - 1 : 0;
 }
 
-void EffectColorRun::timedLoop()
+void EffectColorStrike::timedLoop()
 {
 	if (!reverse)
 	{
@@ -27,7 +27,7 @@ void EffectColorRun::timedLoop()
 		mask[currentLed] = CRGB::Black;
 	}
 	currentLed = invert ? currentLed - 1 : currentLed + 1;
-	if ((invert && currentLed <= 0) || !invert && currentLed >= NUM_LEDS)
+	if ((invert && currentLed <= 0) || (!invert && (currentLed >= NUM_LEDS)))
 	{
 		if (!reverse)
 		{

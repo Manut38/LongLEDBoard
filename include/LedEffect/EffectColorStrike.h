@@ -1,7 +1,7 @@
 #pragma once
 #include "LedEffect.h"
 
-class EffectColorRun : public LedEffect
+class EffectColorStrike : public LedEffect
 {
 private:
 	CRGB color;
@@ -14,5 +14,5 @@ protected:
 	void resetCurrentLed();
 
 public:
-	EffectColorRun(int duration, CRGB color, bool invert = false);
+	EffectColorStrike(int duration, CRGB color, bool invert = false);
 };
