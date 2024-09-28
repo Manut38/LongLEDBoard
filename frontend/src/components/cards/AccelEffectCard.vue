@@ -5,9 +5,15 @@
     :active="boardState.accelActive"
     :selected-id="boardState.accelSelected"
     @toggle-active="
-      boardState.accelActive = !boardState.accelActive
+      boardState.accelActive = !boardState.accelActive;
+      backend.sendBoardState({ bgActive: boardState.accelActive });
     "
-    @change-selection="(id) => (boardState.accelSelected = id)"
+    @change-selection="
+      (id) => {
+        boardState.accelSelected = id;
+        backend.sendBoardState({ accelSelected: id });
+      }
+    "
   >
     <div class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
@@ -15,6 +21,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { AccelEffect } from 'src/types/types';
 import { reactive } from 'vue';
@@ -22,6 +29,8 @@ import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
 const { boardState: boardState } = storeToRefs(effectConfigStore);
+
+const backend = useBackend();
 
 const effectList = reactive([
   {

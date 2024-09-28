@@ -17,8 +17,8 @@ public:
     void onWsEvent(AsyncWebSocket *ws, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len);
     void handleMessage(String msg);
 
-    void handleEffectConfig(JsonObject &effectConfig);
-    void handleBoardState(JsonObject &state);
+    void handleEffectConfig(JsonObject effectConfig);
+    void handleBoardState(JsonObject state);
 
 private:
     LED *led;

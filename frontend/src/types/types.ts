@@ -7,8 +7,8 @@ export const BackgroundGradientPluginKey: InjectionKey<BackgroundGradient> =
   Symbol('BackgroundGradient Plugin');
 export interface ISocketResponse {
   previewData?: PreviewData;
-  state?: BoardState;
-  effectConfig?: EffectConfigState;
+  state?: BoardStateMsg;
+  effectConfig?: EffectConfigMsg;
 }
 export interface PreviewData {
   pixeldata: PixelData[];
@@ -28,10 +28,20 @@ export interface BoardState {
   steeringSelected: SteeringEffect;
   globalBrightness: number;
 }
-export interface EffectConfigState {
-  bgEffect?: BackgroundEffectConfig;
-  accelEffect?: AccelEffectConfig;
-  steeringEffect?: SteeringEffectConfig;
+export interface EffectConfigMsg {
+  bgEffect?: BackgroundEffectConfigState;
+  accelEffect?: AccelEffectConfigState;
+  steeringEffect?: SteeringEffectConfigState;
+}
+export interface BoardStateMsg {
+  active?: boolean;
+  bgActive?: boolean;
+  bgSelected?: BgEffect;
+  accelActive?: boolean;
+  accelSelected?: AccelEffect;
+  steeringActive?: boolean;
+  steeringSelected?: SteeringEffect;
+  globalBrightness?: number;
 }
 export enum BgEffect {
   Solid = 'solid',

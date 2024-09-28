@@ -5,8 +5,16 @@
     :effect-list="effectList"
     :active="boardState.bgActive"
     :selected-id="boardState.bgSelected"
-    @toggle-active="boardState.bgActive = !boardState.bgActive"
-    @change-selection="(id) => (boardState.bgSelected = id)"
+    @toggle-active="
+      boardState.bgActive = !boardState.bgActive;
+      backend.sendBoardState({ bgActive: boardState.bgActive });
+    "
+    @change-selection="
+      (id) => {
+        boardState.bgSelected = id;
+        backend.sendBoardState({ bgSelected: id });
+      }
+    "
   >
     <div
       v-if="slotProps.selected?.id === BgEffect.Solid"
@@ -19,8 +27,13 @@
         mode="rgb"
         show-swatches
         swatches-max-height="120"
+        @update:model-value="
+          backend.sendEffectConfigState({
+            bgEffect: { solidColor: { color: $event } },
+          })
+        "
       ></v-color-picker>
-      <q-color v-model="effectConfigStore.bgEffectConfig.solidColor.color" no-header class="my-picker" />
+      <!-- <q-color v-model="effectConfigStore.bgEffectConfig.solidColor.color" no-header class="my-picker" /> -->
       <!-- <q-separator vertical></q-separator> -->
       <!-- <div class="q-gutter-sm col-2">
         <div class="text-body1">Presets</div>
@@ -46,6 +59,7 @@
 
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
+import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { BgEffect, EffectListEntry } from 'src/types/types';
 import { reactive } from 'vue';
@@ -54,6 +68,8 @@ import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
 const { boardState: boardState } = storeToRefs(effectConfigStore);
+
+const backend = useBackend();
 
 const effectList: EffectListEntry[] = reactive([
   {

@@ -4,8 +4,9 @@
 #include "LED.h"
 #include "WebServer.h"
 #include "LedEffect/EffectBlink.h"
-#include "LedEffect/EffectColorRun.h"
+#include "LedEffect/EffectColorStrike.h"
 #include "LedEffect/EffectRainbowLoop.h"
+#include "LedEffect/EffectRainbowStrike.h"
 
 using namespace std;
 
@@ -51,7 +52,7 @@ void handleAccelaration()
 {
 	if (mpu.wasAccelerated)
 	{
-		led.addFgEffect(new EffectColorRun(500, CRGB::Red));
+		led.addFgEffect(new EffectRainbowStrike(500));
 	}
 }
 

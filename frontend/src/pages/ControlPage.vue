@@ -25,11 +25,17 @@
               :min="0"
               :max="255"
               label
-              @mousedown.stop @touchstart.stop @click.stop
+              @update:model-value="
+                if ($event != undefined)
+                  backend.sendBoardState({ globalBrightness: $event });
+              "
+              @mousedown.stop
+              @touchstart.stop
+              @click.stop
             />
           </q-item-section>
         </q-item>
-        <q-toggle v-model="boardState.active" color="primary"></q-toggle>
+        <q-toggle v-model="boardState.active" color="primary" @update:model-value="backend.sendBoardState({active: $event})"></q-toggle>
       </q-card-section>
       <q-separator inset />
       <q-card-section horizontal>
@@ -137,5 +143,4 @@ const isPreviewVisible = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
 
 const debugActiveSelected = ref<boolean>();
-
 </script>
