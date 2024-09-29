@@ -29,6 +29,11 @@ const { status, data, send, open, close } = useWebSocket(socketBackendURLFull, {
   autoReconnect: {
     delay: 1000,
   },
+  heartbeat: {
+    message: 'ping',
+    interval: 5000,
+    pongTimeout: 2000,
+  },
   onConnected: () => {
     console.log('Websocket connected.');
     if (errorNotify) {
@@ -57,16 +62,13 @@ const { status, data, send, open, close } = useWebSocket(socketBackendURLFull, {
   },
   onDisconnected: () => {
     console.log('Websocket disconnected.');
-    if (errorNotify) {
-      errorNotify(); // Dismiss notify
-      Notify.create({
-        color: 'warning',
-        message: 'Board disconnectedc.',
-        icon: 'eva-checkmark-circle-2-outline',
-        position: 'bottom',
-        timeout: 2000,
-      });
-    }
+    errorNotify = Notify.create({
+      color: 'warning',
+      message: 'Board disconnected',
+      icon: 'eva-checkmark-circle-2-outline',
+      position: 'bottom',
+      timeout: 2000,
+    });
   },
 });
 

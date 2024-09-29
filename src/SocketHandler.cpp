@@ -85,8 +85,15 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
             {
                 data[len] = 0;
                 String msg = (char *)data;
-                handleMessage(msg);
-                // server->textAll(msg);
+                if (msg.equals("ping"))
+                {
+                    server->text(client->id(), "pong");
+                }
+                else
+                {
+                    handleMessage(msg);
+                    // server->textAll(msg);
+                }
             }
             else
             {
