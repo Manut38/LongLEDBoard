@@ -34,10 +34,6 @@ public:
 	void setGlobalPower(bool power)
 	{
 		globalPower = power;
-		if (power)
-			FastLED.setBrightness(brightness);
-		else
-			FastLED.setBrightness(0);
 	}
 	void setBgEffectActive(bool active) { bgEffectActive = active; }
 

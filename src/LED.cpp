@@ -12,12 +12,13 @@ void LED::setup()
 void LED::loop()
 {
 	FastLED.clear();
-	
-	// Handle background effect
-	if (bgEffectActive)
-	{
-		bgEffect->loop();
 
+	// Handle background effect
+
+	bgEffect->loop();
+
+	if (bgEffectActive && globalPower)
+	{
 		for (int i = 0; i < NUM_LEDS; i++)
 		{
 			leds[i] = bgEffect->mask[i];
