@@ -39,7 +39,7 @@
       </q-card-section>
       <q-separator inset />
       <q-card-section horizontal>
-        <div class="q-pa-md column items-stretch full-width q-gutter-y-md">
+        <div class="q-pa-md column row-md items-stretch full-width justify-center q-gutter-y-md q-gutter-x-md">
           <background-effect-card-vue class=""></background-effect-card-vue>
           <accel-effect-card class=""></accel-effect-card>
           <steering-effect-card class=""></steering-effect-card>

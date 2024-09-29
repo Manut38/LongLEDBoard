@@ -245,6 +245,7 @@ html {
 
 .effect-control-card {
   transition: all 0.1s;
+  min-width: 300px;
 }
 
 .effect-control-card.active {
