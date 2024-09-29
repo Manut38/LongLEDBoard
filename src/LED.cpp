@@ -57,7 +57,6 @@ void LED::addFgEffect(LedEffect *effect)
 void LED::setBgEffect(LedEffect *effect)
 {
 	bgEffect = unique_ptr<LedEffect>(effect);
-	bgEffectActive = true;
 }
 
 CRGB LED::getRandomColor(CRGB currentColor)
