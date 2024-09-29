@@ -6,7 +6,7 @@
     :selected-id="boardState.steeringSelected"
     @toggle-active="
       boardState.steeringActive = !boardState.steeringActive;
-      backend.sendBoardState({ bgActive: boardState.steeringActive });
+      backend.sendBoardState({ steeringActive: boardState.steeringActive });
     "
     @change-selection="
       (id) => {

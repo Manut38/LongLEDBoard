@@ -6,7 +6,7 @@
     :selected-id="boardState.accelSelected"
     @toggle-active="
       boardState.accelActive = !boardState.accelActive;
-      backend.sendBoardState({ bgActive: boardState.accelActive });
+      backend.sendBoardState({ accelActive: boardState.accelActive });
     "
     @change-selection="
       (id) => {
