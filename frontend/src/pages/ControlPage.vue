@@ -7,7 +7,7 @@
     >
       <q-card-section
         class="row justify-between cursor-pointer"
-        @click="boardState.active = !boardState.active"
+        @click="boardState.active = !boardState.active; backend.sendBoardState({active: boardState.active})"
         @mousedown="effectsActiveSelected = true"
         @mouseup="effectsActiveSelected = false"
         @touchstart="effectsActiveSelected = true"
