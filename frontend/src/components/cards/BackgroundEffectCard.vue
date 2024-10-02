@@ -12,7 +12,7 @@
     @change-selection="changeSelection"
   >
     <div
-      v-if="slotProps.selected?.id === BgEffect.Solid"
+      v-if="slotProps.selected?.id === BgEffect.SolidColor"
       class="row justify-center q-gutter-md"
     >
       <v-color-picker
@@ -56,7 +56,7 @@
       <q-slider
         v-model="effectConfigStore.bgEffectConfig.rainbow.duration"
         :min="1000"
-        :max="10000"
+        :max="5000"
         label
         @update:model-value="
           if ($event != undefined)
@@ -64,9 +64,6 @@
               bgEffect: { rainbow: { duration: $event } },
             });
         "
-        @mousedown.stop
-        @touchstart.stop
-        @click.stop
       />
     </div>
     <div v-else class="text-center full-width text-grey-5">No Settings</div>
@@ -94,7 +91,7 @@ const backend = useBackend();
 const effectList: EffectListEntry[] = reactive([
   {
     label: 'Solid',
-    id: BgEffect.Solid,
+    id: BgEffect.SolidColor,
   },
   {
     label: 'Breathing',
@@ -124,9 +121,9 @@ const effectList: EffectListEntry[] = reactive([
 
 function changeSelection(selectionId: BgEffect) {
   boardState.value.bgSelected = selectionId;
-  let effectState: BackgroundEffectConfigState = {};
+  const effectState: BackgroundEffectConfigState = {};
   switch (selectionId) {
-    case BgEffect.Solid:
+    case BgEffect.SolidColor:
       effectState.solidColor = bgEffectConfig.value.solidColor;
       break;
     case BgEffect.Rainbow:

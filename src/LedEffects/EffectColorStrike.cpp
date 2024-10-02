@@ -4,12 +4,18 @@ EffectColorStrike::EffectColorStrike(int duration, CRGB color, bool invert)
 {
 	fill_solid(mask, NUM_LEDS, CRGB::Black);
 
-	this->timerDelay = duration / NUM_LEDS / 2;
+	this->timerDelay = duration / NUM_LEDS / 2 / 2;
 	this->color = color;
 	this->invert = invert;
 	resetCurrentLed();
 	reverse = false;
 }
+
+EffectColorStrike::EffectColorStrike(LedEffectConfig *effectConfig)
+	: EffectColorStrike(
+		  effectConfig->accelEffect.colorStrike.duration,
+		  effectConfig->accelEffect.colorStrike.color,
+		  false) {}
 
 void EffectColorStrike::resetCurrentLed()
 {

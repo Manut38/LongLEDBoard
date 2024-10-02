@@ -12,4 +12,10 @@ protected:
 
 public:
     EffectRainbowLoop(int durationFullCycle);
+    EffectRainbowLoop(LedEffectConfig *effectConfig);
+
+    virtual std::unique_ptr<LedEffect> clone() const override
+    {
+        return std::make_unique<EffectRainbowLoop>(*this);
+    }
 };

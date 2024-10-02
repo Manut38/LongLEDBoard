@@ -5,10 +5,6 @@
 #include "Config.h"
 #include "LED.h"
 
-#include "LedEffect/LedEffect.h"
-#include "LedEffect/EffectSolidColor.h"
-#include "LedEffect/EffectRainbowLoop.h"
-
 class SocketHandler
 {
 

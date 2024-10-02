@@ -23,30 +23,61 @@ void SocketHandler::handleMessage(String msg)
 
 void SocketHandler::handleEffectConfig(JsonObject effectConfig)
 {
+    // Background Effects
     JsonObject bgEffect = effectConfig["bgEffect"];
     if (!bgEffect.isNull())
     {
         if (!bgEffect["solidColor"].isNull())
         {
-            String color = bgEffect["solidColor"]["color"];
-            led->setBgEffect(new EffectSolidColor(LED::colorFromHexString(color)));
+            led->effectConfig.bgEffect.solidColor.color = LED::colorFromHexString(bgEffect["solidColor"]["color"]);
         }
         if (!bgEffect["rainbow"].isNull())
         {
-            int16_t duration = bgEffect["rainbow"]["duration"];
-            led->setBgEffect(new EffectRainbowLoop(duration));
+            led->effectConfig.bgEffect.rainbow.duration = bgEffect["rainbow"]["duration"];
         }
+        led->reloadBgEffect();
+    }
+
+    // Accel Effects
+    JsonObject accelEffect = effectConfig["accelEffect"];
+    if (!accelEffect.isNull())
+    {
+        if (!accelEffect["rainbowStrike"].isNull())
+        {
+            led->effectConfig.accelEffect.rainbowStrike.duration = accelEffect["rainbowStrike"]["duration"];
+        }
+        if (!accelEffect["colorStrike"].isNull())
+        {
+            led->effectConfig.accelEffect.colorStrike.duration = accelEffect["colorStrike"]["duration"];
+            led->effectConfig.accelEffect.colorStrike.color = LED::colorFromHexString(accelEffect["colorStrike"]["color"]);
+        }
+        led->reloadAccelEffect();
     }
 }
 
 void SocketHandler::handleBoardState(JsonObject state)
 {
-    if (!state["globalBrightness"].isNull())
-        led->setGlobalBrightness(state["globalBrightness"]);
+    // Global power and brightness
     if (!state["active"].isNull())
         led->setGlobalPower(state["active"]);
+    if (!state["globalBrightness"].isNull())
+        led->setGlobalBrightness(state["globalBrightness"]);
+
+    // Effect active state
     if (!state["bgActive"].isNull())
         led->setBgEffectActive(state["bgActive"]);
+    if (!state["accelActive"].isNull())
+        led->setAccelEffectActive(state["accelActive"]);
+    if (!state["steeringActive"].isNull())
+        led->setSteeringEffectActive(state["steeringActive"]);
+
+    // Effect selection
+    if (!state["bgSelected"].isNull())
+        led->selectBgEffect(state["bgSelected"]);
+    if (!state["accelSelected"].isNull())
+        led->selectAccelEffect(state["accelSelected"]);
+    // if (!state["steeringSelected"].isNull())
+    //     led->selectSteeringEffect(state["steeringSelected"]);
 }
 
 void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)
@@ -61,7 +92,7 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
     else if (type == WS_EVT_DISCONNECT)
     {
         // client disconnected
-        os_printf("ws[%s][%u] disconnect: %u\n", server->url(), client->id());
+        os_printf("ws[%s][%u] disconnect: %u\n", server->url(), client->id(), client->id());
     }
     else if (type == WS_EVT_ERROR)
     {

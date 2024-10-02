@@ -1,6 +1,8 @@
 #pragma once
+#include <memory>
 #include "FastLED.h"
 #include "Config.h"
+#include "LedEffectConfig.h"
 
 class LedEffect
 {
@@ -14,4 +16,8 @@ public:
 	bool remove = false;
 
 	virtual void loop();
+
+	// virtual ~LedEffect() = default;
+	virtual std::unique_ptr<LedEffect> clone() const = 0;
+
 };

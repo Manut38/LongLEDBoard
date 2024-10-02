@@ -37,7 +37,7 @@ void setup()
 #endif
 
 	// Set LED background effect
-	led.setBgEffect(new EffectSolidColor(0xFF1400));
+	led.setBgEffect(new EffectSolidColor(CRGB::Red));
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;
@@ -52,7 +52,7 @@ void handleAccelaration()
 {
 	if (mpu.wasAccelerated)
 	{
-		led.addFgEffect(new EffectRainbowStrike(500));
+		led.fireAccelEffect();
 	}
 }
 

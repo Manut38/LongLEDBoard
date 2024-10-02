@@ -9,6 +9,11 @@ EffectRainbowStrike::EffectRainbowStrike(int duration, bool invert)
 	reverse = false;
 }
 
+EffectRainbowStrike::EffectRainbowStrike(LedEffectConfig *effectConfig)
+	: EffectRainbowStrike(
+		  effectConfig->accelEffect.rainbowStrike.duration,
+		  false) {}
+
 void EffectRainbowStrike::resetCurrentLed()
 {
 	currentLed = invert ? NUM_LEDS - 1 : 0;

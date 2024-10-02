@@ -26,14 +26,14 @@ export interface SparkleEffectConfig {
 }
 export interface ColorStrikeEffectConfig {
   color: string;
-  speed: number;
+  duration: number;
 }
 export interface RainbowStrikeEffectConfig {
-  speed: number;
+  duration: number;
 }
 export interface GradientStrikeEffectConfig {
   colors: string[];
-  speed: number;
+  duration: number;
 }
 export interface StrobeEffectConfig {
   color: string;

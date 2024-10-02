@@ -5,7 +5,7 @@
 void LED::setup()
 {
 	FastLED.addLeds<WS2812B, LED_PIN, GRB>(leds, NUM_LEDS).setCorrection(TypicalPixelString);
-	FastLED.setBrightness(DEFAULT_BRIGHTNESS);
+	setGlobalBrightness(DEFAULT_BRIGHTNESS);
 	FastLED.clear();
 }
 
@@ -50,6 +50,14 @@ void LED::loop()
 	FastLED.show();
 }
 
+void LED::fireAccelEffect()
+{
+	if (accelEffectActive)
+	{
+		fgEffects.emplace_back(accelEffect->clone());
+	}
+}
+
 void LED::addFgEffect(LedEffect *effect)
 {
 	fgEffects.emplace_back(unique_ptr<LedEffect>(effect));
@@ -58,6 +66,63 @@ void LED::addFgEffect(LedEffect *effect)
 void LED::setBgEffect(LedEffect *effect)
 {
 	bgEffect = unique_ptr<LedEffect>(effect);
+}
+void LED::setAccelEffect(LedEffect *effect)
+{
+	accelEffect = unique_ptr<LedEffect>(effect);
+}
+void LED::setSteeringEffect(LedEffect *effect)
+{
+	steeringEffect = unique_ptr<LedEffect>(effect);
+}
+
+void LED::reloadAccelEffect()
+{
+	switch (selectedAccelEffect)
+	{
+	case AccelEffect::ColorStrike:
+		setAccelEffect(new EffectColorStrike(&effectConfig));
+		break;
+	case AccelEffect::RainbowStrike:
+		setAccelEffect(new EffectRainbowStrike(&effectConfig));
+		break;
+	case AccelEffect::GradientStrike:
+		break;
+	case AccelEffect::ColorChase:
+		break;
+	case AccelEffect::Strobe:
+		break;
+	case AccelEffect::RainbowStrobe:
+		break;
+	default:
+		break;
+	};
+	fireAccelEffect();
+}
+
+void LED::reloadBgEffect()
+{
+	switch (selectedBgEffect)
+	{
+	case BgEffect::SolidColor:
+		setBgEffect(new EffectSolidColor(&effectConfig));
+		break;
+	case BgEffect::Breathing:
+		break;
+	case BgEffect::Rainbow:
+		setBgEffect(new EffectRainbowLoop(&effectConfig));
+		break;
+	case BgEffect::Fire:
+		break;
+	case BgEffect::ColorChase:
+		break;
+	case BgEffect::ColorFade:
+		break;
+	case BgEffect::Sparkle:
+		break;
+	default:
+		break;
+	}
 }
 
 CRGB LED::getRandomColor(CRGB currentColor)

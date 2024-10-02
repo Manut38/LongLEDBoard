@@ -44,7 +44,7 @@ export interface BoardStateMsg {
   globalBrightness?: number;
 }
 export enum BgEffect {
-  Solid = 'solid',
+  SolidColor = 'solid_color',
   Fire = 'fire',
   Rainbow = 'rainbow',
   ColorFade = 'color_fade',

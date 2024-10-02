@@ -17,7 +17,7 @@ export const useEffectConfigStore = defineStore(
     const boardState = ref<BoardState>({
       active: false,
       bgActive: false,
-      bgSelected: BgEffect.Solid,
+      bgSelected: BgEffect.SolidColor,
       accelActive: false,
       accelSelected: AccelEffect.ColorStrike,
       steeringActive: false,
@@ -52,7 +52,17 @@ export const useEffectConfigStore = defineStore(
         speed: 100,
       },
     });
-    const accelEffectConfig = ref<AccelEffectConfig>();
+    const accelEffectConfig = ref<AccelEffectConfig>({
+      colorStrike: {
+        color: '#ffffff',
+        duration: 500,
+      },
+      rainbowStrike: { duration: 500 },
+      colorChase: { colors: ['#ffffff', '#000000'], time: 500 },
+      gradientStrike: { colors: ['#ffffff', '#000000'], duration: 500 },
+      rainbowStrobe: { speed: 20 },
+      strobe: { color: '#ffffff', speed: 20 },
+    });
     const steeringEffectConfig = ref<SteeringEffectConfig>();
 
     const previewData = ref<PreviewData>();

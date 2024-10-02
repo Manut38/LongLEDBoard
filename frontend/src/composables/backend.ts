@@ -65,7 +65,7 @@ const { status, data, send, open, close } = useWebSocket(socketBackendURLFull, {
     errorNotify = Notify.create({
       color: 'warning',
       message: 'Board disconnected',
-      icon: 'eva-checkmark-circle-2-outline',
+      icon: 'eva-alert-circle-outline',
       position: 'bottom',
       timeout: 2000,
     });
@@ -78,8 +78,9 @@ const sendEffectConfigState = useThrottleFn(
       const msg: ISocketResponse = {
         effectConfig: state,
       };
-      console.log('Sending effectConfig:', msg);
-      send(JSON.stringify(msg));
+      const jsonMsg = JSON.stringify(msg);
+      send(jsonMsg);
+      console.log('Sent effectConfig:', JSON.parse(jsonMsg));
     }
   },
   30,
@@ -92,8 +93,9 @@ const sendBoardState = useThrottleFn(
       const msg: ISocketResponse = {
         state: state,
       };
-      console.log('Sending boardState:', msg);
-      send(JSON.stringify(msg));
+      const jsonMsg = JSON.stringify(msg);
+      send(jsonMsg);
+      console.log('Sent boardState:', JSON.parse(jsonMsg));
     }
   },
   30,
