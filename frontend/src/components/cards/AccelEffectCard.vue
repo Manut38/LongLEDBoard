@@ -18,10 +18,10 @@
       <q-item-label>Duration</q-item-label>
       <q-slider
         v-model="effectConfigStore.accelEffectConfig.colorStrike.duration"
-        :min="1000"
-        :max="5000"
+        :min="500"
+        :max="2000"
         label
-        @update:model-value="
+        @change="
           if ($event != undefined)
             backend.sendEffectConfigState({
               accelEffect: {
@@ -38,10 +38,10 @@
       <q-item-label>Duration</q-item-label>
       <q-slider
         v-model="effectConfigStore.accelEffectConfig.rainbowStrike.duration"
-        :min="1000"
-        :max="5000"
+        :min="500"
+        :max="2000"
         label
-        @update:model-value="
+        @change="
           if ($event != undefined)
             backend.sendEffectConfigState({
               accelEffect: {

@@ -3,7 +3,7 @@
 EffectRainbowStrike::EffectRainbowStrike(int duration, bool invert)
 {
 	fill_rainbow(rainbowMask, NUM_LEDS, 0, 7);
-	this->timerDelay = duration / NUM_LEDS / 2;
+	this->timerDelay = duration / NUM_LEDS / 2 / 2;
 	this->invert = invert;
 	resetCurrentLed();
 	reverse = false;
