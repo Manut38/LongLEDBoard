@@ -90,18 +90,6 @@ void WebServer::defineRoutes()
     server.on("/heap", HTTP_GET, [](AsyncWebServerRequest *request)
               { request->send(200, "text/plain", String(ESP.getFreeHeap())); });
 
-    // TEST
-    server.on("/test", HTTP_GET,
-              [this](AsyncWebServerRequest *request)
-              {
-                  FrontendRequestData data;
-                  data.time = 1000;
-                  frhfn(data);
-                  request->send(200, "text/plain", "magic");
-              });
-
     server.onNotFound([](AsyncWebServerRequest *request)
                       { request->send(404); });
 }
-
-void WebServer::onFrontendRequest(FrontendRequestHandlerFunction fn) { frhfn = fn; }

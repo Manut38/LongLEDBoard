@@ -7,13 +7,6 @@
 #include "Config.h"
 #include "SocketHandler.h"
 
-struct FrontendRequestData
-{
-    int time;
-};
-
-typedef std::function<void(FrontendRequestData data)> FrontendRequestHandlerFunction;
-
 class WebServer
 {
 public:
@@ -23,7 +16,6 @@ public:
 
     void setup();
     void loop();
-    void onFrontendRequest(FrontendRequestHandlerFunction fn);
     void setSocketHandler(SocketHandler *handler) { socketHandler = unique_ptr<SocketHandler>(handler); };
 
 private:
@@ -36,7 +28,6 @@ private:
     unique_ptr<SocketHandler> socketHandler;
 
     unsigned long wifiReconnectTimer = 0;
-    FrontendRequestHandlerFunction frhfn;
 
     void defineRoutes();
 };
