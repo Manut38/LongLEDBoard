@@ -14,13 +14,6 @@ const appConfig = useAppConfigStore();
 const effectConfig = useEffectConfigStore();
 
 const { socketBackendURLFull } = storeToRefs(appConfig);
-const {
-  boardState,
-  previewData,
-  bgEffectConfig,
-  accelEffectConfig,
-  steeringEffectConfig,
-} = storeToRefs(effectConfig);
 
 let errorNotify: (props?: QNotifyUpdateOptions) => void;
 let errorNotifyShown: boolean;
@@ -47,6 +40,7 @@ const { status, data, send, open, close } = useWebSocket(socketBackendURLFull, {
       });
     }
     errorNotifyShown = false;
+    sendCachedConfig();
   },
   onError: () => {
     if (!errorNotifyShown) {
@@ -135,6 +129,16 @@ const sendBoardState = useThrottleFn(
 // );
 
 export const connected = computed(() => status.value === 'OPEN');
+
+function sendCachedConfig() {
+  sendEffectConfigState({
+    accelEffect: effectConfig.accelEffectConfig,
+    bgEffect: effectConfig.bgEffectConfig,
+    steeringEffect: effectConfig.steeringEffectConfig,
+  });
+  sendBoardState(effectConfig.boardState);
+  console.log('Sent cached config to board.');
+}
 
 export function useBackend() {
   return {
