@@ -19,4 +19,5 @@ public:
 
 private:
     LED *led;
+    String socketRecvBuffer;
 };

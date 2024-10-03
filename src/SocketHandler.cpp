@@ -72,9 +72,9 @@ void SocketHandler::handleBoardState(JsonObject state)
 
     // Effect selection
     if (!state["bgSelected"].isNull())
-        led->selectBgEffect(state["bgSelected"].as<const char*>());
+        led->selectBgEffect(state["bgSelected"].as<const char *>());
     if (!state["accelSelected"].isNull())
-        led->selectAccelEffect(state["accelSelected"].as<const char*>());
+        led->selectAccelEffect(state["accelSelected"].as<const char *>());
     // if (!state["steeringSelected"].isNull())
     //     led->selectSteeringEffect(state["steeringSelected"].as<const char*>());
 }
@@ -101,7 +101,7 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
     else if (type == WS_EVT_PONG)
     {
         // pong message was received (in response to a ping request maybe)
-        os_printf("ws[%s][%u] pong[%u]: %s\n", server->url(), client->id(), len, (len) ? (char *)data : "");
+        os_printf("ws[%s][%u] pong received[%u]: %s\n", server->url(), client->id(), len, (len) ? (char *)data : "");
     }
     else if (type == WS_EVT_DATA)
     {
@@ -118,72 +118,68 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
                 if (msg.equals("ping"))
                 {
                     server->text(client->id(), "pong");
+                    // os_printf("ws[%s][%u] pong sent\n", server->url(), client->id());
                 }
                 else
                 {
                     handleMessage(msg);
                     // server->textAll(msg);
+                    socketRecvBuffer.clear();
                 }
             }
             else
             {
+                // binary
                 for (size_t i = 0; i < info->len; i++)
                 {
                     os_printf("%02x ", data[i]);
                 }
                 os_printf("\n");
             }
-            // if (info->message_opcode == WS_TEXT)
-            // {
-            //     Serial.println("Text msg received");
-            //     // handleMessage(msg);
-            //     // server->textAll(msg);
-            // }
-            // else
-            //     Serial.println("Binary msg received");
         }
         else
         {
-            // // message is comprised of multiple frames or the frame is split into multiple packets
-            // if (info->index == 0)
-            // {
-            //     if (info->num == 0)
-            //         os_printf("ws[%s][%u] %s-message start\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
-            //     os_printf("ws[%s][%u] frame[%u] start[%llu]\n", server->url(), client->id(), info->num, info->len);
-            // }
+            // message is comprised of multiple frames or the frame is split into multiple packets
+            if (info->index == 0)
+            {
+                if (info->num == 0)
+                    os_printf("ws[%s][%u] %s-message start\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
+                os_printf("ws[%s][%u] frame[%u] start[%llu]\n", server->url(), client->id(), info->num, info->len);
+            }
 
-            // os_printf("ws[%s][%u] frame[%u] %s[%llu - %llu]: ", server->url(), client->id(), info->num, (info->message_opcode == WS_TEXT) ? "text" : "binary", info->index, info->index + len);
-            // if (info->message_opcode == WS_TEXT)
-            // {
-            //     data[len] = 0;
-            //     os_printf("%s\n", (char *)data);
-            // }
-            // else
-            // {
-            //     for (size_t i = 0; i < len; i++)
-            //     {
-            //         os_printf("%02x ", data[i]);
-            //     }
-            //     os_printf("\n");
-            // }
+            os_printf("ws[%s][%u] frame[%u] %s[%llu - %llu]: ", server->url(), client->id(), info->num, (info->message_opcode == WS_TEXT) ? "text" : "binary", info->index, info->index + len);
+            if (info->message_opcode == WS_TEXT)
+            {
+                data[len] = 0;
+                // os_printf("%s\n", (char *)data);
+                socketRecvBuffer += (char *)data;
+            }
+            else
+            {
+                // binary
+                for (size_t i = 0; i < len; i++)
+                {
+                    os_printf("%02x ", data[i]);
+                }
+                os_printf("\n");
+            }
 
-            // if ((info->index + len) == info->len)
-            // {
-            //     os_printf("ws[%s][%u] frame[%u] end[%llu]\n", server->url(), client->id(), info->num, info->len);
-            //     if (info->final)
-            //     {
-            //         os_printf("ws[%s][%u] %s-message end\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
-            //         if (info->message_opcode == WS_TEXT)
-            //         {
-            //             Serial.println("Text msg received");
-
-            //             // handleMessage(msg);
-            //             // server->textAll(msg);
-            //         }
-            //         else
-            //             Serial.println("Binary msg received");
-            //     }
-            // }
+            if ((info->index + len) == info->len)
+            {
+                os_printf("ws[%s][%u] frame[%u] end[%llu]\n", server->url(), client->id(), info->num, info->len);
+                if (info->final)
+                {
+                    os_printf("ws[%s][%u] %s-message end\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
+                    if (info->message_opcode == WS_TEXT)
+                    {
+                        handleMessage(socketRecvBuffer);
+                        socketRecvBuffer.clear();
+                        // server->textAll(msg);
+                    }
+                    else
+                        Serial.println("Binary msg received");
+                }
+            }
         }
     }
 }
