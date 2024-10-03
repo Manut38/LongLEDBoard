@@ -7,7 +7,10 @@
     >
       <q-card-section
         class="row justify-between cursor-pointer"
-        @click="boardState.active = !boardState.active; backend.sendBoardState({active: boardState.active})"
+        @click="
+          boardState.active = !boardState.active;
+          backend.sendBoardState({ active: boardState.active });
+        "
         @mousedown="effectsActiveSelected = true"
         @mouseup="effectsActiveSelected = false"
         @touchstart="effectsActiveSelected = true"
@@ -35,11 +38,17 @@
             />
           </q-item-section>
         </q-item>
-        <q-toggle v-model="boardState.active" color="primary" @update:model-value="backend.sendBoardState({active: $event})"></q-toggle>
+        <q-toggle
+          v-model="boardState.active"
+          color="primary"
+          @update:model-value="backend.sendBoardState({ active: $event })"
+        ></q-toggle>
       </q-card-section>
       <q-separator inset />
       <q-card-section horizontal>
-        <div class="q-pa-md column row-md items-stretch full-width justify-center q-gutter-y-md q-gutter-x-md">
+        <div
+          class="q-pa-md column row-md items-stretch full-width justify-center q-gutter-y-md q-gutter-x-md"
+        >
           <background-effect-card-vue class=""></background-effect-card-vue>
           <accel-effect-card class=""></accel-effect-card>
           <steering-effect-card class=""></steering-effect-card>
@@ -101,7 +110,7 @@
       </q-slide-transition>
     </q-card>
 
-    <q-page-sticky expand position="bottom" class="q-ma-md">
+    <q-page-sticky v-if="false" expand position="bottom" class="q-ma-md">
       <q-card class="darker full-width">
         <q-expansion-item
           v-model="isPreviewVisible"
