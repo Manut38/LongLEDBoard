@@ -50,67 +50,61 @@ void LED::loop()
 	FastLED.show();
 }
 
-void LED::fireAccelEffect()
-{
-	if (accelEffectActive)
-	{
-		fgEffects.emplace_back(accelEffect->clone());
-	}
-}
-
 void LED::addFgEffect(LedEffect *effect)
 {
 	fgEffects.emplace_back(unique_ptr<LedEffect>(effect));
 }
 
-void LED::setBgEffect(LedEffect *effect)
+void LED::fireAccelEffect()
 {
-	bgEffect = unique_ptr<LedEffect>(effect);
-}
-void LED::setAccelEffect(LedEffect *effect)
-{
-	accelEffect = unique_ptr<LedEffect>(effect);
-}
-void LED::setSteeringEffect(LedEffect *effect)
-{
-	steeringEffect = unique_ptr<LedEffect>(effect);
+	// Obnly fire if effect is active
+	if (accelEffectActive)
+	{
+		LedEffect *accelEffect;
+		switch (selectedAccelEffect)
+		{
+		case AccelEffect::ColorStrike:
+			accelEffect = new EffectColorStrike(&effectConfig);
+			break;
+		case AccelEffect::RainbowStrike:
+			accelEffect = new EffectRainbowStrike(&effectConfig);
+			break;
+		case AccelEffect::GradientStrike:
+			break;
+		case AccelEffect::ColorChase:
+			break;
+		case AccelEffect::Strobe:
+			break;
+		case AccelEffect::RainbowStrobe:
+			break;
+		default:
+			break;
+		};
+		if (accelEffect)
+		{
+			fgEffects.emplace_back(accelEffect);
+		}
+	}
 }
 
-void LED::reloadAccelEffect()
+void LED::selectAccelEffect(std::string id)
 {
-	switch (selectedAccelEffect)
-	{
-	case AccelEffect::ColorStrike:
-		setAccelEffect(new EffectColorStrike(&effectConfig));
-		break;
-	case AccelEffect::RainbowStrike:
-		setAccelEffect(new EffectRainbowStrike(&effectConfig));
-		break;
-	case AccelEffect::GradientStrike:
-		break;
-	case AccelEffect::ColorChase:
-		break;
-	case AccelEffect::Strobe:
-		break;
-	case AccelEffect::RainbowStrobe:
-		break;
-	default:
-		break;
-	};
+	selectedAccelEffect = AccelEffectMap[id];
 	fireAccelEffect();
 }
 
 void LED::reloadBgEffect()
 {
+	LedEffect *effect;
 	switch (selectedBgEffect)
 	{
 	case BgEffect::SolidColor:
-		setBgEffect(new EffectSolidColor(&effectConfig));
+		effect = new EffectSolidColor(&effectConfig);
 		break;
 	case BgEffect::Breathing:
 		break;
 	case BgEffect::Rainbow:
-		setBgEffect(new EffectRainbowLoop(&effectConfig));
+		effect = new EffectRainbowLoop(&effectConfig);
 		break;
 	case BgEffect::Fire:
 		break;
@@ -122,6 +116,10 @@ void LED::reloadBgEffect()
 		break;
 	default:
 		break;
+	}
+	if (effect)
+	{
+		bgEffect = unique_ptr<LedEffect>(effect);
 	}
 }
 

@@ -37,13 +37,11 @@ void setup()
 #endif
 
 	// Set LED background effect
-	led.setBgEffect(new EffectSolidColor(CRGB::Red));
+	led.effectConfig.bgEffect.solidColor.color = CRGB::BlueViolet;
+	led.selectBgEffect(BgEffect::SolidColor);
 
 	// Force first execution of timer
 	effectTestTimer = effectTestTimerDelay;
-
-	server.onFrontendRequest([](FrontendRequestData data)
-							 { led.setBgEffect(new EffectRainbowLoop(5000)); });
 
 	Serial.println("\n✅ Init complete\n");
 }

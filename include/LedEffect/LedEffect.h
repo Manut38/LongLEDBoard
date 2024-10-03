@@ -16,8 +16,4 @@ public:
 	bool remove = false;
 
 	virtual void loop();
-
-	// virtual ~LedEffect() = default;
-	virtual std::unique_ptr<LedEffect> clone() const = 0;
-
 };

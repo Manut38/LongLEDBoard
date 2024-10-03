@@ -16,9 +16,4 @@ protected:
 public:
 	EffectColorStrike(int duration, CRGB color, bool invert = false);
 	EffectColorStrike(LedEffectConfig *effectConfig);
-
-	virtual std::unique_ptr<LedEffect> clone() const override
-	{
-		return std::make_unique<EffectColorStrike>(*this);
-	}
 };

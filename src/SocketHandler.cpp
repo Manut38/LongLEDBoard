@@ -51,7 +51,6 @@ void SocketHandler::handleEffectConfig(JsonObject effectConfig)
             led->effectConfig.accelEffect.colorStrike.duration = accelEffect["colorStrike"]["duration"];
             led->effectConfig.accelEffect.colorStrike.color = LED::colorFromHexString(accelEffect["colorStrike"]["color"]);
         }
-        led->reloadAccelEffect();
     }
 }
 
@@ -73,11 +72,11 @@ void SocketHandler::handleBoardState(JsonObject state)
 
     // Effect selection
     if (!state["bgSelected"].isNull())
-        led->selectBgEffect(state["bgSelected"]);
+        led->selectBgEffect(state["bgSelected"].as<const char*>());
     if (!state["accelSelected"].isNull())
-        led->selectAccelEffect(state["accelSelected"]);
+        led->selectAccelEffect(state["accelSelected"].as<const char*>());
     // if (!state["steeringSelected"].isNull())
-    //     led->selectSteeringEffect(state["steeringSelected"]);
+    //     led->selectSteeringEffect(state["steeringSelected"].as<const char*>());
 }
 
 void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *client, AwsEventType type, void *arg, uint8_t *data, size_t len)

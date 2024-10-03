@@ -26,8 +26,7 @@ private:
 	uint8_t brightness;
 
 	unique_ptr<LedEffect> bgEffect;
-	unique_ptr<LedEffect> accelEffect;
-	unique_ptr<LedEffect> steeringEffect;
+	// unique_ptr<LedEffect> steeringEffect;
 
 	bool bgEffectActive = true;
 	bool accelEffectActive = true;
@@ -35,6 +34,7 @@ private:
 
 	BgEffect selectedBgEffect = BgEffect::SolidColor;
 	AccelEffect selectedAccelEffect = AccelEffect::RainbowStrike;
+	// SteeringEffect selectedSteeringEffect = SteeringEffect::RainbowStrike;
 
 	vector<unique_ptr<LedEffect>> fgEffects;
 
@@ -45,10 +45,6 @@ public:
 	void loop();
 
 	void addFgEffect(LedEffect *e);
-
-	void setBgEffect(LedEffect *e);
-	void setAccelEffect(LedEffect *e);
-	void setSteeringEffect(LedEffect *e);
 
 	void setGlobalBrightness(uint8 b)
 	{
@@ -69,15 +65,17 @@ public:
 		selectedBgEffect = BgEffectMap[id];
 		reloadBgEffect();
 	}
-	void selectAccelEffect(std::string id)
+
+	void selectBgEffect(BgEffect effect)
 	{
-		selectedAccelEffect = AccelEffectMap[id];
-		reloadAccelEffect();
+		selectedBgEffect = effect;
+		reloadBgEffect();
 	}
+
+	void selectAccelEffect(std::string id);
 	void selectSteeringEffect(std::string id);
 
 	void reloadBgEffect();
-	void reloadAccelEffect();
 
 	void fireAccelEffect();
 
