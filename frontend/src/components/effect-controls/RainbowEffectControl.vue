@@ -12,7 +12,6 @@
 <script setup lang="ts">
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
-import { onMounted } from 'vue';
 
 const effectConfigStore = useEffectConfigStore();
 

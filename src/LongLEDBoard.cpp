@@ -15,9 +15,6 @@ LED led;
 WebServer server;
 SocketHandler socketHandler(&led);
 
-uint32_t effectTestTimer;
-uint32_t effectTestTimerDelay = 10000;
-
 void setup()
 {
 	// Initialize Serial
@@ -36,17 +33,14 @@ void setup()
 	mpu.setup();
 #endif
 
-	// Set LED background effect
-	led.effectConfig.bgEffect.solidColor.color = CRGB::BlueViolet;
+	// Start default LED effect
+	led.effectConfig.bgEffect.solidColor.color = CRGB::Red;
 	led.selectBgEffect(BgEffect::SolidColor);
-
-	// Force first execution of timer
-	effectTestTimer = effectTestTimerDelay;
 
 	Serial.println("\n✅ Init complete\n");
 }
 
-void handleAccelaration()
+void handleAcceleration()
 {
 	if (mpu.wasAccelerated)
 	{
@@ -68,5 +62,5 @@ void loop()
 	server.loop();
 #endif
 
-	handleAccelaration();
+	handleAcceleration();
 }

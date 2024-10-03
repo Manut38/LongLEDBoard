@@ -52,31 +52,25 @@ public:
 		if (globalPower)
 			FastLED.setBrightness(brightness);
 	}
-	void setGlobalPower(bool power)
-	{
-		globalPower = power;
-	}
+	void setGlobalPower(bool power) { globalPower = power; }
 	void setBgEffectActive(bool active) { bgEffectActive = active; }
 	void setAccelEffectActive(bool active) { accelEffectActive = active; }
 	void setSteeringEffectActive(bool active) { steeringEffectActive = active; }
-
-	void selectBgEffect(std::string id)
-	{
-		selectedBgEffect = BgEffectMap[id];
-		reloadBgEffect();
-	}
 
 	void selectBgEffect(BgEffect effect)
 	{
 		selectedBgEffect = effect;
 		reloadBgEffect();
 	}
-
-	void selectAccelEffect(std::string id);
+	void selectBgEffect(std::string id) { selectBgEffect(BgEffectMap[id]); }
+	void selectAccelEffect(std::string id)
+	{
+		selectedAccelEffect = AccelEffectMap[id];
+		fireAccelEffect();
+	}
 	void selectSteeringEffect(std::string id);
 
 	void reloadBgEffect();
-
 	void fireAccelEffect();
 
 	static CRGB getRandomColor(CRGB currentColor = 0);

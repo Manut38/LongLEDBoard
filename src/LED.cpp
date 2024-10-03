@@ -87,12 +87,6 @@ void LED::fireAccelEffect()
 	}
 }
 
-void LED::selectAccelEffect(std::string id)
-{
-	selectedAccelEffect = AccelEffectMap[id];
-	fireAccelEffect();
-}
-
 void LED::reloadBgEffect()
 {
 	LedEffect *effect;
