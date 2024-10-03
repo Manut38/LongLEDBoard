@@ -57,7 +57,7 @@ void LED::addFgEffect(LedEffect *effect)
 
 void LED::fireAccelEffect()
 {
-	// Obnly fire if effect is active
+	// Only fire if effect is active
 	if (accelEffectActive)
 	{
 		LedEffect *accelEffect;

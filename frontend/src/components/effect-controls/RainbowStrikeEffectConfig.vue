@@ -1,20 +1,12 @@
 <template>
   <q-item-label>Duration</q-item-label>
-      <q-slider
-        v-model="effectConfigStore.accelEffectConfig.rainbowStrike.duration"
-        :min="500"
-        :max="2000"
-        label
-        @change="
-          if ($event != undefined)
-            backend.sendEffectConfigState({
-              accelEffect: {
-                rainbowStrike:
-                  effectConfigStore.accelEffectConfig.rainbowStrike,
-              },
-            });
-        "
-      />
+  <q-slider
+    v-model="effectConfigStore.accelEffectConfig.rainbowStrike.duration"
+    :min="500"
+    :max="10000"
+    label
+    @change="sendEffectConfigState"
+  />
 </template>
 
 <script setup lang="ts">
@@ -33,6 +25,3 @@ function sendEffectConfigState() {
   });
 }
 </script>
-
-
-

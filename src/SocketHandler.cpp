@@ -85,7 +85,7 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
     {
         // client connected
         os_printf("ws[%s][%u] connect\n", server->url(), client->id());
-        client->printf("Hello Client %u :)", client->id());
+        // client->printf("Hello Client %u :)", client->id());
         client->ping();
     }
     else if (type == WS_EVT_DISCONNECT)

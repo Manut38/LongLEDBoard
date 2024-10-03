@@ -1,14 +1,14 @@
 <template>
   <v-color-picker
-          v-model="effectConfigStore.bgEffectConfig.solidColor.color"
-          flat
-          hide-inputs
-          mode="rgb"
-          show-swatches
-          swatches-max-height="120"
-          @update:model-value="sendEffectConfigState"
-        ></v-color-picker>
-        <!-- <q-color v-model="effectConfigStore.bgEffectConfig.solidColor.color" no-header/> -->
+    v-model="effectConfigStore.bgEffectConfig.solidColor.color"
+    flat
+    hide-inputs
+    mode="rgb"
+    show-swatches
+    swatches-max-height="120"
+    @update:model-value="sendEffectConfigState"
+  ></v-color-picker>
+  <!-- <q-color v-model="effectConfigStore.bgEffectConfig.solidColor.color" no-header/> -->
 </template>
 
 <script setup lang="ts">
@@ -27,6 +27,3 @@ function sendEffectConfigState() {
   });
 }
 </script>
-
-
-

@@ -1,12 +1,12 @@
 <template>
-   <q-item-label>Duration</q-item-label>
-        <q-slider
-          v-model="effectConfigStore.bgEffectConfig.rainbow.duration"
-          :min="1000"
-          :max="5000"
-          label
-          @update:model-value="sendEffectConfigState"
-        />
+  <q-item-label>Duration</q-item-label>
+  <q-slider
+    v-model="effectConfigStore.bgEffectConfig.rainbow.duration"
+    :min="1000"
+    :max="5000"
+    label
+    @change="sendEffectConfigState"
+  />
 </template>
 
 <script setup lang="ts">
@@ -25,6 +25,3 @@ function sendEffectConfigState() {
   });
 }
 </script>
-
-
-
