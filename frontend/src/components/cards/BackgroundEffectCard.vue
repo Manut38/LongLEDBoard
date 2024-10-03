@@ -11,26 +11,12 @@
     "
     @change-selection="changeSelection"
   >
-    <div
-      v-if="slotProps.selected?.id === BgEffect.SolidColor"
-      class="row justify-center q-gutter-md"
-    >
-      <v-color-picker
-        v-model="effectConfigStore.bgEffectConfig.solidColor.color"
-        flat
-        hide-inputs
-        mode="rgb"
-        show-swatches
-        swatches-max-height="120"
-        @update:model-value="
-          backend.sendEffectConfigState({
-            bgEffect: { solidColor: { color: $event } },
-          })
-        "
-      ></v-color-picker>
-      <!-- <q-color v-model="effectConfigStore.bgEffectConfig.solidColor.color" no-header class="my-picker" /> -->
-      <!-- <q-separator vertical></q-separator> -->
-      <!-- <div class="q-gutter-sm col-2">
+    <div class="row justify-center q-gutter-md">
+      <solid-color-effect-control v-if="slotProps.selected?.id === BgEffect.SolidColor" />
+      <rainbow-effect-control v-else-if="slotProps.selected?.id === BgEffect.Rainbow"/>
+
+        <!-- <q-separator vertical></q-separator> -->
+        <!-- <div class="q-gutter-sm col-2">
         <div class="text-body1">Presets</div>
         <q-btn
           outline
@@ -47,26 +33,9 @@
           color="red-8"
         ></q-btn>
       </div> -->
+
+      <div v-else class="text-center full-width text-grey-5">No Settings</div>
     </div>
-    <div
-      v-else-if="slotProps.selected?.id === BgEffect.Rainbow"
-      class="row justify-center q-gutter-md"
-    >
-      <q-item-label>Duration</q-item-label>
-      <q-slider
-        v-model="effectConfigStore.bgEffectConfig.rainbow.duration"
-        :min="1000"
-        :max="5000"
-        label
-        @update:model-value="
-          if ($event != undefined)
-            backend.sendEffectConfigState({
-              bgEffect: { rainbow: { duration: $event } },
-            });
-        "
-      />
-    </div>
-    <div v-else class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
 </template>
 
@@ -75,12 +44,12 @@ import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import {
-  BackgroundEffectConfigState,
   BgEffect,
-  EffectListEntry,
+  EffectListEntry
 } from 'src/types/types';
 import { reactive } from 'vue';
-import { VColorPicker } from 'vuetify/components/VColorPicker';
+import RainbowEffectControl from '../effect-controls/RainbowEffectControl.vue';
+import SolidColorEffectControl from '../effect-controls/SolidColorEffectControl.vue';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
@@ -121,18 +90,6 @@ const effectList: EffectListEntry[] = reactive([
 
 function changeSelection(selectionId: BgEffect) {
   boardState.value.bgSelected = selectionId;
-  const effectState: BackgroundEffectConfigState = {};
-  switch (selectionId) {
-    case BgEffect.SolidColor:
-      effectState.solidColor = bgEffectConfig.value.solidColor;
-      break;
-    case BgEffect.Rainbow:
-      effectState.rainbow = bgEffectConfig.value.rainbow;
-      break;
-  }
-  backend.sendEffectConfigState({
-    bgEffect: effectState,
-  });
   backend.sendBoardState({ bgSelected: selectionId });
 }
 </script>

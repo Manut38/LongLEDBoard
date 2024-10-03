@@ -8,12 +8,7 @@
       boardState.steeringActive = !boardState.steeringActive;
       backend.sendBoardState({ steeringActive: boardState.steeringActive });
     "
-    @change-selection="
-      (id) => {
-        boardState.steeringSelected = id;
-        backend.sendBoardState({ steeringSelected: id });
-      }
-    "
+    @change-selection="changeSelection"
   >
     <div class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
@@ -42,4 +37,9 @@ const effectList = reactive([
     id: SteeringEffect.Water,
   },
 ]);
+
+function changeSelection(selectionId: SteeringEffect) {
+  boardState.value.steeringSelected = selectionId;
+  backend.sendBoardState({ steeringSelected: selectionId });
+}
 </script>

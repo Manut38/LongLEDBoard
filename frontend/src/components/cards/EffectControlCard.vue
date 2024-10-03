@@ -67,7 +67,6 @@ const q = useQuasar();
 watch(
   () => props.selectedId,
   (id) => {
-    console.log('Selected ID changed', id);
     setSelectionFromId(id);
   }
 );
