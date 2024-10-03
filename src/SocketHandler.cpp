@@ -140,14 +140,14 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
         else
         {
             // message is comprised of multiple frames or the frame is split into multiple packets
-            if (info->index == 0)
-            {
-                if (info->num == 0)
-                    os_printf("ws[%s][%u] %s-message start\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
-                os_printf("ws[%s][%u] frame[%u] start[%llu]\n", server->url(), client->id(), info->num, info->len);
-            }
+            // if (info->index == 0)
+            // {
+            //     if (info->num == 0)
+            //         os_printf("ws[%s][%u] %s-message start\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
+            //     os_printf("ws[%s][%u] frame[%u] start[%llu]\n", server->url(), client->id(), info->num, info->len);
+            // }
 
-            os_printf("ws[%s][%u] frame[%u] %s[%llu - %llu]: ", server->url(), client->id(), info->num, (info->message_opcode == WS_TEXT) ? "text" : "binary", info->index, info->index + len);
+            // os_printf("ws[%s][%u] frame[%u] %s[%llu - %llu]: ", server->url(), client->id(), info->num, (info->message_opcode == WS_TEXT) ? "text" : "binary", info->index, info->index + len);
             if (info->message_opcode == WS_TEXT)
             {
                 data[len] = 0;
@@ -166,10 +166,10 @@ void SocketHandler::onWsEvent(AsyncWebSocket *server, AsyncWebSocketClient *clie
 
             if ((info->index + len) == info->len)
             {
-                os_printf("ws[%s][%u] frame[%u] end[%llu]\n", server->url(), client->id(), info->num, info->len);
+                // os_printf("ws[%s][%u] frame[%u] end[%llu]\n", server->url(), client->id(), info->num, info->len);
                 if (info->final)
                 {
-                    os_printf("ws[%s][%u] %s-message end\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
+                    // os_printf("ws[%s][%u] %s-message end\n", server->url(), client->id(), (info->message_opcode == WS_TEXT) ? "text" : "binary");
                     if (info->message_opcode == WS_TEXT)
                     {
                         handleMessage(socketRecvBuffer);
