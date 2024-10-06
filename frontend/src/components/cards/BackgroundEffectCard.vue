@@ -17,6 +17,13 @@
     <rainbow-effect-control
       v-else-if="slotProps.selected?.id === BgEffect.Rainbow"
     />
+    <breathing-effect-control
+      v-else-if="slotProps.selected?.id === BgEffect.Breathing"
+    />
+    <fire-effect-control v-else-if="slotProps.selected?.id === BgEffect.Fire" />
+    <sparkle-effect-control
+      v-else-if="slotProps.selected?.id === BgEffect.Sparkle"
+    />
 
     <!-- <q-separator vertical></q-separator> -->
     <!-- <div class="q-gutter-sm col-2">
@@ -47,8 +54,11 @@ import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { BgEffect, EffectListEntry } from 'src/types/types';
 import { reactive } from 'vue';
+import BreathingEffectControl from '../effect-controls/BreathingEffectControl.vue';
+import FireEffectControl from '../effect-controls/FireEffectControl.vue';
 import RainbowEffectControl from '../effect-controls/RainbowEffectControl.vue';
 import SolidColorEffectControl from '../effect-controls/SolidColorEffectControl.vue';
+import SparkleEffectControl from '../effect-controls/SparkleEffectControl.vue';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();

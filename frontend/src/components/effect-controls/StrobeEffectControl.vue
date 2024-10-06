@@ -2,23 +2,23 @@
   <q-list>
     <q-item>
       <q-item-section side>
-        <q-item-label caption>Duration</q-item-label>
+        <q-item-label caption>Speed</q-item-label>
       </q-item-section>
       <q-item-section>
         <q-slider
-          v-model="accelEffectConfig.colorStrike.duration"
-          :min="500"
-          :max="2000"
+          v-model="accelEffectConfig.strobe.speed"
+          :min="1"
+          :max="150"
           @change="sendEffectConfigState"
         />
       </q-item-section>
     </q-item>
     <EffectColorPicker
-      label="Color"
-      :color="accelEffectConfig.colorStrike.color"
+      label="Strobe Color"
+      :color="accelEffectConfig.strobe.color"
       @color-changed="
         {
-          accelEffectConfig.colorStrike.color = $event;
+          accelEffectConfig.strobe.color = $event;
           sendEffectConfigState();
         }
       "
@@ -39,7 +39,7 @@ const backend = useBackend();
 function sendEffectConfigState() {
   backend.sendEffectConfigState({
     accelEffect: {
-      colorStrike: accelEffectConfig.value.colorStrike,
+      strobe: accelEffectConfig.value.strobe,
     },
   });
 }

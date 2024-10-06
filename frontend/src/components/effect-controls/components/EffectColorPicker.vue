@@ -8,7 +8,7 @@
           }"
         />
       </q-item-section>
-      <q-item-section>Color</q-item-section>
+      <q-item-section>{{label}}</q-item-section>
     </template>
     <div class="row justify-center">
       <v-color-picker
@@ -33,6 +33,7 @@
 import { ref } from 'vue';
 
 const props = defineProps<{
+  label: string;
   color: string;
 }>();
 

@@ -6,19 +6,19 @@
       </q-item-section>
       <q-item-section>
         <q-slider
-          v-model="accelEffectConfig.colorStrike.duration"
+          v-model="bgEffectConfig.breathing.time"
           :min="500"
-          :max="2000"
+          :max="10000"
           @change="sendEffectConfigState"
         />
       </q-item-section>
     </q-item>
     <EffectColorPicker
       label="Color"
-      :color="accelEffectConfig.colorStrike.color"
+      :color="bgEffectConfig.breathing.colors[0]"
       @color-changed="
         {
-          accelEffectConfig.colorStrike.color = $event;
+          // bgEffectConfig.breathing.colors = $event;
           sendEffectConfigState();
         }
       "
@@ -32,14 +32,14 @@ import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import EffectColorPicker from './components/EffectColorPicker.vue';
 
-const { accelEffectConfig } = storeToRefs(useEffectConfigStore());
+const { bgEffectConfig } = storeToRefs(useEffectConfigStore());
 
 const backend = useBackend();
 
 function sendEffectConfigState() {
   backend.sendEffectConfigState({
-    accelEffect: {
-      colorStrike: accelEffectConfig.value.colorStrike,
+    bgEffect: {
+      breathing: bgEffectConfig.value.breathing,
     },
   });
 }

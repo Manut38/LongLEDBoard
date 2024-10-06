@@ -1,15 +1,18 @@
 <template>
   <q-list>
-    <EffectColorPicker
-      label="Color"
-      :color="bgEffectConfig.solidColor.color"
-      @color-changed="
-        {
-          bgEffectConfig.solidColor.color = $event;
-          sendEffectConfigState();
-        }
-      "
-    />
+    <q-item>
+      <q-item-section side>
+        <q-item-label caption>Speed</q-item-label>
+      </q-item-section>
+      <q-item-section>
+        <q-slider
+          v-model="bgEffectConfig.fire.speed"
+          :min="2"
+          :max="50"
+          @change="sendEffectConfigState"
+        />
+      </q-item-section>
+    </q-item>
   </q-list>
 </template>
 
@@ -17,7 +20,6 @@
 import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
-import EffectColorPicker from './components/EffectColorPicker.vue';
 
 const { bgEffectConfig } = storeToRefs(useEffectConfigStore());
 
@@ -26,7 +28,7 @@ const backend = useBackend();
 function sendEffectConfigState() {
   backend.sendEffectConfigState({
     bgEffect: {
-      solidColor: bgEffectConfig.value.solidColor,
+      fire: bgEffectConfig.value.fire,
     },
   });
 }

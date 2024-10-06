@@ -34,8 +34,14 @@
     <color-strike-effect-control
       v-if="slotProps.selected?.id === AccelEffect.ColorStrike"
     />
-    <rainbow-strike-effect-config
+    <rainbow-strike-effect-control
       v-else-if="slotProps.selected?.id === AccelEffect.RainbowStrike"
+    />
+    <strobe-effect-control
+      v-else-if="slotProps.selected?.id === AccelEffect.Strobe"
+    />
+    <rainbow-strobe-effect-control
+      v-else-if="slotProps.selected?.id === AccelEffect.RainbowStrobe"
     />
     <div v-else class="text-center full-width text-grey-5 q-mt-md">
       No Settings
@@ -50,7 +56,9 @@ import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { AccelEffect } from 'src/types/types';
 import { reactive } from 'vue';
 import ColorStrikeEffectControl from '../effect-controls/ColorStrikeEffectControl.vue';
-import RainbowStrikeEffectConfig from '../effect-controls/RainbowStrikeEffectConfig.vue';
+import RainbowStrikeEffectControl from '../effect-controls/RainbowStrikeEffectControl.vue';
+import RainbowStrobeEffectControl from '../effect-controls/RainbowStrobeEffectControl.vue';
+import StrobeEffectControl from '../effect-controls/StrobeEffectControl.vue';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
