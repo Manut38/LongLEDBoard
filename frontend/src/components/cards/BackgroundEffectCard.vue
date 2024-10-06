@@ -11,12 +11,15 @@
     "
     @change-selection="changeSelection"
   >
-    <div class="row justify-center q-gutter-md">
-      <solid-color-effect-control v-if="slotProps.selected?.id === BgEffect.SolidColor" />
-      <rainbow-effect-control v-else-if="slotProps.selected?.id === BgEffect.Rainbow"/>
+    <solid-color-effect-control
+      v-if="slotProps.selected?.id === BgEffect.SolidColor"
+    />
+    <rainbow-effect-control
+      v-else-if="slotProps.selected?.id === BgEffect.Rainbow"
+    />
 
-        <!-- <q-separator vertical></q-separator> -->
-        <!-- <div class="q-gutter-sm col-2">
+    <!-- <q-separator vertical></q-separator> -->
+    <!-- <div class="q-gutter-sm col-2">
         <div class="text-body1">Presets</div>
         <q-btn
           outline
@@ -34,8 +37,7 @@
         ></q-btn>
       </div> -->
 
-      <div v-else class="text-center full-width text-grey-5">No Settings</div>
-    </div>
+    <div v-else class="text-center full-width text-grey-5">No Settings</div>
   </effect-control-card>
 </template>
 
@@ -43,17 +45,14 @@
 import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
-import {
-  BgEffect,
-  EffectListEntry
-} from 'src/types/types';
+import { BgEffect, EffectListEntry } from 'src/types/types';
 import { reactive } from 'vue';
 import RainbowEffectControl from '../effect-controls/RainbowEffectControl.vue';
 import SolidColorEffectControl from '../effect-controls/SolidColorEffectControl.vue';
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardState, bgEffectConfig } = storeToRefs(effectConfigStore);
+const { boardState } = storeToRefs(effectConfigStore);
 
 const backend = useBackend();
 

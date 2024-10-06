@@ -10,7 +10,27 @@
     "
     @change-selection="changeSelection"
   >
-    <div class="text-center full-width text-grey-5">No Settings</div>
+    <q-list>
+      <q-item>
+        <q-item-section side>
+          <q-item-label caption>Sensitivity</q-item-label>
+        </q-item-section>
+        <q-item-section>
+          <q-slider
+            v-model="boardState.steeringSensitivity"
+            :min="20"
+            :max="200"
+            @change="
+              backend.sendBoardState({
+                accelSensitivity: boardState.steeringSensitivity,
+              })
+            "
+          />
+        </q-item-section>
+      </q-item>
+    </q-list>
+    <q-separator inset />
+    <div class="text-center full-width text-grey-5 q-mt-md">No Settings</div>
   </effect-control-card>
 </template>
 

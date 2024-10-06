@@ -40,9 +40,11 @@
     </q-card-section>
     <q-separator v-if="selectedEntryModel" inset />
     <q-card-section v-if="selectedEntryModel">
-      <q-slide-transition>
+      <div class="column" style="min-width: 250px">
+      <!-- <q-slide-transition :duration="2000"> -->
         <slot :selected="selectedEntryModel"></slot>
-      </q-slide-transition>
+      <!-- </q-slide-transition> -->
+      </div>
     </q-card-section>
   </q-card>
 </template>

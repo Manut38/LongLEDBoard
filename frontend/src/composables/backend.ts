@@ -18,7 +18,7 @@ const { socketBackendURLFull } = storeToRefs(appConfig);
 let errorNotify: (props?: QNotifyUpdateOptions) => void;
 let errorNotifyShown: boolean;
 
-const { status, data, send, open, close } = useWebSocket(socketBackendURLFull, {
+const { status, data, send } = useWebSocket(socketBackendURLFull, {
   autoReconnect: {
     delay: 1000,
   },

@@ -11,10 +11,35 @@
     "
     @change-selection="changeSelection"
   >
-    <div class="row justify-center q-gutter-md">
-      <color-strike-effect-control v-if="slotProps.selected?.id === AccelEffect.ColorStrike"/>
-      <rainbow-strike-effect-config v-else-if="slotProps.selected?.id === AccelEffect.RainbowStrike" />
-      <div v-else class="text-center full-width text-grey-5">No Settings</div>
+    <q-list>
+      <q-item>
+        <q-item-section side>
+          <q-item-label caption>Sensitivity</q-item-label>
+        </q-item-section>
+        <q-item-section>
+          <q-slider
+            v-model="boardState.accelSensitivity"
+            :min="20"
+            :max="200"
+            @change="
+              backend.sendBoardState({
+                accelSensitivity: boardState.accelSensitivity,
+              })
+            "
+          />
+        </q-item-section>
+      </q-item>
+    </q-list>
+    <q-separator inset />
+
+    <color-strike-effect-control
+      v-if="slotProps.selected?.id === AccelEffect.ColorStrike"
+    />
+    <rainbow-strike-effect-config
+      v-else-if="slotProps.selected?.id === AccelEffect.RainbowStrike"
+    />
+    <div v-else class="text-center full-width text-grey-5 q-mt-md">
+      No Settings
     </div>
   </effect-control-card>
 </template>
@@ -30,7 +55,7 @@ import RainbowStrikeEffectConfig from '../effect-controls/RainbowStrikeEffectCon
 import EffectControlCard from './EffectControlCard.vue';
 
 const effectConfigStore = useEffectConfigStore();
-const { boardState, accelEffectConfig } = storeToRefs(effectConfigStore);
+const { boardState } = storeToRefs(effectConfigStore);
 
 const backend = useBackend();
 

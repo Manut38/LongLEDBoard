@@ -19,7 +19,7 @@
         <div class="text-h6 flex items-center">Effects</div>
         <q-space></q-space>
         <q-item class="col-7">
-          <q-item-section avatar>
+          <q-item-section side>
             <q-icon color="white" name="eva-sun-outline" />
           </q-item-section>
           <q-item-section>
@@ -45,15 +45,49 @@
         ></q-toggle>
       </q-card-section>
       <q-separator inset />
-      <q-card-section horizontal>
+      <q-card-section v-if="q.screen.gt.sm">
         <div
-          class="q-pa-md column row-md items-stretch full-width justify-center q-gutter-y-md q-gutter-x-md"
+          class="column row-md items-md-start justify-center full-width q-gutter-y-md q-gutter-md-x-md"
         >
-          <background-effect-card-vue class=""></background-effect-card-vue>
-          <accel-effect-card class=""></accel-effect-card>
-          <steering-effect-card class=""></steering-effect-card>
+          <background-effect-card></background-effect-card>
+          <accel-effect-card></accel-effect-card>
+          <steering-effect-card></steering-effect-card>
         </div>
       </q-card-section>
+      <q-card-section v-if="q.screen.lt.md" class="q-pb-none">
+        <q-tabs
+          v-model="activeTab"
+          align="center"
+          narrow-indicator
+          dense
+          no-caps
+        >
+          <q-tab name="bg" icon="eva-loader-outline" label="Idle" />
+          <q-tab name="accel" icon="mdi-speedometer" label="Kick" />
+          <q-tab name="steering" icon="mdi-steering" label="Steering" />
+        </q-tabs>
+      </q-card-section>
+      <q-tab-panels
+        v-if="q.screen.lt.md"
+        v-model="activeTab"
+        animated
+        swipeable
+        infinite
+        transition-prev="jump-right"
+        transition-next="jump-left"
+      >
+        <q-tab-panel name="bg">
+          <BackgroundEffectCard></BackgroundEffectCard>
+        </q-tab-panel>
+
+        <q-tab-panel name="accel">
+          <AccelEffectCard></AccelEffectCard>
+        </q-tab-panel>
+
+        <q-tab-panel name="steering">
+          <SteeringEffectCard></SteeringEffectCard>
+        </q-tab-panel>
+      </q-tab-panels>
     </q-card>
     <q-card
       class="main-elements effect-control-card"
@@ -74,7 +108,7 @@
       </q-card-section>
       <q-slide-transition>
         <div v-if="debugActive">
-          <q-separator inset></q-separator>
+          <q-separator inset />
           <q-card-section class="column q-gutter-md no-wrap">
             <q-btn
               label="Test"
@@ -134,12 +168,13 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import AccelEffectCard from 'src/components/cards/AccelEffectCard.vue';
-import BackgroundEffectCardVue from 'src/components/cards/BackgroundEffectCard.vue';
+import BackgroundEffectCard from 'src/components/cards/BackgroundEffectCard.vue';
 import SteeringEffectCard from 'src/components/cards/SteeringEffectCard.vue';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
 import { ref } from 'vue';
 
+import { useQuasar } from 'quasar';
 import { useAppConfigStore } from 'src/stores/appConfig';
 
 const effectConfigStore = useEffectConfigStore();
@@ -147,9 +182,10 @@ const { boardState } = storeToRefs(effectConfigStore);
 const { debugActive } = storeToRefs(useAppConfigStore());
 
 const backend = useBackend();
+const q = useQuasar();
 
 const isPreviewVisible = ref<boolean>();
 const effectsActiveSelected = ref<boolean>();
-
+const activeTab = ref<string>('bg');
 const debugActiveSelected = ref<boolean>();
 </script>

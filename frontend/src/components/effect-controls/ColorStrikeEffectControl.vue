@@ -1,35 +1,44 @@
 <template>
-  <q-item-label>Duration</q-item-label>
-  <q-slider
-    v-model="effectConfigStore.accelEffectConfig.colorStrike.duration"
-    :min="500"
-    :max="2000"
-    label
-    @change="sendEffectConfigState"
-  />
-  <v-color-picker
-    v-model="effectConfigStore.accelEffectConfig.colorStrike.color"
-    flat
-    hide-inputs
-    mode="rgb"
-    show-swatches
-    swatches-max-height="120"
-    @update:model-value="sendEffectConfigState"
-  ></v-color-picker>
+  <q-list>
+    <q-item>
+      <q-item-section side>
+        <q-item-label caption>Duration</q-item-label>
+      </q-item-section>
+      <q-item-section>
+        <q-slider
+          v-model="accelEffectConfig.colorStrike.duration"
+          :min="500"
+          :max="2000"
+          @change="sendEffectConfigState"
+        />
+      </q-item-section>
+    </q-item>
+    <EffectColorPicker
+      :color="accelEffectConfig.colorStrike.color"
+      @color-changed="
+        {
+          accelEffectConfig.colorStrike.color = $event;
+          sendEffectConfigState();
+        }
+      "
+    />
+  </q-list>
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
+import EffectColorPicker from './components/EffectColorPicker.vue';
 
-const effectConfigStore = useEffectConfigStore();
+const { accelEffectConfig } = storeToRefs(useEffectConfigStore());
 
 const backend = useBackend();
 
 function sendEffectConfigState() {
   backend.sendEffectConfigState({
     accelEffect: {
-      colorStrike: effectConfigStore.accelEffectConfig.colorStrike,
+      colorStrike: accelEffectConfig.value.colorStrike,
     },
   });
 }

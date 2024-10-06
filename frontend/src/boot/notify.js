@@ -1,24 +1,24 @@
-import {Notify} from 'quasar'
+import { Notify } from 'quasar';
 
-export default async ({app, router, Vue}) => {
+export default async ({}) => {
   Notify.registerType('negative', {
     icon: 'eva-alert-circle-outline',
     color: 'negative',
-    textColor: 'white'
-  })
+    textColor: 'white',
+  });
   Notify.registerType('positive', {
     icon: 'eva-checkmark-circle-2-outline',
     color: 'positive',
-    textColor: 'white'
-  })
+    textColor: 'white',
+  });
   Notify.registerType('warning', {
     icon: 'eva-alert-triangle-outline',
     color: 'warning',
-    textColor: 'black'
-  })
+    textColor: 'black',
+  });
   Notify.registerType('info', {
     icon: 'eva-info-outline',
     color: 'info',
-    textColor: 'white'
-  })
-}
+    textColor: 'white',
+  });
+};

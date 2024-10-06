@@ -27,6 +27,8 @@ export interface BoardState {
   steeringActive: boolean;
   steeringSelected: SteeringEffect;
   globalBrightness: number;
+  accelSensitivity: number;
+  steeringSensitivity: number;
 }
 export interface EffectConfigMsg {
   bgEffect?: BackgroundEffectConfigState;
@@ -42,6 +44,8 @@ export interface BoardStateMsg {
   steeringActive?: boolean;
   steeringSelected?: SteeringEffect;
   globalBrightness?: number;
+  accelSensitivity?: number;
+  steeringSensitivity?: number;
 }
 export enum BgEffect {
   SolidColor = 'solid_color',

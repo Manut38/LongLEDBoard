@@ -23,6 +23,8 @@ export const useEffectConfigStore = defineStore(
       steeringActive: false,
       steeringSelected: SteeringEffect.ColorFadeTilt,
       globalBrightness: 255,
+      accelSensitivity: 100,
+      steeringSensitivity: 100,
     });
     const bgEffectConfig = ref<BackgroundEffectConfig>({
       solidColor: {
