@@ -30,7 +30,6 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <q-separator inset />
 
     <color-strike-effect-control
       v-if="slotProps.selected?.id === AccelEffect.ColorStrike"

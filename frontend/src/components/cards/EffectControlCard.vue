@@ -19,6 +19,7 @@
             v-model="selectedEntryModel"
             dense
             filled
+            behavior="menu"
             :options="effectList"
             :label="title"
             transition-show="jump-down"

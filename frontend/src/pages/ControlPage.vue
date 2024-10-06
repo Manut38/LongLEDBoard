@@ -61,6 +61,7 @@
           narrow-indicator
           dense
           no-caps
+          indicator-color="primary"
         >
           <q-tab name="bg" icon="eva-loader-outline" label="Idle" />
           <q-tab name="accel" icon="mdi-speedometer" label="Kick" />

@@ -29,7 +29,6 @@
         </q-item-section>
       </q-item>
     </q-list>
-    <q-separator inset />
     <div class="text-center full-width text-grey-5 q-mt-md">No Settings</div>
   </effect-control-card>
 </template>
