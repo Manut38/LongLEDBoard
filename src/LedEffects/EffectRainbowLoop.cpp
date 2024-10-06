@@ -14,6 +14,6 @@ EffectRainbowLoop::EffectRainbowLoop(LedEffectConfig *effectConfig)
 
 void EffectRainbowLoop::timedLoop()
 {
-    fill_rainbow(mask, NUM_LEDS, hue, 5);
-    hue += 5;
+    fill_rainbow(mask, NUM_LEDS, hue, 1);
+    hue += 1;
 }
