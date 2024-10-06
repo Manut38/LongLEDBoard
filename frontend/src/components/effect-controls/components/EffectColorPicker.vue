@@ -1,5 +1,5 @@
 <template>
-  <q-expansion-item dense :duration="200"  >
+  <q-expansion-item dense :duration="200" header-style="border-radius: 8px;">
     <template #header>
       <q-item-section avatar>
         <q-avatar

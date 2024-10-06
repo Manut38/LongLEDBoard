@@ -10,11 +10,11 @@
       @click="$emit('toggleActive')"
       @mousedown="headerPressed = true"
       @mouseup="headerPressed = false"
-      @touchstart="headerPressed = true"
+      @touchstart.self="headerPressed = true"
       @touchend="headerPressed = false"
     >
       <div class="row no-wrap items-center justify-left q-gutter-md">
-        <div class="col-grow" @mousedown.stop @touchstart.stop @click.stop>
+        <div class="col-grow" @mousedown.stop @click.stop>
           <q-select
             v-model="selectedEntryModel"
             dense
@@ -35,6 +35,7 @@
           "
           size="2em"
           :color="active ? 'light-green-7' : 'grey-7'"
+          @touchstart.self="headerPressed = true"
         >
         </q-icon>
       </div>

@@ -102,14 +102,20 @@
       </router-view>
     </q-page-container>
 
-    <q-footer class="small-screen-only" reveal :reveal-offset="20">
+    <q-footer
+      class="small-screen-only fixed-bottom-right"
+      reveal
+      :reveal-offset="20"
+    >
       <q-tabs
-        align="center"
+        align="right"
         dense
         active-color="primary"
         switch-indicator
         indicator-color="transparent"
+        no-caps
         :breakpoint="300"
+        style="border-radius: 16px"
       >
         <q-route-tab icon="eva-bulb-outline" :to="{ name: 'control' }">
           Effects

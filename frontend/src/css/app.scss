@@ -64,6 +64,7 @@ body.body--light {
   background-color: rgba(31, 31, 31, 0.4);
   backdrop-filter: blur(20px);
 }
+
 // Override default white "glow" around dark cards
 .q-menu.q-dark {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2), 0 2px 2px rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12);
@@ -148,9 +149,15 @@ body.body--light {
 
 // Override default footer color
 .q-footer {
-  background-color: rgba($dark, 0.9);
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  // background-color: rgba($dark, 0.9);
+    box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
+    border-radius: 16px;
+    bottom: 10px;
+    left: auto;
+    right: 10px;
+    width: fit-content;
+    background-color: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(15px);
 }
 
 // Override expansion item popup style
