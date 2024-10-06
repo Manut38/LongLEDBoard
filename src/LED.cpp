@@ -60,7 +60,7 @@ void LED::fireAccelEffect()
 	// Only fire if effect is active
 	if (accelEffectActive)
 	{
-		LedEffect *accelEffect;
+		LedEffect *accelEffect = nullptr;
 		switch (selectedAccelEffect)
 		{
 		case AccelEffect::ColorStrike:
@@ -80,7 +80,7 @@ void LED::fireAccelEffect()
 		default:
 			break;
 		};
-		if (accelEffect)
+		if (accelEffect != nullptr)
 		{
 			fgEffects.emplace_back(accelEffect);
 		}
@@ -89,7 +89,7 @@ void LED::fireAccelEffect()
 
 void LED::reloadBgEffect()
 {
-	LedEffect *effect;
+	LedEffect *effect = nullptr;
 	switch (selectedBgEffect)
 	{
 	case BgEffect::SolidColor:
@@ -111,7 +111,7 @@ void LED::reloadBgEffect()
 	default:
 		break;
 	}
-	if (effect)
+	if (effect != nullptr)
 	{
 		bgEffect = unique_ptr<LedEffect>(effect);
 	}
