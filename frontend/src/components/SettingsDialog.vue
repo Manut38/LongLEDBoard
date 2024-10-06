@@ -32,15 +32,13 @@ const socketBackendURL = ref<string>(
   appConfig.socketBackendURL.replace('ws://', '')
 );
 
-const props = defineProps({});
-
 defineEmits([
   // REQUIRED; need to specify some events that your
   // component will emit through useDialogPluginComponent()
   ...useDialogPluginComponent.emits,
 ]);
 
-const { dialogRef, onDialogHide, onDialogOK, onDialogCancel } =
+const { dialogRef, onDialogHide, onDialogOK } =
   useDialogPluginComponent();
 // dialogRef      - Vue ref to be applied to QDialog
 // onDialogHide   - Function to be used as handler for @hide on QDialog
