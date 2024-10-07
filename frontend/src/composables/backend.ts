@@ -55,14 +55,17 @@ const { status, data, send } = useWebSocket(socketBackendURLFull, {
     }
   },
   onDisconnected: () => {
-    console.log('Websocket disconnected.');
-    errorNotify = Notify.create({
-      color: 'warning',
-      message: 'Board disconnected',
-      icon: 'eva-alert-circle-outline',
-      position: 'bottom',
-      timeout: 2000,
-    });
+    if (!errorNotifyShown) {
+      console.log('Websocket disconnected.');
+      errorNotify = Notify.create({
+        color: 'warning',
+        message: 'Board disconnected',
+        icon: 'eva-alert-circle-outline',
+        position: 'bottom',
+        timeout: 2000,
+      });
+      errorNotifyShown = true;
+    }
   },
 });
 
