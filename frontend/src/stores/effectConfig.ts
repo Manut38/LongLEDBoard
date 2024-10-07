@@ -34,7 +34,7 @@ export const useEffectConfigStore = defineStore(
         duration: 5,
       },
       breathing: {
-        colors: ['#ffffff'],
+        colors: ['#ff0000', '#00ff00', '#0000ff'],
         time: 3000,
       },
       colorChase: {

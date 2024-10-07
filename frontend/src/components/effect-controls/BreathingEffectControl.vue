@@ -1,5 +1,5 @@
 <template>
-  <q-list>
+  <q-list class="full-width">
     <q-item>
       <q-item-section side>
         <q-item-label caption>Duration</q-item-label>
@@ -13,16 +13,12 @@
         />
       </q-item-section>
     </q-item>
-    <EffectColorPicker
-      label="Color"
-      :color="bgEffectConfig.breathing.colors[0]"
-      @color-changed="
-        {
-          // bgEffectConfig.breathing.colors = $event;
-          sendEffectConfigState();
-        }
-      "
-    />
+    <ColorListItem
+      v-model="bgEffectConfig.breathing.colors"
+      label="Color List"
+      @update:model-value="sendEffectConfigState"
+      @touchstart.stop
+    ></ColorListItem>
   </q-list>
 </template>
 
@@ -30,7 +26,7 @@
 import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
-import EffectColorPicker from './components/EffectColorPicker.vue';
+import ColorListItem from './components/ColorListItem.vue';
 
 const { bgEffectConfig } = storeToRefs(useEffectConfigStore());
 
