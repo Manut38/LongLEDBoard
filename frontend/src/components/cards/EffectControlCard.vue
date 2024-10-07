@@ -1,6 +1,6 @@
 <template>
   <q-card
-    class="effect-control-card"
+    class="pressable-card effect-control-card"
     :class="{ active: active, selected: headerPressed }"
     bordered
     :flat="!q.dark.isActive"

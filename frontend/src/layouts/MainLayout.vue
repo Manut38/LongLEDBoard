@@ -80,7 +80,7 @@
       <q-list padding class="drawer-list glass">
         <q-item v-ripple clickable :to="{ name: 'control' }">
           <q-item-section avatar>
-            <q-icon name="eva-bulb-outline" />
+            <q-icon name="eva-flash-outline" />
           </q-item-section>
           <q-item-section> Effects </q-item-section>
         </q-item>
@@ -117,7 +117,7 @@
         :breakpoint="300"
         style="border-radius: 16px"
       >
-        <q-route-tab icon="eva-bulb-outline" :to="{ name: 'control' }">
+        <q-route-tab icon="eva-flash-outline" :to="{ name: 'control' }">
           Effects
         </q-route-tab>
         <q-route-tab icon="eva-save-outline" :to="{ name: 'presets' }">

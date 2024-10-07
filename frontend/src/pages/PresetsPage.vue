@@ -1,7 +1,7 @@
 <template>
     <q-page class="constrain q-pa-md page-padding-preview">
     <q-card
-      class="main-elements effect-control-card"
+      class="main-elements pressable-card"
       bordered
     >
       <q-card-section

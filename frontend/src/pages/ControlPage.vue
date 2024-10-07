@@ -1,7 +1,7 @@
 <template>
   <q-page class="constrain q-pa-md page-padding-preview">
     <q-card
-      class="main-elements effect-control-card"
+      class="main-elements pressable-card"
       :class="{ selected: effectsActiveSelected }"
       bordered
     >
@@ -91,7 +91,7 @@
       </q-tab-panels>
     </q-card>
     <q-card
-      class="main-elements effect-control-card"
+      class="main-elements pressable-card"
       :class="{ selected: debugActiveSelected }"
       bordered
     >

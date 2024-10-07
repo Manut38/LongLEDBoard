@@ -150,13 +150,13 @@ body.body--light {
 // Override default footer color
 .q-footer {
   // background-color: rgba($dark, 0.9);
-    box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 25px 23px rgba(0, 0, 0, 0.15);
     border-radius: 16px;
     bottom: 10px;
     left: auto;
     right: 10px;
     width: fit-content;
-    background-color: rgba(255, 255, 255, 0.08);
+  background-color: rgb(0 0 0 / 30%);
     backdrop-filter: blur(15px);
 }
 
@@ -260,15 +260,22 @@ html {
 }
 
 .effect-control-card {
-  transition: all 0.1s;
   min-width: 300px;
+  
+    @media (min-width: $breakpoint-md-min) {
+      max-width: 350px;
+    }
+  }
+  
+  .pressable-card {
+  transition: all 0.1s;
 }
 
-.effect-control-card.active {
+.pressable-card.active {
   border-color: #7cb342;
 }
 
-.effect-control-card.selected {
+.pressable-card.selected {
   transform: scale(97%);
 }
 
