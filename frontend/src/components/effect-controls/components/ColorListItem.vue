@@ -4,7 +4,6 @@
     dense
     :duration="200"
     header-style="border-radius: 8px;"
-    default-opened
   >
     <template #header>
       <q-item-section style="text-align: center;">{{ label }}</q-item-section>
