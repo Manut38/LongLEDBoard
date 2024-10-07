@@ -17,7 +17,6 @@
       v-model="bgEffectConfig.breathing.colors"
       label="Color List"
       @update:model-value="sendEffectConfigState"
-      @touchstart.stop
     ></ColorListItem>
   </q-list>
 </template>

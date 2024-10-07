@@ -1,14 +1,9 @@
-<!-- ColorPickerList.vue -->
 <template>
-  <q-expansion-item
-    dense
-    :duration="200"
-    header-style="border-radius: 8px;"
-  >
+  <q-expansion-item dense :duration="200" header-style="border-radius: 8px;">
     <template #header>
-      <q-item-section style="text-align: center;">{{ label }}</q-item-section>
+      <q-item-section style="text-align: center">{{ label }}</q-item-section>
     </template>
-    <div class="q-gutter-y-md q-px-sm">
+    <div class="q-gutter-y-md q-px-sm" @touchstart.stop>
       <q-tabs
         v-model="activeTab"
         dense
@@ -19,7 +14,7 @@
         inline-label
         :breakpoint="0"
       >
-      <q-btn
+        <q-btn
           v-if="localColors.at(activeTab)"
           flat
           round
@@ -41,7 +36,6 @@
           </q-avatar>
         </q-tab>
         <q-btn flat round icon="eva-plus-outline" @click="addColor" />
-
       </q-tabs>
 
       <div v-if="localColors.at(activeTab)" class="row justify-center">
