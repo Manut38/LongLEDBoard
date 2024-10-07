@@ -8,7 +8,7 @@
           }"
         />
       </q-item-section>
-      <q-item-section>{{label}}</q-item-section>
+      <q-item-section style="text-align: center;">{{ label }}</q-item-section>
     </template>
     <div class="row justify-center">
       <v-color-picker

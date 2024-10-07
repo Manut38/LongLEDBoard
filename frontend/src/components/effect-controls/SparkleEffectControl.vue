@@ -23,7 +23,7 @@
         }
       "
     />
-    <EffectColorPicker
+    <ColorPickerItem
       label="Sparkles"
       :color="bgEffectConfig.sparkle.sparkleColor"
       @color-changed="
@@ -40,7 +40,7 @@
 import { storeToRefs } from 'pinia';
 import { useBackend } from 'src/composables/backend';
 import { useEffectConfigStore } from 'src/stores/effectConfig';
-import EffectColorPicker from './components/EffectColorPicker.vue';
+import ColorPickerItem from './components/ColorPickerItem.vue';
 
 const { bgEffectConfig } = storeToRefs(useEffectConfigStore());
 
